@@ -3,6 +3,9 @@ module.exports = {
   ** Headers of the page
   */
   head: {
+    htmlAttrs: {
+      prefix: 'og: http://ogp.me/ns#'
+    },
     title: "Cilvia333's Official Website",
     meta: [
       { charset: 'utf-8' },
@@ -24,6 +27,12 @@ module.exports = {
 
   plugins:[
     {src: '~plugins/fontawesome.js'}
+  ],
+
+  modules:[
+    ['@nuxtjs/google-analytics', {
+      id: 'UA-127442648-1'
+    }]
   ],
   /*
   ** Build configuration
