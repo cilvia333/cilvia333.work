@@ -41,7 +41,41 @@
 <script>
 
 export default {
-
+  head(){
+    return {
+      meta:[
+        {
+        name: 'og:url',
+          content: 'https://www.Cilvia333.work' + this.$route.path
+        },
+        {
+        name: 'og:title',
+          content: this.title
+        },
+        {
+        name: 'og:description',
+          content: this.description
+        },
+        {
+        name: 'og:image',
+          content: this.img
+        },
+        {
+        name: 'og:type',
+          content: 'article'
+        },
+        // Twitter
+        {
+          name: 'twitter:card',
+          content: 'Cilvia333のポートフォリオサイトができる予定です'
+        },
+        {
+          name: 'twitter:site',
+          content: '@Cilvia333'
+        }
+      ]
+    }
+  }
 }
 </script>
 
