@@ -14,23 +14,23 @@
       </div>
       <div class="links">
         <div class="sns-button">
-          <a href="https://nuxtjs.org/">
-            <span class="icon"/>
+          <a href="https://twitter.com/cilvia333">
+            <font-awesome-icon :icon="{ prefix: 'fab', iconName: 'twitter' }" class="icon"/>
           </a>
         </div>
         <div class="sns-button">
-          <a href="https://nuxtjs.org/">
-            <span class="icon"/>
+          <a href="https://github.com/cilvia333">
+            <font-awesome-icon :icon="{ prefix: 'fab', iconName: 'github' }" class="icon"/>
           </a>
         </div>
         <div class="sns-button">
-          <a href="https://nuxtjs.org/">
-            <span class="icon"/>
+          <a href="https://cilvia.hateblo.jp/">
+            <font-awesome-icon icon="edit" class="icon icon-edit"/>
           </a>
         </div>
         <div class="sns-button">
-          <a href="https://nuxtjs.org/">
-            <span class="icon"/>
+          <a href="cilvia333x@gmail.com">
+            <font-awesome-icon icon="envelope" class="icon"/>
           </a>
         </div>
       </div>
@@ -75,6 +75,7 @@ export default {
       font-weight: 200;
       font-size: 2.5rem;
       color: rgb(66, 66, 66);
+      margin-bottom: 50px;
       
       img{
         width:100px;
@@ -96,7 +97,7 @@ export default {
     .information {
       font-family: "ten-mincho";
       font-weight: 300;
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       color: #f7931e;
       word-spacing: 5px;
       padding-bottom: 15px;
@@ -105,33 +106,94 @@ export default {
     }
 
     .links{
+      margin:auto;
       height: auto;
       min-width: 268px; 
+      margin-top: 200px;
     
       .sns-button{
         display: inline-block;
         position: relative;
-        box-shadow: inset 0 0 0 2px #f7931e;
-        border-radius: 100%;
-        transition: all .28s ease;
         width:60px;
         height:60px;
         margin:0px 30px;
+
         a{
-          width: 60px;
-          height: 60px;
+          display: block;
+          position:relative;
+          width: 55px;
+          height: 55px;
+          transition: .2s ease-in-out;
+          border-radius: 30px;
+          background-color: #eee;
           color: #f7931e;
-          transition: all .28s ease;
+          box-shadow: inset 0 0 0 3px #f7931e;
           text-decoration: none;
+          overflow: hidden;
+
+          &:hover{
+            color: #eee;
+            box-shadow: inset 0 0 0 30px #f7931e;
+          }
 
           .icon{
-            width: 60px;
-            height: 60px;
-            content:"❤️";
+            position:absolute;
+            width: 30px;
+            height: auto;
+            right: 12px;
+            bottom: 12px;
+          }
+
+          .icon-edit{
+            right: 10px;
+            bottom: 15px;
           }
         }
-        &:hover{
-          box-shadow: inset 0 0 0 30px #f7931e;
+      }
+    }
+  }
+}
+
+@media screen and (max-width:1000px){
+  .index {
+    .contents-wrapper{
+      .title {
+        margin-bottom: 0px;
+        
+      }
+      .information {
+        padding-bottom: 0px;
+        margin:0px 0px;
+      }
+
+      .links{
+        margin-top: 50px;
+      
+        .sns-button{
+          margin:0px 10px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width:450px){
+  .index {
+    .contents-wrapper{
+      .title {
+        margin-bottom: 0px;
+        
+      }
+      .information {
+        padding-bottom: 0px;
+        margin:30px 0px;
+      }
+
+      .links{
+        margin-top: 100px;
+      
+        .sns-button{
+          margin:0px 10px;
         }
       }
     }
