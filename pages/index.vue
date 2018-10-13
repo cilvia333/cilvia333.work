@@ -1,65 +1,92 @@
 <template>
-  <section class="container">
-    <div>
-      <app-logo/>
+  <section class="index">
+    <div class="title">
+      <img src="~/static/images/icon.jpg" alt="icon">
       <h1 class="title">
-        cilvia333-portfolio
+        Cilvia333's Official Site
       </h1>
-      <h2 class="subtitle">
-        Cilvia333's Portfolio Site ver.2.0
+    </div>
+    <div class="information">
+      <h2>
+        Now Rebuilding
       </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green">Documentation</a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey">GitHub</a>
-      </div>
+    </div>
+    <div class="links">
+      <a href="https://nuxtjs.org/">❤️</a>
+      <a href="https://nuxtjs.org/">❤️</a>
+      <a href="https://nuxtjs.org/">❤️</a>
+      <a href="https://nuxtjs.org/">❤️</a>
     </div>
   </section>
 </template>
 
 <script>
-import AppLogo from '~/components/AppLogo.vue'
 
 export default {
-  components: {
-    AppLogo
-  }
+
 }
 </script>
 
-<style>
-.container {
+<style lang="scss">
+@font-face {
+  font-family: 'morning-dew';
+  src: url('~/assets/fonts/MorningDew.woff2') format('woff2'),
+}
+
+.index {
   min-height: 100vh;
-  display: flex;
+  display: block;
   justify-content: center;
   align-items: center;
   text-align: center;
-}
 
-.title {
-  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 1 */
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
+  .title {
+    font-family: 'morning-dew';
+    display: block;
+    width:100vw;
+    font-weight: 300;
+    font-size: 2rem;
+    color: #35495e;
+    letter-spacing: 1px;
 
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
+    .title{
+      font-family: 'morning-dew';
+    }
 
-.links {
-  padding-top: 15px;
+    img{
+      width:100px;
+      height:auto;
+      border-radius: 50px;
+      transform: rotateZ(0);
+      transition: .5s;
+
+      &:hover{
+        transform: rotateZ(360);
+      }
+    }
+  }
+
+  .information {
+    font-weight: 300;
+    font-size: 1rem;
+    color: #526488;
+    word-spacing: 5px;
+    padding-bottom: 15px;
+    width:100vw;
+  }
+
+  .links {
+    padding-top: 15px;
+    width:100vw;
+
+    a{
+      width: 50px;
+      height:50px;
+      border-radius: 25px;
+      background: #eee;
+
+    }
+  }
 }
 </style>
 
