@@ -29,7 +29,7 @@
           </a>
         </div>
         <div class="sns-button">
-          <a href="cilvia333x@gmail.com">
+          <a href="mailto:cilvia333x@gmail.com">
             <font-awesome-icon icon="envelope" class="icon"/>
           </a>
         </div>
