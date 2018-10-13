@@ -9,6 +9,10 @@ module.exports = {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: 'Cilvia333&apos;s Portfolio Site ver.2.0' }
     ],
+    script: [
+      { src:"https://use.typekit.net/rlp2lkm.js"},
+      { innerHTML:"try{Typekit.load({ async: true });}catch(e){}"}
+    ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]

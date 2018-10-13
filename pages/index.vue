@@ -1,21 +1,39 @@
 <template>
   <section class="index">
-    <div class="title">
-      <img src="~/static/images/icon.jpg" alt="icon">
-      <h1 class="title">
-        Cilvia333's Official Site
-      </h1>
-    </div>
-    <div class="information">
-      <h2>
-        Now Rebuilding
-      </h2>
-    </div>
-    <div class="links">
-      <a href="https://nuxtjs.org/">❤️</a>
-      <a href="https://nuxtjs.org/">❤️</a>
-      <a href="https://nuxtjs.org/">❤️</a>
-      <a href="https://nuxtjs.org/">❤️</a>
+    <div class="contents-wrapper">
+      <div class="title">
+        <img src="~/static/images/icon.jpg" alt="icon">
+        <h1>
+          Cilvia333's Official Website
+        </h1>
+      </div>
+      <div class="information">
+        <h2>
+          Now Rebuilding
+        </h2>
+      </div>
+      <div class="links">
+        <div class="sns-button">
+          <a href="https://nuxtjs.org/">
+            <span class="icon"/>
+          </a>
+        </div>
+        <div class="sns-button">
+          <a href="https://nuxtjs.org/">
+            <span class="icon"/>
+          </a>
+        </div>
+        <div class="sns-button">
+          <a href="https://nuxtjs.org/">
+            <span class="icon"/>
+          </a>
+        </div>
+        <div class="sns-button">
+          <a href="https://nuxtjs.org/">
+            <span class="icon"/>
+          </a>
+        </div>
+      </div>
     </div>
   </section>
 </template>
@@ -30,63 +48,96 @@ export default {
 <style lang="scss">
 @font-face {
   font-family: 'morning-dew';
-  src: url('~/assets/fonts/MorningDew.woff2') format('woff2'),
+  src: url('/fonts/MorningDew.woff2') format('woff2'),
 }
 
 .index {
-  min-height: 100vh;
+  width:100vw;
+  height: 100vh;
   display: block;
+  position:relative;
   justify-content: center;
   align-items: center;
   text-align: center;
+  background: #f2f2f2;
 
-  .title {
-    font-family: 'morning-dew';
+  .contents-wrapper{
     display: block;
-    width:100vw;
-    font-weight: 300;
-    font-size: 2rem;
-    color: #35495e;
-    letter-spacing: 1px;
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    transform: webkit-translateY(-50%) webkit-translateX(-50%);
 
-    .title{
+    .title {
       font-family: 'morning-dew';
-    }
+      width:100vw;
+      font-weight: 200;
+      font-size: 2.5rem;
+      color: rgb(66, 66, 66);
+      
+      img{
+        width:100px;
+        height:auto;
+        border-radius: 50px;
+        transform: rotate(0deg);
+        transition: .5s;
 
-    img{
-      width:100px;
-      height:auto;
-      border-radius: 50px;
-      transform: rotateZ(0);
-      transition: .5s;
+        &:hover{
+          transform: rotate(720deg);
+        }
+      }
 
-      &:hover{
-        transform: rotateZ(360);
+      .h1{
+        font-family: 'morning-dew';
       }
     }
-  }
 
-  .information {
-    font-weight: 300;
-    font-size: 1rem;
-    color: #526488;
-    word-spacing: 5px;
-    padding-bottom: 15px;
-    width:100vw;
-  }
+    .information {
+      font-family: "ten-mincho";
+      font-weight: 300;
+      font-size: 1.5rem;
+      color: #f7931e;
+      word-spacing: 5px;
+      padding-bottom: 15px;
+      width:100vw;
+      margin:50px 0px;
+    }
 
-  .links {
-    padding-top: 15px;
-    width:100vw;
+    .links{
+      height: auto;
+      min-width: 268px; 
+    
+      .sns-button{
+        display: inline-block;
+        position: relative;
+        box-shadow: inset 0 0 0 2px #f7931e;
+        border-radius: 100%;
+        transition: all .28s ease;
+        width:60px;
+        height:60px;
+        margin:0px 30px;
+        a{
+          width: 60px;
+          height: 60px;
+          color: #f7931e;
+          transition: all .28s ease;
+          text-decoration: none;
 
-    a{
-      width: 50px;
-      height:50px;
-      border-radius: 25px;
-      background: #eee;
-
+          .icon{
+            width: 60px;
+            height: 60px;
+            content:"❤️";
+          }
+        }
+        &:hover{
+          box-shadow: inset 0 0 0 30px #f7931e;
+        }
+      }
     }
   }
 }
 </style>
+
+
 
