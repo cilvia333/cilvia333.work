@@ -18,6 +18,9 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+    ],
+    meta: [
+      {name:"google-site-verification", content:"BTrzs-EhIONKU3MbK4cveo0OU2Yg47DuI1i3-OqYDPc"}
     ]
   },
   /*
