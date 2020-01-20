@@ -1,8 +1,17 @@
 import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
-import { css } from '@emotion/core';
+import { Global, css } from '@emotion/core';
 import Header from './header';
-import '../styles/layout.css';
+
+const globalStyle = css`
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  ul {
+    list-style: none;
+  }
+`;
 
 const headerMarginStyle = css({
   margin: `0 auto`,
@@ -28,13 +37,12 @@ function Layout({ children }: Props) {
 
   return (
     <>
+      <Global styles={globalStyle} />
       <Header siteTitle={data.site.siteMetadata.title} />
-      <div className={headerMarginStyle}>
+      <div css={headerMarginStyle}>
         <main>{children}</main>
         <footer>
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
+          © {new Date().getFullYear()}, Cilvia333 / All rights Reserved.
         </footer>
       </div>
     </>

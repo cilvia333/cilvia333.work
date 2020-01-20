@@ -8,9 +8,25 @@ function SecondPage() {
   return (
     <Layout>
       <SEO title="profile" />
-      <h1>Hi from the second page</h1>
-      <p>Welcome to page 2</p>
-      <Link to="/">Go back to the homepage</Link>
+      <div>
+        <h1>Kairi Shiomi / Cilvia333</h1>
+        <h3>塩見 海怜</h3>
+      </div>
+      <div>
+        <p>
+          1999年3月17日生まれ。岡山県出身・東京都在住。
+          津山高専情報工学科を卒業後、武蔵野美術大学造形学部デザイン情報学科2年次へ編入。
+          DTPやグラフィックデザインを学びながら、webフロントエンドや電子工作などもおこなっている。
+        </p>
+      </div>
+      <div>
+        <h2>Skills</h2>
+        <p>
+          1999年3月17日生まれ。岡山県出身・東京都在住。
+          津山高専情報工学科を卒業後、武蔵野美術大学造形学部デザイン情報学科2年次へ編入。
+          DTPやグラフィックデザインを学びながら、webフロントエンドや電子工作などもおこなっている。
+        </p>
+      </div>
     </Layout>
   );
 }
