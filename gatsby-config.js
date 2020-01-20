@@ -27,6 +27,19 @@ module.exports = {
         icon: `src/images/icon.jpg`, // This path is relative to the root of the site.
       },
     },
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: 'UA-127442648-1',
+        // Defines where to place the tracking script - `true` in the head and `false` in the body
+        head: false,
+        exclude: ['/preview/**', '/do-not-track/me/too/'],
+        pageTransitionDelay: 0,
+        sampleRate: 5,
+        siteSpeedSampleRate: 10,
+        cookieDomain: 'cilvia333.work',
+      },
+    },
     `gatsby-plugin-sass`,
     `gatsby-plugin-emotion`,
     `gatsby-plugin-typescript`,
