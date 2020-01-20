@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
+    title: `Cilvia333.work`,
+    description: `I'm a Designer. Musashino Art University, Informatic Design.`,
     author: `@gatsbyjs`,
   },
   plugins: [
@@ -18,13 +18,13 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `Cilvia333.work`,
+        short_name: `cilvia333`,
         start_url: `/`,
         background_color: `#663399`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        icon: `src/images/icon.jpg`, // This path is relative to the root of the site.
       },
     },
     `gatsby-plugin-sass`,
@@ -33,7 +33,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-graphql-codegen',
       options: {
-        fileName: `src/types/graphql-types.d.ts`,
+        fileName: `types/graphql-types.d.ts`,
       },
     },
     {
