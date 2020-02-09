@@ -4,7 +4,7 @@ import { Link } from 'gatsby';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
 
-function SecondPage() {
+function Profile() {
   return (
     <Layout>
       <SEO title="profile" />
@@ -31,4 +31,4 @@ function SecondPage() {
   );
 }
 
-export default SecondPage;
+export default Profile;
