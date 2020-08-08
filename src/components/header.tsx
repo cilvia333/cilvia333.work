@@ -15,7 +15,7 @@ const Header: React.FC<Props> = ({ siteTitle = `` }: Props) => {
         </Title>
         <Menu>
           <li>
-            <Link to="/">works</Link>
+            <Link to="/works">works</Link>
           </li>
           <li>
             <Link to="/profile">profile</Link>
