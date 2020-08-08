@@ -9,7 +9,7 @@ import SEO from '../components/seo';
 const IndexPage: React.FC = () => {
   return (
     <Layout>
-      <SEO title="works" />
+      <SEO title="" />
       <h1>cilvia333.work</h1>
       <Image filename="icon.jpg" alt="" />
     </Layout>

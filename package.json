@@ -5,6 +5,8 @@
   "version": "3.0.0alpha",
   "author": "cilvia333 <cilvia333x@gmail.com>",
   "dependencies": {
+    "@contentful/rich-text-react-renderer": "^14.1.1",
+    "@contentful/rich-text-types": "^14.1.1",
     "@fullhuman/postcss-purgecss": "^2.3.0",
     "babel-plugin-styled-components": "^1.11.1",
     "contentful": "^7.13.1",
@@ -26,6 +28,7 @@
     "gatsby-source-contentful": "^2.3.35",
     "gatsby-source-filesystem": "^2.1.40",
     "gatsby-transformer-sharp": "^2.3.7",
+    "lodash": "^4.17.19",
     "postcss-import": "^12.0.1",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
@@ -36,6 +39,7 @@
     "typescript": "^3.7.5"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.159",
     "@types/node": "^13.1.8",
     "@types/react-helmet": "^5.0.15",
     "@types/styled-components": "^5.1.2",
