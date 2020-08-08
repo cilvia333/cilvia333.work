@@ -27,12 +27,11 @@ const Layout: React.FC<Props> = ({ children }: Props) => {
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <Header siteTitle={data.site.siteMetadata.title} />
-        <HeaderMarginStyle>
-          <main>{children}</main>
-          <footer>
-            © {new Date().getFullYear()}, Cilvia333 / All rights Reserved.
-          </footer>
-        </HeaderMarginStyle>
+        <HeaderMarginStyle />
+        <main>{children}</main>
+        <footer>
+          © {new Date().getFullYear()}, Cilvia333 / All rights Reserved.
+        </footer>
       </ThemeProvider>
     </>
   );
