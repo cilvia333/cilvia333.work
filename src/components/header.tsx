@@ -11,7 +11,7 @@ const Header: React.FC<Props> = ({ siteTitle = `` }: Props) => {
     <CustomHeader>
       <Wrapper>
         <Title>
-          <TitleLink to="/">{siteTitle}</TitleLink>
+          <TitleLink to="/">cilvia333.work | {siteTitle}</TitleLink>
         </Title>
         <Menu>
           <li>
