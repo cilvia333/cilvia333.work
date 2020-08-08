@@ -1,9 +1,9 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "cilvia333.work",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
-  "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "description": "cilvia333's web portfolio site v3",
+  "version": "3.0.0alpha",
+  "author": "cilvia333 <cilvia333x@gmail.com>",
   "dependencies": {
     "@fullhuman/postcss-purgecss": "^2.3.0",
     "babel-plugin-styled-components": "^1.11.1",
@@ -54,9 +54,6 @@
     "lint-staged": "^10.0.0",
     "prettier": "^1.19.1"
   },
-  "keywords": [
-    "gatsby"
-  ],
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
@@ -84,9 +81,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
+    "url": "https://github.com/cilvia333/cilvia333.work"
   },
   "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+    "url": "https://github.com/cilvia333/cilvia333.work/issues"
   }
 }
