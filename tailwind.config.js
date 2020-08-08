@@ -1,3 +1,5 @@
+const defaultTheme = require('tailwindcss/defaultTheme');
+
 module.exports = {
   purge: {
     enabled: process.env.NODE_ENV === 'production',
@@ -10,7 +12,11 @@ module.exports = {
     ],
   },
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        header: ['brandon-grotesque', defaultTheme.fontFamily.sans],
+      },
+    },
   },
   variants: {},
   plugins: [],

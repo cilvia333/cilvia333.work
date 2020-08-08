@@ -38,6 +38,9 @@ const SEO: React.FC<Props> = ({
       }}
       title={title}
       titleTemplate={`%s | ${site.siteMetadata.title}`}
+      link={[
+        { rel: 'stylesheet', href: 'https://use.typekit.net/kuy5zin.css' },
+      ]}
       meta={[
         {
           name: `description`,
