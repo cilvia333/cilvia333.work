@@ -15,13 +15,7 @@ function IndexPage() {
   return (
     <Layout>
       <SEO title="works" />
-      <h1>Hi people</h1>
-      <p>Welcome to your new Gatsby site.</p>
-      <p>Now go build something great.</p>
-      <div className={spacingStyle}>
-        <Image />
-      </div>
-      <Link to="/about/">Go to page 2</Link>
+      <h1>cilvia333.work</h1>
     </Layout>
   );
 }
