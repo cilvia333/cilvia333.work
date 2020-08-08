@@ -3,11 +3,11 @@ import { useStaticQuery, graphql } from 'gatsby';
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 import Header from './header';
 
-type Props = {
-  children: string;
-};
+interface Props {
+  children: React.ReactNode;
+}
 
-function Layout({ children }: Props) {
+const Layout: React.FC<Props> = ({ children }: Props) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -36,7 +36,7 @@ function Layout({ children }: Props) {
       </ThemeProvider>
     </>
   );
-}
+};
 
 const GlobalStyle = createGlobalStyle`
   body {

@@ -1,50 +1,19 @@
 import { Link } from 'gatsby';
 import React from 'react';
-import { css } from 'styled-components';
+import styled from 'styled-components';
 
-const header = css({
-  marginBottom: `1.45rem`,
-  backgroundColor: `#ddd`,
-});
+interface Props {
+  siteTitle?: string;
+}
 
-const wrapper = css({
-  margin: `0 auto`,
-  padding: `1.45rem 1.0875rem`,
-  display: `flex`,
-  justifyContent: `space-between`,
-});
-
-const title = css({
-  margin: 0,
-});
-
-const link = css({
-  color: `white`,
-  textDecoration: `none`,
-});
-
-const menu = css({
-  display: `flex`,
-  justifyContent: `space-between`,
-  li: {
-    marginLeft: `10px`,
-  },
-});
-
-type Props = {
-  siteTitle: string;
-};
-
-function Header({ siteTitle = `` }: Props) {
+const Header: React.FC<Props> = ({ siteTitle = `` }: Props) => {
   return (
-    <header css={header}>
-      <div css={wrapper}>
-        <h1 css={title}>
-          <Link to="/" css={link}>
-            {siteTitle}
-          </Link>
-        </h1>
-        <ul css={menu}>
+    <CustomHeader>
+      <Wrapper>
+        <Title>
+          <TitleLink to="/">{siteTitle}</TitleLink>
+        </Title>
+        <Menu>
           <li>
             <Link to="/">works</Link>
           </li>
@@ -54,10 +23,39 @@ function Header({ siteTitle = `` }: Props) {
           <li>
             <Link to="/contacts">contacts</Link>
           </li>
-        </ul>
-      </div>
-    </header>
+        </Menu>
+      </Wrapper>
+    </CustomHeader>
   );
-}
+};
+
+const CustomHeader = styled.header`
+  margin-bottom: 1.45rem;
+  background-color: #ddd;
+`;
+
+const Wrapper = styled.div`
+  margin: 0 auto;
+  padding: 1.45rem 1.0875rem;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const Title = styled.h1`
+  margin: 0;
+`;
+
+const TitleLink = styled(Link)`
+  color: white;
+  text-decoration: none;
+`;
+
+const Menu = styled.ul`
+  display: flex;
+  justify-content: space-between;
+  li {
+    margin-left: 10px;
+  }
+`;
 
 export default Header;

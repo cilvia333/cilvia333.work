@@ -13,7 +13,6 @@
     "declaration": false,
     "strict": true,
     "allowSyntheticDefaultImports": true,
-    "typeRoots": ["src/types/"],
-    "exclude": ["node_modules"]
+    "typeRoots": ["src/types/"]
   }
 }

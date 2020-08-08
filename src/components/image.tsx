@@ -1,5 +1,5 @@
 import React from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import Img from 'gatsby-image';
 
@@ -8,7 +8,9 @@ interface Props {
   alt: string;
 }
 
-const Image = ({ filename, alt }: Props) => {
+const Image: React.FC<Props> = ({ filename, alt }: Props) => {
+  const [image, setImage] = useState<any>();
+
   const data = useStaticQuery(graphql`
     query {
       images: allFile {
@@ -28,9 +30,10 @@ const Image = ({ filename, alt }: Props) => {
   `);
 
   useEffect(() => {
-    const image = data.images.edges.find(n => {
+    const image = data.images.edges.find((n: any) => {
       return n.node.relativePath.includes(filename);
     });
+    setImage(image);
   }, [filename]);
 
   return image ? (

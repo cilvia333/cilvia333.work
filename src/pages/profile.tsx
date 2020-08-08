@@ -4,7 +4,7 @@ import { Link } from 'gatsby';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
 
-function Profile() {
+const Profile: React.FC = () => {
   return (
     <Layout>
       <SEO title="profile" />
@@ -29,6 +29,6 @@ function Profile() {
       </div>
     </Layout>
   );
-}
+};
 
 export default Profile;

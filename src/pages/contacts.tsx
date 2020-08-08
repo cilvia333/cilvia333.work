@@ -4,7 +4,7 @@ import { Link } from 'gatsby';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
 
-function SecondPage() {
+const SecondPage: React.FC = () => {
   return (
     <Layout>
       <SEO title="contact" />
@@ -13,6 +13,6 @@ function SecondPage() {
       <Link to="/">Go back to the homepage</Link>
     </Layout>
   );
-}
+};
 
 export default SecondPage;
