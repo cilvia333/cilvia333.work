@@ -9,6 +9,7 @@ module.exports = {
     title: `Cilvia333.work`,
     description: `I'm a Designer. Musashino Art University, Informatic Design.`,
     author: `@gatsbyjs`,
+    siteUrl: `https://www.cilvia333.work`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -33,6 +34,14 @@ module.exports = {
         icon: `src/images/icon.jpg`, // This path is relative to the root of the site.
       },
     },
+    `gatsby-plugin-sitemap`,
+    `gatsby-plugin-robots-txt`,
+    {
+      resolve: `gatsby-plugin-canonical-urls`,
+      options: {
+        siteUrl: `https://www.cilvia333.work`,
+      },
+    },
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
@@ -55,7 +64,6 @@ module.exports = {
       },
     },
     `gatsby-plugin-styled-components`,
-    `gatsby-plugin-tailwindcss`,
     `gatsby-plugin-typescript`,
     {
       resolve: 'gatsby-plugin-graphql-codegen',
