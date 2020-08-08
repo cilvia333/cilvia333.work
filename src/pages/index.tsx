@@ -11,6 +11,7 @@ const IndexPage: React.FC = () => {
     <Layout>
       <SEO title="works" />
       <h1>cilvia333.work</h1>
+      <Image filename="icon.jpg" alt="" />
     </Layout>
   );
 };

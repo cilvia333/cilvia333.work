@@ -1,3 +1,9 @@
+const dotenv = require('dotenv');
+
+if (process.env.ENVIRONMENT !== 'production') {
+  dotenv.config();
+}
+
 module.exports = {
   siteMetadata: {
     title: `Cilvia333.work`,
@@ -38,6 +44,13 @@ module.exports = {
         sampleRate: 5,
         siteSpeedSampleRate: 10,
         cookieDomain: 'cilvia333.work',
+      },
+    },
+    {
+      resolve: 'gatsby-source-contentful',
+      options: {
+        spaceId: process.env.CONTENTFUL_SPACE_ID,
+        accessToken: process.env.CONTENTFUL_DELIVERY_ID,
       },
     },
     `gatsby-plugin-styled-components`,
