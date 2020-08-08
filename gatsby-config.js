@@ -40,20 +40,20 @@ module.exports = {
         cookieDomain: 'cilvia333.work',
       },
     },
-    `gatsby-plugin-sass`,
-    `gatsby-plugin-emotion`,
+    `gatsby-plugin-styled-components`,
+    `gatsby-plugin-tailwindcss`,
     `gatsby-plugin-typescript`,
     {
       resolve: 'gatsby-plugin-graphql-codegen',
       options: {
-        fileName: `types/graphql-types.d.ts`,
+        fileName: `src/types/graphql-types.d.ts`,
       },
     },
     {
       resolve: 'gatsby-plugin-eslint',
       options: {
         test: /\.js$|\.jsx$|\.ts$|\.tsx$/,
-        exclude: /(node_modules|.cache|public)/,
+        exclude: /(node_modules|.cache|public|_this_is_virtual_fs_path_)/,
         stages: ['develop'],
         options: {
           emitWarning: true,

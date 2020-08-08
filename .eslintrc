@@ -7,6 +7,9 @@
     "plugin:prettier/recommended"
   ],
   "plugins": ["prettier","@typescript-eslint"],
+  "globals": {
+    "tw": true,
+  },
   "rules": {
     "prettier/prettier": "error",
     "@typescript-eslint/explicit-function-return-type": "off",

@@ -1,24 +1,7 @@
 import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
-import { Global, css } from '@emotion/core';
+import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 import Header from './header';
-
-const globalStyle = css`
-  body {
-    margin: 0;
-    padding: 0;
-  }
-  ul {
-    list-style: none;
-  }
-`;
-
-const headerMarginStyle = css({
-  margin: `0 auto`,
-  maxWidth: 960,
-  padding: `0px 1.0875rem 1.45rem`,
-  paddingTop: 0,
-});
 
 type Props = {
   children: string;
@@ -35,18 +18,41 @@ function Layout({ children }: Props) {
     }
   `);
 
+  const theme = {
+    primary: 'red',
+  };
+
   return (
     <>
-      <Global styles={globalStyle} />
-      <Header siteTitle={data.site.siteMetadata.title} />
-      <div css={headerMarginStyle}>
-        <main>{children}</main>
-        <footer>
-          © {new Date().getFullYear()}, Cilvia333 / All rights Reserved.
-        </footer>
-      </div>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <Header siteTitle={data.site.siteMetadata.title} />
+        <HeaderMarginStyle>
+          <main>{children}</main>
+          <footer>
+            © {new Date().getFullYear()}, Cilvia333 / All rights Reserved.
+          </footer>
+        </HeaderMarginStyle>
+      </ThemeProvider>
     </>
   );
 }
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  ul {
+    list-style: none;
+  }
+`;
+
+const HeaderMarginStyle = styled.div`
+  margin: 0 auto;
+  max-width: 960;
+  padding: 0px 1.0875rem 1.45rem;
+  padding-top: 0;
+`;
 
 export default Layout;
