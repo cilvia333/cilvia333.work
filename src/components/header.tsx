@@ -16,7 +16,7 @@ const Header: React.FC = () => {
   return (
     <CustomHeader>
       <Wrapper>
-        <NavWrapper>
+        <NavWrapper isOpen={isOpen}>
           <NavBG isOpen={isOpen} />
           <Nav isOpen={isOpen}>
             <Menu>
@@ -77,8 +77,14 @@ const Wrapper = styled.div`
   ${tw`w-full relative`}
 `;
 
-const NavWrapper = styled.div`
-  ${tw`absolute w-full h-screen`}
+const NavWrapper = styled.div<{ isOpen: boolean }>`
+  ${tw`absolute w-full h-screen hidden`}
+
+  ${({ isOpen }) =>
+    isOpen &&
+    css`
+      ${tw` block`}
+    `}
 `;
 
 const NavBG = styled.div<{ isOpen: boolean }>`

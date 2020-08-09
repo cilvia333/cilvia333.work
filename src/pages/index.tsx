@@ -11,11 +11,14 @@ import IconImg from '~/images/icon.png';
 const IndexPage: React.FC = () => {
   return (
     <>
-      <SEO title="" />
+      <SEO title="index" />
       <TopWrapper>
         <Icon src={IconImg} alt="icon" />
         <Title>cilvia333.work</Title>
       </TopWrapper>
+      <MessageWrapper>
+        <MessageCatchText>一緒にワクワクを届けませんか？</MessageCatchText>
+      </MessageWrapper>
     </>
   );
 };
@@ -32,6 +35,14 @@ const Icon = styled.img`
 
 const Title = styled.h1`
   ${tw`font-header font-bold text-6xl text-black`}
+`;
+
+const MessageWrapper = styled.div`
+  ${tw`bg-primary-500 py-64 px-24`}
+`;
+
+const MessageCatchText = styled.h1`
+  ${tw`font-header font-bold text-4xl text-base-200`}
 `;
 
 export default IndexPage;
