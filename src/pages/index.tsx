@@ -22,7 +22,7 @@ const IndexPage: React.FC = () => {
 };
 
 const TopWrapper = styled.div`
-  ${tw`flex justify-center items-center flex-col bg-gray-200`}
+  ${tw`flex justify-center items-center flex-col bg-gray-200 h-screen`}
 `;
 
 const Icon = styled.img`

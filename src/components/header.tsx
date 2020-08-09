@@ -1,6 +1,7 @@
 import { Link } from 'gatsby';
 import React from 'react';
 import styled from 'styled-components';
+import tw from 'twin.macro';
 
 interface Props {
   siteTitle?: string;
@@ -10,26 +11,29 @@ const Header: React.FC<Props> = ({ siteTitle = `` }: Props) => {
   return (
     <CustomHeader>
       <Wrapper>
-        <Title>
-          <TitleLink to="/">cilvia333.work | {siteTitle}</TitleLink>
-        </Title>
-        <Menu>
-          <li>
-            <Link to="/works">works</Link>
-          </li>
-          <li>
-            <Link to="/profile">profile</Link>
-          </li>
-          <li>
-            <Link to="/contacts">contacts</Link>
-          </li>
-        </Menu>
+        <Nav>
+          <Menu>
+            <li>
+              <MenuLink to="/">TOP</MenuLink>
+            </li>
+            <li>
+              <MenuLink to="/works">WORKS</MenuLink>
+            </li>
+            <li>
+              <MenuLink to="/profile">PROFILE</MenuLink>
+            </li>
+            <li>
+              <MenuLink to="/contacts">CONTACTS</MenuLink>
+            </li>
+          </Menu>
+        </Nav>
       </Wrapper>
     </CustomHeader>
   );
 };
 
 const CustomHeader = styled.header`
+  ${tw`fixed`}
   margin-bottom: 1.45rem;
   background-color: #ddd;
 `;
@@ -41,13 +45,8 @@ const Wrapper = styled.div`
   justify-content: space-between;
 `;
 
-const Title = styled.h1`
-  margin: 0;
-`;
-
-const TitleLink = styled(Link)`
-  color: white;
-  text-decoration: none;
+const Nav = styled.nav`
+  justify-content: space-between;
 `;
 
 const Menu = styled.ul`
@@ -56,6 +55,10 @@ const Menu = styled.ul`
   li {
     margin-left: 10px;
   }
+`;
+
+const MenuLink = styled(Link)`
+  ${tw`font-header font-bold text-6xl`}
 `;
 
 export default Header;
