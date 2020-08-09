@@ -1,8 +1,12 @@
 import { useLocation } from '@reach/router';
 import { Link } from 'gatsby';
 import React, { useEffect, useState } from 'react';
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import tw from 'twin.macro';
+
+import wave01 from '~/images/wave-white_01.png';
+import wave02 from '~/images/wave-white_02.png';
+import wave03 from '~/images/wave-white_03.png';
 
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -58,6 +62,11 @@ const Header: React.FC = () => {
               </li>
             </Menu>
           </Nav>
+          <WaveWrapper isOpen={isOpen}>
+            <Wave />
+            <Wave />
+            <Wave />
+          </WaveWrapper>
         </NavWrapper>
         <ButtonWrapper>
           <Button onClick={e => setIsOpen(!isOpen)}>
@@ -69,8 +78,17 @@ const Header: React.FC = () => {
   );
 };
 
+const waveKeyframe = keyframes`
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-1920px);
+  }
+`;
+
 const CustomHeader = styled.header`
-  ${tw`fixed w-full`}
+  ${tw`fixed w-full z-10`}
 `;
 
 const Wrapper = styled.div`
@@ -78,7 +96,7 @@ const Wrapper = styled.div`
 `;
 
 const NavWrapper = styled.div`
-  ${tw`absolute w-full h-screen `}
+  ${tw`absolute w-full h-screen grid grid-rows-4 grid-flow-col gap-4`}
 `;
 
 const NavBG = styled.div<{ isOpen: boolean }>`
@@ -96,7 +114,7 @@ const NavBG = styled.div<{ isOpen: boolean }>`
 `;
 
 const Nav = styled.nav<{ isOpen: boolean }>`
-  ${tw`w-full transition-opacity duration-500 ease-out opacity-0 px-8 py-8`}
+  ${tw`w-full transition-opacity duration-500 ease-out opacity-0 px-8 py-8 row-start-2 row-end-4`}
 
   ${({ isOpen }) =>
     isOpen &&
@@ -106,7 +124,7 @@ const Nav = styled.nav<{ isOpen: boolean }>`
 `;
 
 const Menu = styled.ul`
-  ${tw`flex items-end justify-around flex-col space-y-1 text-right w-full mt-24`}
+  ${tw`flex items-end justify-around flex-col space-y-1 text-right w-full`}
 `;
 
 const MenuLink = styled(({ isActive, ...props }: any) => <Link {...props} />)`
@@ -128,6 +146,41 @@ const MenuLink = styled(({ isActive, ...props }: any) => <Link {...props} />)`
         width: 50vw;
       }
     `}
+`;
+
+const WaveWrapper = styled.div<{ isOpen: boolean }>`
+  ${tw`relative w-full h-full row-start-4 row-end-5 opacity-0 transition-opacity duration-100 ease-out delay-100`}
+
+  ${({ isOpen }) =>
+    isOpen &&
+    css`
+      ${tw`opacity-100`}
+      transition-delay: 0;
+    `}
+`;
+
+const Wave = styled.div`
+  ${tw`absolute h-full row-start-4 row-end-5`}
+  animation: ${waveKeyframe} 12s linear infinite 0s;
+  background: top left/1920px repeat-x ;
+  min-width: 3840px;
+  width: 200%;
+  top: 0;
+  transform: translateX(10px);
+
+  &:nth-child(1) {
+    background-image:  url(${wave03});
+    left: 240px;
+  }
+
+  &:nth-child(2) {
+    background-image:  url(${wave02});
+    left: 120px;
+  }
+  &:nth-child(3) {
+    background-image:  url(${wave01});
+    left: 0;
+  }
 `;
 
 const ButtonWrapper = styled.div`
