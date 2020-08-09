@@ -16,7 +16,7 @@ const Header: React.FC = () => {
   return (
     <CustomHeader>
       <Wrapper>
-        <NavWrapper isOpen={isOpen}>
+        <NavWrapper>
           <NavBG isOpen={isOpen} />
           <Nav isOpen={isOpen}>
             <Menu>
@@ -77,14 +77,8 @@ const Wrapper = styled.div`
   ${tw`w-full relative`}
 `;
 
-const NavWrapper = styled.div<{ isOpen: boolean }>`
-  ${tw`absolute w-full h-screen hidden`}
-
-  ${({ isOpen }) =>
-    isOpen &&
-    css`
-      ${tw` block`}
-    `}
+const NavWrapper = styled.div`
+  ${tw`absolute w-full h-screen `}
 `;
 
 const NavBG = styled.div<{ isOpen: boolean }>`
@@ -115,7 +109,7 @@ const Menu = styled.ul`
   ${tw`flex items-end justify-around flex-col space-y-1 text-right w-full mt-24`}
 `;
 
-const MenuLink = styled(Link)<{ isActive: boolean }>`
+const MenuLink = styled(({ isActive, ...props }: any) => <Link {...props} />)`
   ${tw`font-header font-bold text-6xl text-base-200 relative`}
 
   &::after {
