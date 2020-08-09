@@ -16,60 +16,66 @@ const Header: React.FC = () => {
 
   return (
     <CustomHeader>
-      <NavWrapper>
-        <NavBG isOpen={isOpen} />
-        <Nav isOpen={isOpen}>
-          <Menu>
-            <li>
-              <MenuLink
-                isCurrent={path === '/'}
-                onClick={e => setIsOpen(false)}
-                to="/"
-              >
-                TOP
-              </MenuLink>
-            </li>
-            <li>
-              <MenuLink
-                isCurrent={path === '/works'}
-                onClick={e => setIsOpen(false)}
-                to="/works"
-              >
-                WORKS
-              </MenuLink>
-            </li>
-            <li>
-              <MenuLink
-                isCurrent={path === '/profile'}
-                onClick={e => setIsOpen(false)}
-                to="/profile"
-              >
-                PROFILE
-              </MenuLink>
-            </li>
-            <li>
-              <MenuLink
-                isCurrent={path === '/contacts'}
-                onClick={e => setIsOpen(false)}
-                to="/contacts"
-              >
-                CONTACTS
-              </MenuLink>
-            </li>
-          </Menu>
-        </Nav>
-      </NavWrapper>
-      <ButtonWrapper>
-        <Button onClick={e => setIsOpen(!isOpen)}>
-          <Hamburger />
-        </Button>
-      </ButtonWrapper>
+      <Wrapper>
+        <NavWrapper>
+          <NavBG isOpen={isOpen} />
+          <Nav isOpen={isOpen}>
+            <Menu>
+              <li>
+                <MenuLink
+                  isActive={path === '/'}
+                  onClick={e => setIsOpen(path === '/')}
+                  to="/"
+                >
+                  TOP
+                </MenuLink>
+              </li>
+              <li>
+                <MenuLink
+                  isActive={path === '/works'}
+                  onClick={e => setIsOpen(path === '/works')}
+                  to="/works"
+                >
+                  WORKS
+                </MenuLink>
+              </li>
+              <li>
+                <MenuLink
+                  isActive={path === '/profile'}
+                  onClick={e => setIsOpen(path === '/profile')}
+                  to="/profile"
+                >
+                  PROFILE
+                </MenuLink>
+              </li>
+              <li>
+                <MenuLink
+                  isActive={path === '/contacts'}
+                  onClick={e => setIsOpen(path === '/contacts')}
+                  to="/contacts"
+                >
+                  CONTACTS
+                </MenuLink>
+              </li>
+            </Menu>
+          </Nav>
+        </NavWrapper>
+        <ButtonWrapper>
+          <Button onClick={e => setIsOpen(!isOpen)}>
+            <Hamburger />
+          </Button>
+        </ButtonWrapper>
+      </Wrapper>
     </CustomHeader>
   );
 };
 
 const CustomHeader = styled.header`
-  ${tw`fixed w-full relative`}
+  ${tw`fixed w-full`}
+`;
+
+const Wrapper = styled.div`
+  ${tw`w-full relative`}
 `;
 
 const NavWrapper = styled.div`
@@ -104,7 +110,7 @@ const Menu = styled.ul`
   ${tw`flex items-end justify-around flex-col space-y-1 text-right w-full mt-24`}
 `;
 
-const MenuLink = styled(Link)<{ isCurrent: boolean }>`
+const MenuLink = styled(Link)<{ isActive: boolean }>`
   ${tw`font-header font-bold text-6xl text-base-200 relative`}
 
   &::after {
@@ -116,8 +122,8 @@ const MenuLink = styled(Link)<{ isCurrent: boolean }>`
     right: 0;
   }
 
-  ${({ isCurrent }) =>
-    isCurrent &&
+  ${({ isActive }) =>
+    isActive &&
     css`
       &::after {
         width: 50vw;

@@ -11,13 +11,13 @@ import IconImg from '../images/icon.jpg';
 
 const IndexPage: React.FC = () => {
   return (
-    <Layout>
+    <>
       <SEO title="" />
       <TopWrapper>
         <Icon src={IconImg} alt="icon" />
         <Title>cilvia333.work</Title>
       </TopWrapper>
-    </Layout>
+    </>
   );
 };
 
