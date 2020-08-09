@@ -8,7 +8,7 @@ module.exports = {
   siteMetadata: {
     title: `Cilvia333.work`,
     description: `I'm a Designer. Musashino Art University, Informatic Design.`,
-    author: `@gatsbyjs`,
+    author: `@cilvia333`,
     siteUrl: `https://www.cilvia333.work`,
   },
   plugins: [
@@ -45,7 +45,7 @@ module.exports = {
         background_color: `#663399`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/images/icon.jpg`, // This path is relative to the root of the site.
+        icon: `src/images/icon.png`, // This path is relative to the root of the site.
       },
     },
     `gatsby-plugin-sitemap`,

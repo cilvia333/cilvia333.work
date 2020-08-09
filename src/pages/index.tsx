@@ -6,7 +6,7 @@ import tw from 'twin.macro';
 import Image from '~/components/image';
 import SEO from '~/components/seo';
 
-import IconImg from '~/images/icon.jpg';
+import IconImg from '~/images/icon.png';
 
 const IndexPage: React.FC = () => {
   return (
