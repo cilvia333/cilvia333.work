@@ -47,7 +47,7 @@ const TopWrapper = styled.div`
 `;
 
 const TitleWrapper = styled.div`
-  ${tw`flex justify-center items-center flex-col row-start-2 row-end-4`}
+  ${tw`flex justify-start items-center flex-col row-start-2 row-end-4 py-4`}
 `;
 
 const WaveWrapper = styled.div`
@@ -79,9 +79,10 @@ const Wave = styled.div`
 `;
 
 const Icon = styled.img`
+  ${tw`rounded-circle`}
+
   width: 210px;
   height: 210px;
-  border-radius: 50%;
 `;
 
 const Title = styled.h1`
