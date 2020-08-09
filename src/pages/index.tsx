@@ -85,7 +85,7 @@ const Icon = styled.img`
 `;
 
 const Title = styled.h1`
-  ${tw`font-header font-bold text-6xl text-black`}
+  ${tw`font-header font-bold text-6xl text-black text-shadow-black`}
 `;
 
 const MessageWrapper = styled.div`

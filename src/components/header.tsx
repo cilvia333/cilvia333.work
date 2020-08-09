@@ -128,7 +128,7 @@ const Menu = styled.ul`
 `;
 
 const MenuLink = styled(({ isActive, ...props }: any) => <Link {...props} />)`
-  ${tw`font-header font-bold text-6xl text-base-200 relative`}
+  ${tw`font-header font-bold text-6xl text-base-200 relative text-shadow-ivoly`}
 
   &::after {
     ${tw`absolute m-auto rounded-full bg-base-200 transition-all duration-500 ease-out`}

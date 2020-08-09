@@ -44,8 +44,55 @@ module.exports = {
       borderRadius: {
         circle: '50%',
       },
+      transitionDelay: {
+        '0': '0ms',
+      },
+      boxShadow: {
+        'blur-black': '0 0 2px 4px rgba(#000000)',
+        'blur-ivoly': '0 0 2px 4px rgba(#F2F2F0)',
+      },
     },
   },
   variants: {},
-  plugins: [],
+  plugins: [
+    function({ addUtilities }) {
+      const newUtilities = {
+        '.text-shadow-black': {
+          textShadow: '0 0 1px #000',
+        },
+        '.text-shadow-md-black': {
+          textShadow: '0 0 2px #000',
+        },
+        '.text-shadow-lg-black': {
+          textShadow: '0 0 3px #000',
+        },
+        '.text-shadow-xl-black': {
+          textShadow: '0 0 4px #000',
+        },
+        '.text-shadow-2xl-black': {
+          textShadow: '0 0 5px #000',
+        },
+        '.text-shadow-ivoly': {
+          textShadow: '0 0 1px #F2F2F0',
+        },
+        '.text-shadow-md-ivoly': {
+          textShadow: '0 0 2px #F2F2F0',
+        },
+        '.text-shadow-lg-ivoly': {
+          textShadow: '0 0 3px #F2F2F0',
+        },
+        '.text-shadow-xl-ivoly': {
+          textShadow: '0 0 4px #F2F2F0',
+        },
+        '.text-shadow-2xl-ivoly': {
+          textShadow: '0 0 5px #F2F2F0',
+        },
+        '.text-shadow-none': {
+          textShadow: 'none',
+        },
+      };
+
+      addUtilities(newUtilities);
+    },
+  ],
 };
