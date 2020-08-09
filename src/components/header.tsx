@@ -1,64 +1,158 @@
 import { Link } from 'gatsby';
 import React from 'react';
-import styled from 'styled-components';
+import { useEffect, useState } from 'react';
+import { useLocation } from '@reach/router';
+import styled, { css } from 'styled-components';
 import tw from 'twin.macro';
 
-interface Props {
-  siteTitle?: string;
-}
+const Header: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [path, setPath] = useState('');
+  const location = useLocation();
 
-const Header: React.FC<Props> = ({ siteTitle = `` }: Props) => {
+  useEffect(() => {
+    setPath(location.pathname);
+  }, [location]);
+
   return (
     <CustomHeader>
-      <Wrapper>
-        <Nav>
+      <NavWrapper>
+        <NavBG isOpen={isOpen} />
+        <Nav isOpen={isOpen}>
           <Menu>
             <li>
-              <MenuLink to="/">TOP</MenuLink>
+              <MenuLink
+                isCurrent={path === '/'}
+                onClick={e => setIsOpen(false)}
+                to="/"
+              >
+                TOP
+              </MenuLink>
             </li>
             <li>
-              <MenuLink to="/works">WORKS</MenuLink>
+              <MenuLink
+                isCurrent={path === '/works'}
+                onClick={e => setIsOpen(false)}
+                to="/works"
+              >
+                WORKS
+              </MenuLink>
             </li>
             <li>
-              <MenuLink to="/profile">PROFILE</MenuLink>
+              <MenuLink
+                isCurrent={path === '/profile'}
+                onClick={e => setIsOpen(false)}
+                to="/profile"
+              >
+                PROFILE
+              </MenuLink>
             </li>
             <li>
-              <MenuLink to="/contacts">CONTACTS</MenuLink>
+              <MenuLink
+                isCurrent={path === '/contacts'}
+                onClick={e => setIsOpen(false)}
+                to="/contacts"
+              >
+                CONTACTS
+              </MenuLink>
             </li>
           </Menu>
         </Nav>
-      </Wrapper>
+      </NavWrapper>
+      <ButtonWrapper>
+        <Button onClick={e => setIsOpen(!isOpen)}>
+          <Hamburger />
+        </Button>
+      </ButtonWrapper>
     </CustomHeader>
   );
 };
 
 const CustomHeader = styled.header`
-  ${tw`fixed`}
-  margin-bottom: 1.45rem;
-  background-color: #ddd;
+  ${tw`fixed w-full relative`}
 `;
 
-const Wrapper = styled.div`
-  margin: 0 auto;
-  padding: 1.45rem 1.0875rem;
-  display: flex;
-  justify-content: space-between;
+const NavWrapper = styled.div`
+  ${tw`absolute w-full h-screen`}
 `;
 
-const Nav = styled.nav`
-  justify-content: space-between;
+const NavBG = styled.div<{ isOpen: boolean }>`
+  ${tw`absolute rounded-circle h-24 w-24 bg-primary-500 transition-all duration-300 ease-in`}
+  right: 2rem;
+  top: 2rem;
+
+  ${({ isOpen }) =>
+    isOpen &&
+    css`
+      ${tw`w-full h-full rounded-none ease-out`}
+      right: 0;
+      top: 0;
+    `}
+`;
+
+const Nav = styled.nav<{ isOpen: boolean }>`
+  ${tw`w-full transition-opacity duration-500 ease-out opacity-0 px-8 py-8`}
+
+  ${({ isOpen }) =>
+    isOpen &&
+    css`
+      ${tw`opacity-100`}
+    `}
 `;
 
 const Menu = styled.ul`
-  display: flex;
-  justify-content: space-between;
-  li {
-    margin-left: 10px;
-  }
+  ${tw`flex items-end justify-around flex-col space-y-1 text-right w-full mt-24`}
 `;
 
-const MenuLink = styled(Link)`
-  ${tw`font-header font-bold text-6xl`}
+const MenuLink = styled(Link)<{ isCurrent: boolean }>`
+  ${tw`font-header font-bold text-6xl text-base-200 relative`}
+
+  &::after {
+    ${tw`absolute m-auto rounded-full bg-base-200 transition-all duration-500 ease-out`}
+    content: '';
+    height: 4px;
+    width: 0;
+    bottom: 0;
+    right: 0;
+  }
+
+  ${({ isCurrent }) =>
+    isCurrent &&
+    css`
+      &::after {
+        width: 50vw;
+      }
+    `}
+`;
+
+const ButtonWrapper = styled.div`
+  ${tw`absolute px-8 py-8 mx-0 my-auto`}
+  right: 0;
+  top: 0;
+`;
+
+const Button = styled.div`
+  ${tw`bg-primary-500 rounded-circle h-24 w-24 relative flex items-center justify-center text-right cursor-pointer`}
+`;
+
+const Hamburger = styled.div`
+  ${tw`absolute rounded-full py-1 px-6 bg-base-200`}
+
+  &::before {
+    ${tw`absolute m-auto rounded-full py-1 px-6 bg-base-200`}
+    content: '';
+    top: -1rem;
+    right: 0;
+    left: 0;
+  }
+
+  &::after {
+    ${tw`absolute m-auto rounded-full py-1 px-6 bg-base-200`}
+    content: '';
+    bottom: -1rem;
+    right: 0;
+    left: 0;
+  }
 `;
 
 export default Header;
