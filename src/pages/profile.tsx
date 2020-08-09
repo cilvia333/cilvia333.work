@@ -1,12 +1,11 @@
-import React from 'react';
 import { Link } from 'gatsby';
+import React from 'react';
 
-import Layout from '../components/layout';
-import SEO from '../components/seo';
+import SEO from '~/components/seo';
 
 const Profile: React.FC = () => {
   return (
-    <Layout>
+    <>
       <SEO title="profile" />
       <div>
         <h1>Kairi Shiomi / Cilvia333</h1>
@@ -27,7 +26,7 @@ const Profile: React.FC = () => {
           DTPやグラフィックデザインを学びながら、webフロントエンドや電子工作などもおこなっている。
         </p>
       </div>
-    </Layout>
+    </>
   );
 };
 

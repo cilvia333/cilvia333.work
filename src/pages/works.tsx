@@ -1,9 +1,7 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
 import { Link, graphql, useStaticQuery } from 'gatsby';
+import React, { useEffect, useState } from 'react';
 
-import Layout from '../components/layout';
-import SEO from '../components/seo';
+import SEO from '~/components/seo';
 
 type Work = {
   id?: string;
@@ -58,7 +56,7 @@ const Works: React.FC = () => {
   }, [data]);
 
   return (
-    <Layout>
+    <>
       <SEO title="works" />
       {works.map((work: Work, index) => {
         return (
@@ -67,7 +65,7 @@ const Works: React.FC = () => {
           </Link>
         );
       })}
-    </Layout>
+    </>
   );
 };
 

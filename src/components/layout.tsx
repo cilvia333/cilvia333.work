@@ -1,7 +1,8 @@
-import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
+import React from 'react';
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
-import Header from './header';
+
+import Header from '~/components/header';
 
 interface Props {
   children: React.ReactNode;

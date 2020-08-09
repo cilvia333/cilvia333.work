@@ -20,6 +20,14 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-alias-imports`,
+      options: {
+        aliases: {
+          '~': `src`,
+        },
+      },
+    },
+    {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,

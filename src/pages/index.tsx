@@ -1,13 +1,12 @@
-import React from 'react';
 import { Link } from 'gatsby';
+import React from 'react';
 import styled from 'styled-components';
 import tw from 'twin.macro';
 
-import Layout from '../components/layout';
-import Image from '../components/image';
-import SEO from '../components/seo';
+import Image from '~/components/image';
+import SEO from '~/components/seo';
 
-import IconImg from '../images/icon.jpg';
+import IconImg from '~/images/icon.jpg';
 
 const IndexPage: React.FC = () => {
   return (

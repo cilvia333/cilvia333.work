@@ -1,7 +1,6 @@
-import { Link } from 'gatsby';
-import React from 'react';
-import { useEffect, useState } from 'react';
 import { useLocation } from '@reach/router';
+import { Link } from 'gatsby';
+import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import tw from 'twin.macro';
 
