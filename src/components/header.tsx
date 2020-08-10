@@ -20,7 +20,7 @@ const Header: React.FC = () => {
   return (
     <CustomHeader>
       <Wrapper>
-        <NavWrapper>
+        <NavWrapper isOpen={isOpen}>
           <NavBG isOpen={isOpen} />
           <Nav isOpen={isOpen}>
             <Menu>
@@ -78,6 +78,40 @@ const Header: React.FC = () => {
   );
 };
 
+const fadeIn = keyframes`
+  0% {
+    display: none;
+    opacity:0;
+  }
+
+  1% {
+    display: grid;
+    opacity:1;
+  }
+
+  100% {
+    display: grid;
+    opacity:1;
+  }
+`;
+
+const fadeOut = keyframes`
+  0% {
+    display: grid;
+    opacity:1;
+  }
+
+  99% {
+    display: grid;
+    opacity:1;
+  }
+
+  100% {
+    display: none;
+    opacity:0;
+  }
+`;
+
 const waveKeyframe = keyframes`
   from {
     transform: translateX(0);
@@ -95,8 +129,18 @@ const Wrapper = styled.div`
   ${tw`w-full relative`}
 `;
 
-const NavWrapper = styled.div`
-  ${tw`absolute w-full h-screen grid grid-rows-4 grid-flow-col gap-4`}
+const NavWrapper = styled.div<{ isOpen: boolean }>`
+  ${tw`absolute overflow-hidden h-24 w-24 grid grid-rows-4 grid-flow-col gap-4 transition-all ease-in delay-500`}
+  top:0;
+  right: 0;
+  transition-duration: 1ms;
+
+  ${({ isOpen }) =>
+    isOpen &&
+    css`
+      ${tw`w-full h-screen`}
+      transition-delay: 0ms;
+    `}
 `;
 
 const NavBG = styled.div<{ isOpen: boolean }>`
