@@ -4,6 +4,7 @@ import styled, { keyframes } from 'styled-components';
 import tw from 'twin.macro';
 
 import Image from '~/components/image';
+import LinkButton from '~/components/link-button';
 import SEO from '~/components/seo';
 
 import IconImg from '~/images/icon.png';
@@ -47,7 +48,7 @@ const IndexPage: React.FC = () => {
               ワクワクしたあの気持ちを形にしたい！みんなに伝えたい！という一心で自主制作や作品のお手伝いをしてきました。これからもわたしの得意なことを大切に、あなたの伝えたいという気持ちに寄り添ったお手伝いをしていきます。
             </p>
           </DescriptionText>
-          <ProfileButton>GO PROFILE!</ProfileButton>
+          <LinkButton to="/profile">GO PROFILE!</LinkButton>
         </AboutDescription>
       </AboutWrapper>
     </>
@@ -128,6 +129,14 @@ const ProfileWrapper = styled.h1`
   ${tw`font-header font-bold text-base-200`}
 `;
 
+const Name = styled.div`
+  ${tw`text-gray-800 text-4xl leading-none`}
+`;
+
+const Pronounce = styled.div`
+  ${tw`text-gray-800  text-2xl leading-none`}
+`;
+
 const AboutDescription = styled.div`
   ${tw`text-gray-800  py-32 px-24  w-2/4`}
 `;
@@ -140,18 +149,6 @@ const DescriptionText = styled.div`
     ${tw`my-8`}
     font-feature-settings: 'pkna';
   }
-`;
-
-const ProfileButton = styled.div`
-  ${tw`bg-primary-500 text-gray-800 font-header font-bold rounded-full`}
-`;
-
-const Name = styled.div`
-  ${tw`text-gray-800 text-4xl leading-none`}
-`;
-
-const Pronounce = styled.div`
-  ${tw`text-gray-800  text-2xl leading-none`}
 `;
 
 export default IndexPage;
