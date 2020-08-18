@@ -26,9 +26,30 @@ const IndexPage: React.FC = () => {
           <Wave />
         </WaveWrapper>
       </TopWrapper>
-      <MessageWrapper>
-        <MessageCatchText>一緒にワクワクを届けませんか？</MessageCatchText>
-      </MessageWrapper>
+      <AboutWrapper>
+        <CatchWrapper>
+          <CatchText>Cilvia333 is</CatchText>
+          <CatchText>Creater,</CatchText>
+          <CatchText>Coder and</CatchText>
+          <CatchText>Comfort.</CatchText>
+        </CatchWrapper>
+        <AboutDescription>
+          <ProfileWrapper>
+            <Name>塩見海怜 / cilvia333</Name>
+            <Pronounce>Shiomi Kairi / sílvie333</Pronounce>
+          </ProfileWrapper>
+          <DescriptionText>
+            <p>はじめまして、cilvia333です。</p>
+            <p>
+              美大生をやりながら、グラフィックデザインとウェブ制作、プログラミングを中心に活動をしています。ちょっとかわいいシンプルなデザインとウェブサイトをつくることが得意です。
+            </p>
+            <p>
+              ワクワクしたあの気持ちを形にしたい！みんなに伝えたい！という一心で自主制作や作品のお手伝いをしてきました。これからもわたしの得意なことを大切に、あなたの伝えたいという気持ちに寄り添ったお手伝いをしていきます。
+            </p>
+          </DescriptionText>
+          <ProfileButton>GO PROFILE!</ProfileButton>
+        </AboutDescription>
+      </AboutWrapper>
     </>
   );
 };
@@ -89,12 +110,48 @@ const Title = styled.h1`
   ${tw`font-header font-bold text-6xl text-black text-shadow-black`}
 `;
 
-const MessageWrapper = styled.div`
-  ${tw`bg-primary-500 py-64 px-24`}
+const AboutWrapper = styled.div`
+  ${tw`bg-primary-500 flex justify-between items-center`}
 `;
 
-const MessageCatchText = styled.h1`
-  ${tw`font-header font-bold text-4xl text-base-200`}
+const CatchWrapper = styled.div`
+  ${tw`text-base-200 w-2/4`}
+`;
+
+const CatchText = styled.h1`
+  ${tw`font-header font-bold text-base-200`}
+  font-size: 160px;
+  line-height: 1;
+`;
+
+const ProfileWrapper = styled.h1`
+  ${tw`font-header font-bold text-base-200`}
+`;
+
+const AboutDescription = styled.div`
+  ${tw`text-gray-800  py-32 px-24  w-2/4`}
+`;
+
+const DescriptionText = styled.div`
+  ${tw`text-gray-800 my-16 w-full`}
+  max-width: 500px;
+
+  p {
+    ${tw`my-8`}
+    font-feature-settings: 'pkna';
+  }
+`;
+
+const ProfileButton = styled.div`
+  ${tw`bg-primary-500 text-gray-800 font-header font-bold rounded-full`}
+`;
+
+const Name = styled.div`
+  ${tw`text-gray-800 text-4xl leading-none`}
+`;
+
+const Pronounce = styled.div`
+  ${tw`text-gray-800  text-2xl leading-none`}
 `;
 
 export default IndexPage;
