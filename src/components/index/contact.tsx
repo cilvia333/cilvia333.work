@@ -1,9 +1,9 @@
+import { Twitter, Github, Tumblr } from '@icons-pack/react-simple-icons';
 import { Link } from 'gatsby';
 import React from 'react';
 import styled from 'styled-components';
 import tw from 'twin.macro';
 
-import Work from '~/components/index/work';
 import LinkButton from '~/components/link-button';
 
 const Contact: React.FC = () => {
@@ -17,11 +17,38 @@ const Contact: React.FC = () => {
         <ContentsWrapper>
           <Content>
             <ContentHeader>Contact</ContentHeader>
-            <p>案件のご相談や作品の感想など、なんでもご連絡ください。</p>
+            <p>
+              案件のご相談や作品の感想など、
+              <br />
+              なんでもご連絡ください。
+            </p>
             <LinkButton to="/contact">連絡してみる！</LinkButton>
           </Content>
           <Content>
             <ContentHeader>Other Links</ContentHeader>
+            <OtherLinkWrapper>
+              <OtherLinkButton
+                href="https://twitter.com/cilvia333"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Twitter color="#F2F2F0" size={24} />
+              </OtherLinkButton>
+              <OtherLinkButton
+                href="https://github.com/cilvia333"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Github color="#F2F2F0" size={24} />
+              </OtherLinkButton>
+              <OtherLinkButton
+                href="https://design.cilvia333.work"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Tumblr color="#F2F2F0" size={24} />
+              </OtherLinkButton>
+            </OtherLinkWrapper>
           </Content>
         </ContentsWrapper>
       </Wrapper>
@@ -64,7 +91,7 @@ const Header = styled.div`
 
 const ContentsWrapper = styled.div`
   ${tw`bg-base-200 w-full m-auto`}
-  max-width: 512px;
+  max-width: 400px;
 
   & > * {
     ${tw`my-16`}
@@ -75,7 +102,7 @@ const Content = styled.div`
   ${tw`w-full text-center`}
 
   & > * {
-    ${tw`my-4`}
+    ${tw`my-3`}
   }
 `;
 
@@ -92,4 +119,15 @@ const ContentHeader = styled.h4`
   }
 `;
 
+const OtherLinkWrapper = styled.div`
+  ${tw`flex justify-around items-center`}
+`;
+
+const OtherLinkButton = styled.a`
+  ${tw`relative h-12 w-12 rounded-circle bg-primary-500`}
+
+  & > * {
+    ${tw`absolute inset-0 m-auto`}
+  }
+`;
 export default Contact;
