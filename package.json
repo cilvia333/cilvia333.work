@@ -44,6 +44,7 @@
     "@contentful/rich-text-react-renderer": "^14.1.1",
     "@contentful/rich-text-types": "^14.1.1",
     "@fullhuman/postcss-purgecss": "^2.3.0",
+    "@icons-pack/react-simple-icons": "^3.9.0",
     "babel-plugin-styled-components": "^1.11.1",
     "contentful": "^7.13.1",
     "dotenv": "^8.2.0",
