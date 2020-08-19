@@ -5,6 +5,7 @@ import tw from 'twin.macro';
 
 import Image from '~/components/image';
 import About from '~/components/index/about';
+import Contact from '~/components/index/contact';
 import Skill from '~/components/index/skill';
 import SEO from '~/components/seo';
 
@@ -30,6 +31,7 @@ const IndexPage: React.FC = () => {
       </TopWrapper>
       <About />
       <Skill />
+      <Contact />
     </>
   );
 };
