@@ -104,6 +104,10 @@ const Content = styled.div`
   & > * {
     ${tw`my-3`}
   }
+
+  p {
+    ${tw`font-sans text-sm text-gray-900 leading-loose`}
+  }
 `;
 
 const ContentHeader = styled.h4`

@@ -130,7 +130,7 @@ const Wrapper = styled.div`
 `;
 
 const NavWrapper = styled.div<{ isOpen: boolean }>`
-  ${tw`absolute overflow-hidden h-24 w-24 grid grid-rows-4 grid-flow-col gap-4 transition-all ease-in delay-500`}
+  ${tw`absolute overflow-hidden h-16 w-16 grid grid-rows-4 grid-flow-col gap-4 transition-all ease-in delay-500`}
   top:0;
   right: 0;
   transition-duration: 1ms;
@@ -144,7 +144,7 @@ const NavWrapper = styled.div<{ isOpen: boolean }>`
 `;
 
 const NavBG = styled.div<{ isOpen: boolean }>`
-  ${tw`absolute rounded-circle h-24 w-24 bg-primary-500 transition-all duration-300 ease-in`}
+  ${tw`absolute rounded-circle h-16 w-16 bg-primary-500 transition-all duration-300 ease-in`}
   right: 2rem;
   top: 2rem;
 
@@ -234,24 +234,30 @@ const ButtonWrapper = styled.div`
 `;
 
 const Button = styled.div`
-  ${tw`bg-primary-500 rounded-circle h-24 w-24 relative flex items-center justify-center text-right cursor-pointer`}
+  ${tw`bg-primary-500 rounded-circle h-16 w-16 relative flex items-center justify-center text-right cursor-pointer`}
 `;
 
 const Hamburger = styled.div`
-  ${tw`absolute rounded-full py-1 px-6 bg-base-200`}
+  ${tw`absolute rounded-full px-4 bg-base-200`}
+  padding-top: 3px;
+  padding-bottom: 3px;
 
   &::before {
-    ${tw`absolute m-auto rounded-full py-1 px-6 bg-base-200`}
+    ${tw`absolute m-auto rounded-full px-4 bg-base-200`}
     content: '';
-    top: -1rem;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    top: -14px;
     right: 0;
     left: 0;
   }
 
   &::after {
-    ${tw`absolute m-auto rounded-full py-1 px-6 bg-base-200`}
+    ${tw`absolute m-auto rounded-full px-4 bg-base-200`}
     content: '';
-    bottom: -1rem;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    bottom: -14px;
     right: 0;
     left: 0;
   }

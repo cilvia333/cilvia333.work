@@ -6,6 +6,8 @@ import tw from 'twin.macro';
 import Work from '~/components/index/work';
 import LinkButton from '~/components/link-button';
 
+import MoreTriSvg from '~/images/more-tri.svg';
+
 type WorkHeadline = {
   title: string;
   link: string;
@@ -77,7 +79,7 @@ const Skill: React.FC = () => {
                     return (
                       <>
                         <Work
-                          to={work.link}
+                          to={`/works/${work.link}`}
                           title={work.title}
                           image={work.image}
                           key={`skill-work${i}_${j}`}
@@ -86,7 +88,7 @@ const Skill: React.FC = () => {
                       </>
                     );
                   })}
-                  <WorkMoreLinkButton to={data.link}>more!</WorkMoreLinkButton>
+                  <WorkMoreLinkButton to={data.link}>more</WorkMoreLinkButton>
                 </WorksWrapper>
               </ContentWrapper>
             );
@@ -112,16 +114,12 @@ const Wrapper = styled.section`
 const Header = styled.div`
   ${tw`flex justify-between items-center flex-col`}
 
-  & > * {
-    ${tw`my-2`}
-  }
-
   h3 {
-    ${tw`font-header font-bold text-xl text-gray-500 leading-none`}
+    ${tw`font-header font-bold text-2xl text-gray-500 leading-none mb-2`}
   }
 
   h2 {
-    ${tw`inline-block relative font-header font-bold text-4xl text-gray-900 leading-none`}
+    ${tw`inline-block relative font-header font-bold text-4xl text-gray-900 leading-none mb-8`}
 
     &::after {
       ${tw`absolute bg-primary-500 w-full`}
@@ -134,7 +132,7 @@ const Header = styled.div`
   }
 
   p {
-    ${tw`font-header font-bold text-lg text-gray-900`}
+    ${tw`font-header font-bold text-xl text-gray-900`}
   }
 `;
 
@@ -155,15 +153,16 @@ const ContentWrapper = styled.li`
 `;
 
 const ContentTitle = styled.div`
-  ${tw`font-header font-bold text-2xl text-gray-900 leading-none`}
+  ${tw`font-header font-bold text-3xl text-gray-900 leading-10`}
 `;
 
 const ContentNum = styled.div`
-  ${tw`font-header font-bold text-2xl text-base-200 bg-primary-500 rounded-circle w-10 h-10 inline-block text-center leading-none`}
+  ${tw`text-base-200 bg-primary-500 rounded-circle w-10 h-10 inline-block text-center mr-2`}
 `;
 
 const ContentDescription = styled.div`
-  ${tw`text-gray-900 leading-loose`}
+  ${tw`text-sm text-gray-900 leading-loose w-full`}
+  max-width: 530px;
 `;
 
 const WorksWrapper = styled.div`
@@ -175,7 +174,10 @@ const WorkDivider = styled.div`
 `;
 
 const WorkMoreLinkButton = styled(Link)`
-  ${tw`h-20 w-20 rounded-circle bg-primary-500 font-header font-bold text-lg text-gray-900`}
+  ${tw`h-20 w-20 font-header font-bold text-lg text-gray-900 pl-4`}
+
+  background: url(${MoreTriSvg}) center/contain no-repeat;
+  line-height: 5rem;
 `;
 
 const OtherWorks = styled.div`

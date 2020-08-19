@@ -22,10 +22,14 @@ const About: React.FC = () => {
           <DescriptionText>
             <p>はじめまして、cilvia333です。</p>
             <p>
-              美大生をやりながら、グラフィックデザインとウェブ制作、プログラミングを中心に活動をしています。ちょっとかわいいシンプルなデザインとウェブサイトをつくることが得意です。
+              美大生をやりながら、グラフィックデザインとウェブ制作、プログラミングを中心に活動をしています。
+              <br />
+              ちょっとかわいいシンプルなデザインとウェブサイトをつくることが得意です。
             </p>
             <p>
-              ワクワクしたあの気持ちを形にしたい！みんなに伝えたい！という一心で自主制作や作品のお手伝いをしてきました。これからもわたしの得意なことを大切に、あなたの伝えたいという気持ちに寄り添ったお手伝いをしていきます。
+              ワクワクしたあの気持ちを形にしたい！みんなに伝えたい！という一心で自主制作や作品のお手伝いをしてきました。
+              <br />
+              これからもわたしの得意なことを大切に、あなたの伝えたいという気持ちに寄り添ったお手伝いをしていきます。
             </p>
           </DescriptionText>
           <LinkButton to="/profile">GO PROFILE!</LinkButton>
@@ -35,7 +39,7 @@ const About: React.FC = () => {
   );
 };
 
-const Wrapper = styled.div`
+const Wrapper = styled.section`
   ${tw`bg-primary-500 flex justify-between items-center`}
 `;
 
@@ -49,28 +53,28 @@ const CatchText = styled.h1`
   line-height: 1;
 `;
 
+const Description = styled.div`
+  ${tw`py-32 px-24 w-2/4`}
+`;
+
 const ProfileWrapper = styled.h1`
-  ${tw`font-header font-bold text-base-200`}
+  ${tw`font-header font-bold text-base-200  mb-12`}
 `;
 
 const Name = styled.div`
-  ${tw`text-gray-800 text-4xl leading-none`}
+  ${tw`text-gray-900 text-4xl leading-none`}
 `;
 
 const Pronounce = styled.div`
-  ${tw`text-gray-800  text-2xl leading-none`}
-`;
-
-const Description = styled.div`
-  ${tw`text-gray-800  py-32 px-24  w-2/4`}
+  ${tw`text-gray-900 text-2xl leading-none`}
 `;
 
 const DescriptionText = styled.div`
-  ${tw`text-gray-800 my-16 w-full`}
+  ${tw`text-sm text-gray-900 leading-loose w-full`}
   max-width: 500px;
 
   p {
-    ${tw`my-8`}
+    ${tw`mb-8`}
     font-feature-settings: 'pkna';
   }
 `;

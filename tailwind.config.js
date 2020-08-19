@@ -53,7 +53,9 @@ module.exports = {
       },
     },
   },
-  variants: {},
+  variants: {
+    width: ['responsive', 'hover', 'group-hover'],
+  },
   plugins: [
     function({ addUtilities }) {
       const newUtilities = {
