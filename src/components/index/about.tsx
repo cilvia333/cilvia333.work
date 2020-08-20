@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useEffectOnce } from 'react-use';
 import styled from 'styled-components';
 import tw from 'twin.macro';
 
@@ -11,9 +12,17 @@ interface Props {
 const About: React.FC<Props> = ({ setPosition }: Props) => {
   const componentRef = React.createRef<HTMLElement>();
 
-  useEffect(() => {
+  const onChangeOffset = () => {
     setPosition(componentRef.current?.offsetTop ?? 0);
+  };
+
+  useEffect(() => {
+    onChangeOffset();
   }, [componentRef.current?.offsetTop]);
+
+  useEffectOnce(() => {
+    onChangeOffset();
+  });
 
   return (
     <>

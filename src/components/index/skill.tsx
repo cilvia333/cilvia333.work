@@ -63,9 +63,13 @@ interface Props {
 const Skill: React.FC<Props> = ({ setPosition }: Props) => {
   const componentRef = React.createRef<HTMLElement>();
 
-  useEffect(() => {
+  const onChangeOffset = () => {
     setPosition(componentRef.current?.offsetTop ?? 0);
-  }, [componentRef]);
+  };
+
+  useEffect(() => {
+    onChangeOffset();
+  }, [componentRef.current?.offsetTop]);
 
   return (
     <>

@@ -15,10 +15,25 @@ interface Props {
 }
 
 const Nav: React.FC<Props> = ({ position }: Props) => {
-  const [menuPosition, setMenuPosition] = useState(0);
+  const [windowHeight, setWindowHeight] = useState(0);
+
+  const calcNavLength = (
+    current: number,
+    target: number,
+    isBottom: boolean
+  ): number => {
+    const diff = isBottom
+      ? target - current
+      : current - target + windowHeight / 4;
+
+    if (0 <= diff && diff <= windowHeight / 4) {
+      return diff / (windowHeight / 4);
+    }
+    return windowHeight / 4 < diff ? 1 : 0;
+  };
 
   const onResize = () => {
-    setMenuPosition(Math.floor(window.innerHeight / 6));
+    setWindowHeight(window.innerHeight);
   };
 
   useMount(() => {
@@ -35,15 +50,64 @@ const Nav: React.FC<Props> = ({ position }: Props) => {
 
   return (
     <>
-      <Wrapper position={menuPosition}>
-        <Scale isActive={position.current < position.about}>Top</Scale>
+      <Wrapper position={Math.floor(windowHeight / 8)}>
+        <Scale
+          lengthRate={calcNavLength(
+            position.current + windowHeight / 2,
+            position.about,
+            true
+          )}
+        >
+          Top
+        </Scale>
+        <Scale
+          lengthRate={Math.min(
+            calcNavLength(
+              position.current + windowHeight / 2,
+              position.about,
+              false
+            ),
+            calcNavLength(
+              position.current + windowHeight / 2,
+              position.skill,
+              true
+            )
+          )}
+        >
+          About
+        </Scale>
+        <Scale
+          lengthRate={Math.min(
+            calcNavLength(
+              position.current + windowHeight / 2,
+              position.skill,
+              false
+            ),
+            calcNavLength(
+              position.current + windowHeight / 2,
+              position.contact,
+              true
+            )
+          )}
+        >
+          Skill
+        </Scale>
+        <Scale
+          lengthRate={calcNavLength(
+            position.current + windowHeight / 2,
+            position.contact,
+            false
+          )}
+        >
+          Contact
+        </Scale>
       </Wrapper>
     </>
   );
 };
 
 const Wrapper = styled.div<{ position: number }>`
-  ${tw`fixed text-right w-full`}
+  ${tw`fixed text-right w-full pr-12`}
 
   ${({ position }) =>
     css`
@@ -51,20 +115,18 @@ const Wrapper = styled.div<{ position: number }>`
     `}
 `;
 
-const Scale = styled.div<{ isActive: boolean }>`
+const Scale = styled.div<{ lengthRate: number }>`
   ${tw`text-right align-middle`}
 
   &::after {
     ${tw`bg-gray-900 text-gray-900 inline-block mb-1 ml-2`}
 
     content: '';
-    width: 150px;
     height: 2px;
 
-    ${({ isActive }) =>
-      isActive &&
+    ${({ lengthRate }) =>
       css`
-        width: 200px;
+        width: ${lengthRate * 70 + 50}px;
       `}
   }
 `;

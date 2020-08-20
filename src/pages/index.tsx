@@ -12,15 +12,13 @@ import Top from '~/components/index/top';
 import SEO from '~/components/seo';
 
 const IndexPage: React.FC = () => {
-  const [position, setPosition] = useState<Positions>({
-    current: 0,
-    about: 0,
-    skill: 0,
-    contact: 0,
-  });
+  const [aboutPosition, setAboutPosition] = useState(0);
+  const [skillPosition, setSkillPosition] = useState(0);
+  const [contactPosition, setContactPosition] = useState(0);
+  const [currentPosition, setCurrentPosition] = useState(0);
 
   const onScroll = (): void => {
-    setPosition({ ...position, contact: window.pageYOffset });
+    setCurrentPosition(window.pageYOffset);
   };
 
   useMount(() => {
@@ -31,29 +29,32 @@ const IndexPage: React.FC = () => {
     document.removeEventListener('scroll', onScroll);
   });
 
-  useEffect(() => {
-    onScroll();
-  }, [window.pageYOffset]);
-
   return (
     <>
       <SEO title="index" />
       <BubbleWrapper></BubbleWrapper>
-      <Nav position={position} />
+      <Nav
+        position={{
+          current: currentPosition,
+          about: aboutPosition,
+          skill: skillPosition,
+          contact: contactPosition,
+        }}
+      />
       <Top />
       <About
         setPosition={num => {
-          setPosition({ ...position, about: num });
+          setAboutPosition(num);
         }}
       />
       <Skill
         setPosition={num => {
-          setPosition({ ...position, skill: num });
+          setSkillPosition(num);
         }}
       />
       <Contact
         setPosition={num => {
-          setPosition({ ...position, contact: num });
+          setContactPosition(num);
         }}
       />
     </>
