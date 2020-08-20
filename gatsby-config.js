@@ -87,6 +87,7 @@ module.exports = {
         },
       },
     },
+    `gatsby-plugin-smoothscroll`,
     `gatsby-plugin-typescript`,
     {
       resolve: 'gatsby-plugin-graphql-codegen',
