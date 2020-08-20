@@ -39,8 +39,6 @@ const Background: React.FC<Props> = ({ position, center }: Props) => {
       windowHeight / -2 <= aboutDiff &&
       aboutDiff <= position.skill - position.about - windowHeight / 2
     ) {
-      console.log(center.about.x);
-      console.log(center.about.y);
       return 'about';
     } else if (
       windowHeight / -2 <= skillDiff &&
@@ -59,16 +57,13 @@ const Background: React.FC<Props> = ({ position, center }: Props) => {
   };
 
   useMount(() => {
+    onResize();
     document.addEventListener('resize', onResize);
   });
 
   useUnmount(() => {
     document.removeEventListener('resize', onResize);
   });
-
-  useEffect(() => {
-    onResize();
-  }, [window.innerHeight]);
 
   return (
     <>
@@ -138,6 +133,7 @@ const BubbleWrapper = styled.div`
 const Bubble = styled.div`
   ${tw`h-48 w-48 m-0`}
 
+  transition: all cubic-bezier(0, 0.67, 0.8, 1) 1.2s;
   animation: ${bubbleKeyframe} 4s linear infinite;
 `;
 
@@ -145,7 +141,7 @@ const BubbleOuter = styled.div<{ position: string; center: any }>`
   ${tw`absolute h-48 w-48`}
 
   transform-origin: center;
-  transition: all ease-out 1.2s;
+  transition: all cubic-bezier(0, 0.67, 0.8, 1) 500ms;
 
   ${({ position, center }) => {
     if (position === 'top') {
@@ -161,6 +157,8 @@ const BubbleOuter = styled.div<{ position: string; center: any }>`
       return css`
         transform: translate(${center.about.x - 96}px, ${center.about.y - 96}px)
           scale(4);
+        transition-duration: 1000ms;
+        transition-timing-function: ease;
 
         & ${Bubble} {
           ${tw`bg-base-200`}

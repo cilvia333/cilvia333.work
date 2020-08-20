@@ -38,16 +38,13 @@ const Nav: React.FC<Props> = ({ position }: Props) => {
   };
 
   useMount(() => {
+    onResize();
     document.addEventListener('resize', onResize);
   });
 
   useUnmount(() => {
     document.removeEventListener('resize', onResize);
   });
-
-  useEffect(() => {
-    onResize();
-  }, [window.innerHeight]);
 
   return (
     <>

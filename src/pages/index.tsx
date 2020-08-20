@@ -39,6 +39,7 @@ const IndexPage: React.FC = () => {
   };
 
   useMount(() => {
+    onScroll();
     document.addEventListener('scroll', onScroll);
   });
 
