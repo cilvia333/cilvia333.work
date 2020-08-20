@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import tw from 'twin.macro';
 
+import { CenterPosition } from '~/components/index/background';
 import Work from '~/components/index/work';
 import LinkButton from '~/components/link-button';
 
@@ -58,18 +59,30 @@ const mockup = [
 
 interface Props {
   setPosition: (position: number) => void;
+  setCenter: (position: CenterPosition) => void;
 }
 
-const Skill: React.FC<Props> = ({ setPosition }: Props) => {
+const Skill: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
   const componentRef = React.createRef<HTMLElement>();
 
   const onChangeOffset = () => {
-    setPosition(componentRef.current?.offsetTop ?? 0);
+    const offsetX = componentRef.current?.offsetLeft ?? 0;
+    const offsetY = componentRef.current?.offsetTop ?? 0;
+    const height = componentRef.current?.offsetHeight ?? 0;
+    const width = componentRef.current?.offsetWidth ?? 0;
+
+    setPosition(offsetY);
+    setCenter({ x: offsetX + width / 2, y: offsetY + height / 2 });
   };
 
   useEffect(() => {
     onChangeOffset();
-  }, [componentRef.current?.offsetTop]);
+  }, [
+    componentRef.current?.offsetTop,
+    componentRef.current?.offsetHeight,
+    componentRef.current?.offsetLeft,
+    componentRef.current?.offsetWidth,
+  ]);
 
   return (
     <>

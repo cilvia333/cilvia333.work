@@ -1,15 +1,41 @@
-import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import React, { useEffect } from 'react';
+import styled from 'styled-components';
 import tw from 'twin.macro';
+
+import { CenterPosition } from '~/components/index/background';
 
 import IconImg from '~/images/icon.png';
 
-const Top: React.FC = () => {
+interface Props {
+  setCenter: (position: CenterPosition) => void;
+}
+
+const Top: React.FC<Props> = ({ setCenter }: Props) => {
+  const centerRef = React.createRef<HTMLImageElement>();
+
+  const onChangeCenter = () => {
+    const offsetX = centerRef.current?.offsetLeft ?? 0;
+    const offsetY = centerRef.current?.offsetTop ?? 0;
+    const height = centerRef.current?.offsetHeight ?? 0;
+    const width = centerRef.current?.offsetWidth ?? 0;
+
+    setCenter({ x: offsetX + width / 2, y: offsetY + height / 2 });
+  };
+
+  useEffect(() => {
+    onChangeCenter();
+  }, [
+    centerRef.current?.offsetTop,
+    centerRef.current?.offsetHeight,
+    centerRef.current?.offsetLeft,
+    centerRef.current?.offsetWidth,
+  ]);
+
   return (
     <>
       <Wrapper id="top">
         <TitleWrapper>
-          <Icon src={IconImg} alt="icon" />
+          <Icon src={IconImg} alt="icon" ref={centerRef} />
           <Title>cilvia333.work</Title>
         </TitleWrapper>
       </Wrapper>

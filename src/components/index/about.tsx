@@ -3,26 +3,43 @@ import { useEffectOnce } from 'react-use';
 import styled from 'styled-components';
 import tw from 'twin.macro';
 
+import { CenterPosition } from '~/components/index/background';
 import LinkButton from '~/components/link-button';
 
 interface Props {
   setPosition: (position: number) => void;
+  setCenter: (position: CenterPosition) => void;
 }
 
-const About: React.FC<Props> = ({ setPosition }: Props) => {
+const About: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
   const componentRef = React.createRef<HTMLElement>();
+  const centerRef = React.createRef<HTMLDivElement>();
 
   const onChangeOffset = () => {
     setPosition(componentRef.current?.offsetTop ?? 0);
+  };
+
+  const onChangeCenter = () => {
+    const offsetX = centerRef.current?.offsetLeft ?? 0;
+    const offsetY = centerRef.current?.offsetTop ?? 0;
+    const height = centerRef.current?.offsetHeight ?? 0;
+    const width = centerRef.current?.offsetWidth ?? 0;
+
+    setCenter({ x: offsetX + width / 2, y: offsetY + height / 2 });
   };
 
   useEffect(() => {
     onChangeOffset();
   }, [componentRef.current?.offsetTop]);
 
-  useEffectOnce(() => {
-    onChangeOffset();
-  });
+  useEffect(() => {
+    onChangeCenter();
+  }, [
+    centerRef.current?.offsetTop,
+    centerRef.current?.offsetHeight,
+    centerRef.current?.offsetLeft,
+    centerRef.current?.offsetWidth,
+  ]);
 
   return (
     <>
@@ -33,7 +50,7 @@ const About: React.FC<Props> = ({ setPosition }: Props) => {
           <CatchText>Coder and</CatchText>
           <CatchText>Comfort.</CatchText>
         </CatchWrapper>
-        <Description>
+        <Description ref={centerRef}>
           <ProfileWrapper>
             <Name>塩見海怜 / cilvia333</Name>
             <Pronounce>Shiomi Kairi / sílviə333</Pronounce>

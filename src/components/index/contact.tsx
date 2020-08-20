@@ -3,22 +3,43 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import tw from 'twin.macro';
 
+import { CenterPosition } from '~/components/index/background';
 import LinkButton from '~/components/link-button';
 
 interface Props {
   setPosition: (position: number) => void;
+  setCenter: (position: CenterPosition) => void;
 }
 
-const Contact: React.FC<Props> = ({ setPosition }: Props) => {
+const Contact: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
   const componentRef = React.createRef<HTMLElement>();
+  const centerRef = React.createRef<HTMLDivElement>();
 
   const onChangeOffset = () => {
     setPosition(componentRef.current?.offsetTop ?? 0);
   };
 
+  const onChangeCenter = () => {
+    const offsetX = centerRef.current?.offsetLeft ?? 0;
+    const offsetY = centerRef.current?.offsetTop ?? 0;
+    const height = centerRef.current?.offsetHeight ?? 0;
+    const width = centerRef.current?.offsetWidth ?? 0;
+
+    setCenter({ x: offsetX + width / 2, y: offsetY + height / 2 });
+  };
+
   useEffect(() => {
     onChangeOffset();
   }, [componentRef.current?.offsetTop]);
+
+  useEffect(() => {
+    onChangeCenter();
+  }, [
+    centerRef.current?.offsetTop,
+    centerRef.current?.offsetHeight,
+    centerRef.current?.offsetLeft,
+    centerRef.current?.offsetWidth,
+  ]);
 
   return (
     <>
@@ -27,7 +48,7 @@ const Contact: React.FC<Props> = ({ setPosition }: Props) => {
           <h3>Get in touch!</h3>
           <h2>ぜひ、ご連絡ください</h2>
         </Header>
-        <ContentsWrapper>
+        <ContentsWrapper ref={centerRef}>
           <Content>
             <ContentHeader>Contact</ContentHeader>
             <p>

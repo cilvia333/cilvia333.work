@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import tw from 'twin.macro';
 
 import About from '~/components/index/about';
-import Background from '~/components/index/background';
+import Background, { CenterPosition } from '~/components/index/background';
 import Contact from '~/components/index/contact';
 import Nav from '~/components/index/nav';
 import Skill from '~/components/index/skill';
@@ -17,6 +17,22 @@ const IndexPage: React.FC = () => {
   const [skillPosition, setSkillPosition] = useState(0);
   const [contactPosition, setContactPosition] = useState(0);
   const [currentPosition, setCurrentPosition] = useState(0);
+  const [aboutCenter, setAboutCenter] = useState<CenterPosition>({
+    x: 0,
+    y: 0,
+  });
+  const [skillCenter, setSkillCenter] = useState<CenterPosition>({
+    x: 0,
+    y: 0,
+  });
+  const [contactCenter, setContactCenter] = useState<CenterPosition>({
+    x: 0,
+    y: 0,
+  });
+  const [topCenter, setTopCenter] = useState<CenterPosition>({
+    x: 0,
+    y: 0,
+  });
 
   const onScroll = (): void => {
     setCurrentPosition(window.pageYOffset);
@@ -33,7 +49,20 @@ const IndexPage: React.FC = () => {
   return (
     <>
       <SEO title="index" />
-      <Background />
+      <Background
+        position={{
+          current: currentPosition,
+          about: aboutPosition,
+          skill: skillPosition,
+          contact: contactPosition,
+        }}
+        center={{
+          top: topCenter,
+          about: aboutCenter,
+          skill: skillCenter,
+          contact: contactCenter,
+        }}
+      />
       <Nav
         position={{
           current: currentPosition,
@@ -42,20 +71,33 @@ const IndexPage: React.FC = () => {
           contact: contactPosition,
         }}
       />
-      <Top />
+      <Top
+        setCenter={position => {
+          setTopCenter(position);
+        }}
+      />
       <About
         setPosition={num => {
           setAboutPosition(num);
+        }}
+        setCenter={position => {
+          setAboutCenter(position);
         }}
       />
       <Skill
         setPosition={num => {
           setSkillPosition(num);
         }}
+        setCenter={position => {
+          setSkillCenter(position);
+        }}
       />
       <Contact
         setPosition={num => {
           setContactPosition(num);
+        }}
+        setCenter={position => {
+          setContactCenter(position);
         }}
       />
     </>
