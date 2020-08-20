@@ -4,15 +4,22 @@ import tw from 'twin.macro';
 
 import About from '~/components/index/about';
 import Contact from '~/components/index/contact';
+import Nav, { Positions } from '~/components/index/nav';
 import Skill from '~/components/index/skill';
 import Top from '~/components/index/top';
+
 import SEO from '~/components/seo';
 
 const IndexPage: React.FC = () => {
-  const [position, setPosition] = useState(0);
+  const [position, setPosition] = useState<Positions>({
+    current: 0,
+    about: 0,
+    skill: 0,
+    contact: 0,
+  });
 
   const onScroll = (): void => {
-    setPosition(window.pageYOffset);
+    setPosition({ ...position, contact: window.pageYOffset });
   };
 
   useEffect(() => {
@@ -24,10 +31,23 @@ const IndexPage: React.FC = () => {
     <>
       <SEO title="index" />
       <BubbleWrapper></BubbleWrapper>
+      <Nav position={position} />
       <Top />
-      <About />
-      <Skill />
-      <Contact />
+      <About
+        setPosition={num => {
+          setPosition({ ...position, about: num });
+        }}
+      />
+      <Skill
+        setPosition={num => {
+          setPosition({ ...position, skill: num });
+        }}
+      />
+      <Contact
+        setPosition={num => {
+          setPosition({ ...position, contact: num });
+        }}
+      />
     </>
   );
 };

@@ -1,5 +1,5 @@
 import { Link } from 'gatsby';
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import tw from 'twin.macro';
 
@@ -56,10 +56,20 @@ const mockup = [
   },
 ];
 
-const Skill: React.FC = () => {
+interface Props {
+  setPosition: (position: number) => void;
+}
+
+const Skill: React.FC<Props> = ({ setPosition }: Props) => {
+  const componentRef = React.createRef<HTMLElement>();
+
+  useEffect(() => {
+    setPosition(componentRef.current?.offsetTop ?? 0);
+  }, [componentRef]);
+
   return (
     <>
-      <Wrapper>
+      <Wrapper ref={componentRef}>
         <Header>
           <h3>skill</h3>
           <h2>できること</h2>
@@ -84,7 +94,9 @@ const Skill: React.FC = () => {
                           image={work.image}
                           key={`skill-work${i}_${j}`}
                         />
-                        {j < 3 && <WorkDivider />}
+                        {j < 3 && (
+                          <WorkDivider key={`skill-work-devider${i}_${j}`} />
+                        )}
                       </>
                     );
                   })}

@@ -1,13 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import tw from 'twin.macro';
 
 import LinkButton from '~/components/link-button';
 
-const About: React.FC = () => {
+interface Props {
+  setPosition: (position: number) => void;
+}
+
+const About: React.FC<Props> = ({ setPosition }: Props) => {
+  const componentRef = React.createRef<HTMLElement>();
+
+  useEffect(() => {
+    setPosition(componentRef.current?.offsetTop ?? 0);
+  }, [componentRef]);
+
   return (
     <>
-      <Wrapper>
+      <Wrapper ref={componentRef}>
         <CatchWrapper>
           <CatchText>Cilvia333 is</CatchText>
           <CatchText>Creater,</CatchText>

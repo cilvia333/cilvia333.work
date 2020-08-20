@@ -1,15 +1,24 @@
 import { Twitter, Github, Tumblr } from '@icons-pack/react-simple-icons';
-import { Link } from 'gatsby';
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import tw from 'twin.macro';
 
 import LinkButton from '~/components/link-button';
 
-const Contact: React.FC = () => {
+interface Props {
+  setPosition: (position: number) => void;
+}
+
+const Contact: React.FC<Props> = ({ setPosition }: Props) => {
+  const componentRef = React.createRef<HTMLElement>();
+
+  useEffect(() => {
+    setPosition(componentRef.current?.offsetTop ?? 0);
+  }, [componentRef]);
+
   return (
     <>
-      <Wrapper>
+      <Wrapper ref={componentRef}>
         <Header>
           <h3>Get in touch!</h3>
           <h2>ぜひ、ご連絡ください</h2>
