@@ -104,7 +104,7 @@ const Skill: React.FC = () => {
 };
 
 const Wrapper = styled.section`
-  ${tw`bg-base-200 w-full`}
+  ${tw`bg-base-200 w-full py-32`}
 
   & > * {
     ${tw`my-16`}

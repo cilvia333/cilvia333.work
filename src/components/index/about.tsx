@@ -17,7 +17,7 @@ const About: React.FC = () => {
         <Description>
           <ProfileWrapper>
             <Name>塩見海怜 / cilvia333</Name>
-            <Pronounce>Shiomi Kairi / sílvie333</Pronounce>
+            <Pronounce>Shiomi Kairi / sílviə333</Pronounce>
           </ProfileWrapper>
           <DescriptionText>
             <p>はじめまして、cilvia333です。</p>

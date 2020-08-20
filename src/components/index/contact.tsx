@@ -57,7 +57,7 @@ const Contact: React.FC = () => {
 };
 
 const Wrapper = styled.section`
-  ${tw`bg-primary-500 w-full`}
+  ${tw`bg-primary-500 w-full py-32`}
 
   & > * {
     ${tw`my-16`}

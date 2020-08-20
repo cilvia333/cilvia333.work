@@ -1,6 +1,7 @@
 import { useStaticQuery, graphql } from 'gatsby';
 import React from 'react';
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
+import tw from 'twin.macro';
 
 import Header from '~/components/header';
 
@@ -28,7 +29,7 @@ const Layout: React.FC<Props> = ({ children }: Props) => {
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <Header />
-        <main>{children}</main>
+        <Main>{children}</Main>
         <footer>
           © {new Date().getFullYear()}, Cilvia333 / All rights Reserved.
         </footer>
@@ -47,4 +48,7 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+const Main = styled.main`
+  ${tw`relative w-full h-full`}
+`;
 export default Layout;
