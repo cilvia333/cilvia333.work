@@ -26,7 +26,7 @@ const About: React.FC<Props> = ({ setPosition }: Props) => {
 
   return (
     <>
-      <Wrapper ref={componentRef}>
+      <Wrapper ref={componentRef} id="about">
         <CatchWrapper>
           <CatchText>Cilvia333 is</CatchText>
           <CatchText>Creater,</CatchText>

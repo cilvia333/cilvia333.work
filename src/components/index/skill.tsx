@@ -73,7 +73,7 @@ const Skill: React.FC<Props> = ({ setPosition }: Props) => {
 
   return (
     <>
-      <Wrapper ref={componentRef}>
+      <Wrapper ref={componentRef} id="skill">
         <Header>
           <h3>skill</h3>
           <h2>できること</h2>

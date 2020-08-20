@@ -122,7 +122,7 @@ const waveKeyframe = keyframes`
 `;
 
 const CustomHeader = styled.header`
-  ${tw`fixed w-full z-10`}
+  ${tw`fixed w-full z-20`}
 `;
 
 const Wrapper = styled.div`

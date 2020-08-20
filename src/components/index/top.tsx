@@ -10,7 +10,7 @@ import wave03 from '~/images/wave-yellow_03.png';
 const Top: React.FC = () => {
   return (
     <>
-      <Wrapper>
+      <Wrapper id="top">
         <TitleWrapper>
           <Icon src={IconImg} alt="icon" />
           <Title>cilvia333.work</Title>

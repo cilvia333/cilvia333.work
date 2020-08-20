@@ -22,7 +22,7 @@ const Contact: React.FC<Props> = ({ setPosition }: Props) => {
 
   return (
     <>
-      <Wrapper ref={componentRef}>
+      <Wrapper ref={componentRef} id="contact">
         <Header>
           <h3>Get in touch!</h3>
           <h2>ぜひ、ご連絡ください</h2>

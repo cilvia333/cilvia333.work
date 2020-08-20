@@ -1,3 +1,4 @@
+import scrollTo from 'gatsby-plugin-smoothscroll';
 import React, { useEffect, useState } from 'react';
 import { useMount, useUnmount } from 'react-use';
 import styled, { css } from 'styled-components';
@@ -52,6 +53,9 @@ const Nav: React.FC<Props> = ({ position }: Props) => {
     <>
       <Wrapper position={Math.floor(windowHeight / 8)}>
         <Scale
+          onClick={e => {
+            scrollTo('#top');
+          }}
           lengthRate={calcNavLength(
             position.current + windowHeight / 2,
             position.about,
@@ -61,6 +65,9 @@ const Nav: React.FC<Props> = ({ position }: Props) => {
           Top
         </Scale>
         <Scale
+          onClick={e => {
+            scrollTo('#about');
+          }}
           lengthRate={Math.min(
             calcNavLength(
               position.current + windowHeight / 2,
@@ -77,6 +84,9 @@ const Nav: React.FC<Props> = ({ position }: Props) => {
           About
         </Scale>
         <Scale
+          onClick={e => {
+            scrollTo('#skill');
+          }}
           lengthRate={Math.min(
             calcNavLength(
               position.current + windowHeight / 2,
@@ -93,6 +103,9 @@ const Nav: React.FC<Props> = ({ position }: Props) => {
           Skill
         </Scale>
         <Scale
+          onClick={e => {
+            scrollTo('#contact');
+          }}
           lengthRate={calcNavLength(
             position.current + windowHeight / 2,
             position.contact,
@@ -107,7 +120,7 @@ const Nav: React.FC<Props> = ({ position }: Props) => {
 };
 
 const Wrapper = styled.div<{ position: number }>`
-  ${tw`fixed text-right w-full pr-12`}
+  ${tw`fixed text-right w-full pr-12 z-10`}
 
   ${({ position }) =>
     css`
@@ -116,7 +129,7 @@ const Wrapper = styled.div<{ position: number }>`
 `;
 
 const Scale = styled.div<{ lengthRate: number }>`
-  ${tw`text-right align-middle`}
+  ${tw`text-right align-middle cursor-pointer`}
 
   &::after {
     ${tw`bg-gray-900 text-gray-900 inline-block mb-1 ml-2`}
