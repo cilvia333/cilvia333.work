@@ -17,7 +17,7 @@ const LinkButton: React.FC<Props> = ({ children, to }: Props) => {
 };
 
 const Button = styled(Link)`
-  ${tw`bg-primary-500 text-gray-800 font-header font-bold rounded-full w-full inline-block py-2`}
+  ${tw`bg-primary-500 text-gray-800 font-header font-bold rounded-full w-full inline-block py-2 text-center`}
   max-width: 256px;
 `;
 

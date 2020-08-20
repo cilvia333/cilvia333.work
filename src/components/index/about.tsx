@@ -45,9 +45,15 @@ const About: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
     <>
       <Wrapper ref={componentRef} id="about">
         <CatchWrapper>
-          <CatchText>Cilvia333 is</CatchText>
-          <CatchText>Creater,</CatchText>
-          <CatchText>Coder and</CatchText>
+          <CatchText>
+            Cilvia333 <CatchSmallText>is</CatchSmallText>
+          </CatchText>
+          <CatchText>
+            Creater<CatchSmallText>,</CatchSmallText>
+          </CatchText>
+          <CatchText>
+            Coder <CatchSmallText>and</CatchSmallText>
+          </CatchText>
           <CatchText>Comfort.</CatchText>
         </CatchWrapper>
         <Description ref={centerRef}>
@@ -76,16 +82,22 @@ const About: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
 };
 
 const Wrapper = styled.section`
-  ${tw`flex justify-between items-center`}
+  ${tw`relative flex justify-end items-center`}
 `;
 
 const CatchWrapper = styled.div`
-  ${tw`text-base-200 w-2/4`}
+  ${tw`text-base-200 w-full absolute inset-0`}
 `;
 
 const CatchText = styled.h1`
   ${tw`font-header font-bold text-base-200`}
   font-size: 160px;
+  line-height: 1;
+`;
+
+const CatchSmallText = styled.span`
+  ${tw`font-header font-bold text-base-200`}
+  font-size: 80px;
   line-height: 1;
 `;
 
