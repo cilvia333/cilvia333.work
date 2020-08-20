@@ -120,7 +120,7 @@ const Skill: React.FC<Props> = ({ setPosition }: Props) => {
 };
 
 const Wrapper = styled.section`
-  ${tw`bg-base-200 w-full py-32`}
+  ${tw`w-full py-32`}
 
   & > * {
     ${tw`my-16`}

@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useMount, useUnmount } from 'react-use';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import tw from 'twin.macro';
 
 import About from '~/components/index/about';
+import Background from '~/components/index/background';
 import Contact from '~/components/index/contact';
-import Nav, { Positions } from '~/components/index/nav';
+import Nav from '~/components/index/nav';
 import Skill from '~/components/index/skill';
 import Top from '~/components/index/top';
 
@@ -32,7 +33,7 @@ const IndexPage: React.FC = () => {
   return (
     <>
       <SEO title="index" />
-      <BubbleWrapper></BubbleWrapper>
+      <Background />
       <Nav
         position={{
           current: currentPosition,
@@ -60,9 +61,4 @@ const IndexPage: React.FC = () => {
     </>
   );
 };
-
-const BubbleWrapper = styled.div`
-  ${tw`absolute h-full w-full inset-0 m-auto`}
-`;
-
 export default IndexPage;

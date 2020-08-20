@@ -59,7 +59,7 @@ const About: React.FC<Props> = ({ setPosition }: Props) => {
 };
 
 const Wrapper = styled.section`
-  ${tw`bg-primary-500 flex justify-between items-center`}
+  ${tw`flex justify-between items-center`}
 `;
 
 const CatchWrapper = styled.div`

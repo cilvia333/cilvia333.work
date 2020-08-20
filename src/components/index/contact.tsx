@@ -70,7 +70,7 @@ const Contact: React.FC<Props> = ({ setPosition }: Props) => {
 };
 
 const Wrapper = styled.section`
-  ${tw`bg-primary-500 w-full py-32`}
+  ${tw`w-full py-32`}
 
   & > * {
     ${tw`my-16`}
@@ -103,7 +103,7 @@ const Header = styled.div`
 `;
 
 const ContentsWrapper = styled.div`
-  ${tw`bg-base-200 w-full m-auto`}
+  ${tw`w-full m-auto`}
   max-width: 400px;
 
   & > * {
