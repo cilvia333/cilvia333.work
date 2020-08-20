@@ -92,6 +92,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-graphql-codegen',
       options: {
+        codegen: process.env.ENVIRONMENT === 'production',
         fileName: `src/types/graphql-types.d.ts`,
       },
     },
