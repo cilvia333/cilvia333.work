@@ -7,6 +7,7 @@ import { CenterPosition } from '~/components/index/background';
 import Work from '~/components/index/work';
 import LinkButton from '~/components/link-button';
 
+import LineWaveSvg from '~/images/line-wave.svg';
 import MoreTriSvg from '~/images/more-tri.svg';
 
 type WorkHeadline = {
@@ -153,8 +154,9 @@ const Header = styled.div`
     &::after {
       ${tw`absolute bg-primary-500 w-full`}
       content: '';
-      height: 4px;
-      bottom: -4px;
+      height: 18px;
+      background: url(${LineWaveSvg}) no-repeat;
+      bottom: -24px;
       left: 0;
       right: 0;
     }

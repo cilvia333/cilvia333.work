@@ -30,9 +30,6 @@ const Layout: React.FC<Props> = ({ children }: Props) => {
         <GlobalStyle />
         <Header />
         <Main>{children}</Main>
-        <footer>
-          © {new Date().getFullYear()}, Cilvia333 / All rights Reserved.
-        </footer>
       </ThemeProvider>
     </>
   );

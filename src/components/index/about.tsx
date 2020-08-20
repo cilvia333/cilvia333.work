@@ -46,15 +46,15 @@ const About: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
       <Wrapper ref={componentRef} id="about">
         <CatchWrapper>
           <CatchText>
-            Cilvia333 <CatchSmallText>is</CatchSmallText>
-          </CatchText>
-          <CatchText>
+            Cilvia333 <nobr />
+            <CatchSmallText>is</CatchSmallText> <br />
             Creater<CatchSmallText>,</CatchSmallText>
+            <br />
+            Coder <nobr />
+            <CatchSmallText>and</CatchSmallText>
+            <br />
+            Comfort.
           </CatchText>
-          <CatchText>
-            Coder <CatchSmallText>and</CatchSmallText>
-          </CatchText>
-          <CatchText>Comfort.</CatchText>
         </CatchWrapper>
         <Description ref={centerRef}>
           <ProfileWrapper>
@@ -82,27 +82,25 @@ const About: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
 };
 
 const Wrapper = styled.section`
-  ${tw`relative flex justify-end items-center`}
+  ${tw`flex justify-between items-center pr-12`}
 `;
 
 const CatchWrapper = styled.div`
-  ${tw`text-base-200 w-full absolute inset-0`}
+  ${tw`text-base-200`}
 `;
 
 const CatchText = styled.h1`
   ${tw`font-header font-bold text-base-200`}
-  font-size: 160px;
-  line-height: 1;
+  font-size: 150px;
+  line-height: 1.1;
 `;
 
 const CatchSmallText = styled.span`
-  ${tw`font-header font-bold text-base-200`}
   font-size: 80px;
-  line-height: 1;
 `;
 
 const Description = styled.div`
-  ${tw`py-32 px-24 w-2/4`}
+  ${tw`py-32`}
 `;
 
 const ProfileWrapper = styled.h1`
