@@ -141,7 +141,7 @@ const BubbleOuter = styled.div<{ position: string; center: any }>`
   ${tw`absolute h-48 w-48`}
 
   transform-origin: center;
-  transition: all cubic-bezier(0, 0.67, 0.8, 1) 500ms;
+  transition: all ease 1000ms;
 
   ${({ position, center }) => {
     if (position === 'top') {
@@ -157,8 +157,6 @@ const BubbleOuter = styled.div<{ position: string; center: any }>`
       return css`
         transform: translate(${center.about.x - 96}px, ${center.about.y - 96}px)
           scale(4);
-        transition-duration: 1000ms;
-        transition-timing-function: ease;
 
         & ${Bubble} {
           ${tw`bg-base-200`}
@@ -169,7 +167,7 @@ const BubbleOuter = styled.div<{ position: string; center: any }>`
         transform: translate(${center.skill.x - 96}px, ${center.skill.y - 96}px)
           scale(11);
 
-        & ${Bubble} {
+        ${Bubble} {
           ${tw`bg-base-200`}
         }
       `;
