@@ -28,14 +28,14 @@ const Nav: React.FC<Props> = ({ position }: Props) => {
   return (
     <>
       <Wrapper position={menuPosition}>
-        <Scale>Top</Scale>
+        <Scale isActive={position.current < position.about}>Top</Scale>
       </Wrapper>
     </>
   );
 };
 
 const Wrapper = styled.div<{ position: number }>`
-  ${tw`fixed`}
+  ${tw`fixed text-right w-full`}
 
   ${({ position }) =>
     css`
@@ -43,13 +43,21 @@ const Wrapper = styled.div<{ position: number }>`
     `}
 `;
 
-const Scale = styled.div`
+const Scale = styled.div<{ isActive: boolean }>`
+  ${tw`text-right align-middle`}
+
   &::after {
-    ${tw`bg-gray-900 text-gray-900`}
+    ${tw`bg-gray-900 text-gray-900 inline-block mb-1 ml-2`}
 
     content: '';
-    width: 250px;
+    width: 150px;
     height: 2px;
+
+    ${({ isActive }) =>
+      isActive &&
+      css`
+        width: 200px;
+      `}
   }
 `;
 
