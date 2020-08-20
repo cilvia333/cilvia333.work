@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useMount, useUnmount } from 'react-use';
 import styled, { css } from 'styled-components';
 import tw from 'twin.macro';
 
@@ -17,13 +18,20 @@ const Nav: React.FC<Props> = ({ position }: Props) => {
   const [menuPosition, setMenuPosition] = useState(0);
 
   const onResize = () => {
-    setMenuPosition(window.innerHeight / 4);
+    setMenuPosition(Math.floor(window.innerHeight / 6));
   };
 
-  useEffect(() => {
+  useMount(() => {
     document.addEventListener('resize', onResize);
-    return (): void => document.removeEventListener('resize', onResize);
   });
+
+  useUnmount(() => {
+    document.removeEventListener('resize', onResize);
+  });
+
+  useEffect(() => {
+    onResize();
+  }, [window.innerHeight]);
 
   return (
     <>
@@ -39,7 +47,7 @@ const Wrapper = styled.div<{ position: number }>`
 
   ${({ position }) =>
     css`
-      transform: translateY(${position});
+      transform: translateY(${position}px);
     `}
 `;
 

@@ -13,7 +13,7 @@ const About: React.FC<Props> = ({ setPosition }: Props) => {
 
   useEffect(() => {
     setPosition(componentRef.current?.offsetTop ?? 0);
-  }, [componentRef]);
+  }, [componentRef.current?.offsetTop]);
 
   return (
     <>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useMount, useUnmount } from 'react-use';
 import styled, { keyframes } from 'styled-components';
 import tw from 'twin.macro';
 
@@ -22,10 +23,17 @@ const IndexPage: React.FC = () => {
     setPosition({ ...position, contact: window.pageYOffset });
   };
 
-  useEffect(() => {
+  useMount(() => {
     document.addEventListener('scroll', onScroll);
-    return (): void => document.removeEventListener('scroll', onScroll);
   });
+
+  useUnmount(() => {
+    document.removeEventListener('scroll', onScroll);
+  });
+
+  useEffect(() => {
+    onScroll();
+  }, [window.pageYOffset]);
 
   return (
     <>
