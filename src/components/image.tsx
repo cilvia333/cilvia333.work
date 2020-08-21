@@ -1,13 +1,16 @@
 import { useStaticQuery, graphql } from 'gatsby';
-import Img from 'gatsby-image';
+import Img, { FluidObject } from 'gatsby-image';
 import React, { useEffect, useState } from 'react';
+import { ContentfulFluid } from '~/types/graphql-types';
 
 interface Props {
-  filename: string;
+  filename?: string;
+  fluid?: FluidObject | ContentfulFluid | null;
   alt: string;
+  className?: string;
 }
 
-const Image: React.FC<Props> = ({ filename, alt }: Props) => {
+const Image: React.FC<Props> = ({ filename, fluid, alt, className }: Props) => {
   const [image, setImage] = useState<any>();
 
   const data = useStaticQuery(graphql`
@@ -35,8 +38,12 @@ const Image: React.FC<Props> = ({ filename, alt }: Props) => {
     setImage(image);
   }, [filename]);
 
-  return image ? (
-    <Img fluid={image.node.childImageSharp.fluid} alt={alt} />
+  return fluid || image ? (
+    <Img
+      fluid={fluid ? fluid : image.node?.childImageSharp?.fluid}
+      alt={alt}
+      className={className}
+    />
   ) : (
     <div />
   );

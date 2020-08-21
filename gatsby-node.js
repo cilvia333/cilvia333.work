@@ -18,7 +18,7 @@ exports.createPages = async ({ graphql, actions }) => {
               }
               thumbnail {
                 title
-                sizes(maxWidth: 1440) {
+                fluid(maxWidth: 1440) {
                   base64
                   aspectRatio
                   src
