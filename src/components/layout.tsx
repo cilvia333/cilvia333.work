@@ -46,6 +46,6 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const Main = styled.main`
-  ${tw`relative w-full h-full font-text`}
+  ${tw`relative w-full h-full font-text bg-base-200`}
 `;
 export default Layout;

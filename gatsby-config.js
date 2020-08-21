@@ -1,6 +1,6 @@
 const dotenv = require('dotenv');
 
-if (process.env.ENVIRONMENT !== 'production') {
+if (process.env.NODE_ENV !== 'production') {
   dotenv.config();
 }
 
@@ -92,7 +92,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-graphql-codegen',
       options: {
-        codegen: process.env.ENVIRONMENT === 'production',
+        codegen: process.env.NODE_ENV === 'production',
         fileName: `src/types/graphql-types.d.ts`,
       },
     },

@@ -73,6 +73,12 @@ const Header: React.FC = () => {
             <Hamburger />
           </Button>
         </ButtonWrapper>
+        <PageInfoWrapper>
+          <PageTitle isWhite={true}>{path.split('/')[1]}</PageTitle>
+          <PageSubTitle isWhite={true}>
+            {path.split('/')[2] ? `/${path.split('/')[2]}` : ''}
+          </PageSubTitle>
+        </PageInfoWrapper>
       </Wrapper>
     </CustomHeader>
   );
@@ -264,6 +270,32 @@ const Hamburger = styled.div`
     right: 0;
     left: 0;
   }
+`;
+
+const PageInfoWrapper = styled.div`
+  ${tw`absolute px-8 py-8 mx-0 my-auto`}
+  left: 0;
+  top: 0;
+`;
+
+const PageTitle = styled.div<{ isWhite: boolean }>`
+  ${tw`font-header font-bold text-4xl text-gray-900 relative uppercase inline-block`}
+
+  ${({ isWhite }) =>
+    isWhite &&
+    css`
+      ${tw`text-base-200`}
+    `}
+`;
+
+const PageSubTitle = styled.div<{ isWhite: boolean }>`
+  ${tw`font-header font-bold text-2xl text-gray-900 relative lowercase inline-block ml-2`}
+
+  ${({ isWhite }) =>
+    isWhite &&
+    css`
+      ${tw`text-base-200`}
+    `}
 `;
 
 export default Header;
