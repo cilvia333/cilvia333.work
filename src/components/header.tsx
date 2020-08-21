@@ -130,10 +130,11 @@ const Wrapper = styled.div`
 `;
 
 const NavWrapper = styled.div<{ isOpen: boolean }>`
-  ${tw`absolute overflow-hidden h-16 w-16 grid grid-rows-4 grid-flow-col gap-4 transition-all ease-in delay-500`}
+  ${tw`absolute overflow-hidden h-16 w-16 grid grid-flow-col gap-4 transition-all ease-in delay-500`}
   top:0;
   right: 0;
   transition-duration: 1ms;
+  grid-rows: [repeat(8, minmax(0, 1fr)) ];
 
   ${({ isOpen }) =>
     isOpen &&
@@ -158,7 +159,7 @@ const NavBG = styled.div<{ isOpen: boolean }>`
 `;
 
 const Nav = styled.nav<{ isOpen: boolean }>`
-  ${tw`w-full transition-opacity duration-500 ease-out opacity-0 px-8 py-8 row-start-2 row-end-4`}
+  ${tw`w-full transition-opacity duration-500 ease-out opacity-0 px-8 py-8 row-start-2 row-end-5`}
 
   ${({ isOpen }) =>
     isOpen &&
@@ -193,7 +194,9 @@ const MenuLink = styled(({ isActive, ...props }: any) => <Link {...props} />)`
 `;
 
 const WaveWrapper = styled.div<{ isOpen: boolean }>`
-  ${tw`relative w-full h-full row-start-4 row-end-5 opacity-0 transition-opacity duration-100 ease-out delay-100`}
+  ${tw`relative w-full h-full row-start-5 opacity-0 transition-opacity duration-100 ease-out delay-100`}
+
+  grid-row-end: 8;
 
   ${({ isOpen }) =>
     isOpen &&

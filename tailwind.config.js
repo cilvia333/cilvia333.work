@@ -40,6 +40,7 @@ module.exports = {
       },
       fontFamily: {
         header: ['brandon-grotesque', defaultTheme.fontFamily.sans],
+        text: ['Noto Sans JP', defaultTheme.fontFamily.sans],
       },
       borderRadius: {
         circle: '50%',
