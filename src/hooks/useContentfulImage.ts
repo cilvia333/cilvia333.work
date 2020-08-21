@@ -22,8 +22,6 @@ export default assetUrl => {
   );
 
   const image = allContentfulAsset.edges.find(edge => {
-    console.log(assetUrl);
-    console.log(edge.node.file.url);
     return edge.node.file.url.includes(assetUrl);
   });
 

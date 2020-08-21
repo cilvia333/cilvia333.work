@@ -20,7 +20,12 @@ export const option = {
   renderNode: {
     [BLOCKS.EMBEDDED_ASSET]: function renderEmbeddedAsset(node: any) {
       const fluid = useContentfulImage(node.data.target.fields.file['ja'].url);
-      return <Image alt={node.data.target.fields.title['ja']} fluid={fluid} />;
+      return (
+        <DescriptionImage
+          alt={node.data.target.fields.title['ja']}
+          fluid={fluid}
+        />
+      );
     },
   },
 };
@@ -33,10 +38,6 @@ interface Props {
 
 const Work: React.FC<Props> = ({ pageContext }: Props) => {
   const { work } = pageContext;
-
-  useEffect(() => {
-    console.log(work);
-  });
 
   return (
     <>
@@ -72,9 +73,12 @@ const Work: React.FC<Props> = ({ pageContext }: Props) => {
         <Wave />
         <Wave />
       </WaveWrapper>
-      <DescriptionWrapper>
-        {documentToReactComponents(work.description?.json, option)}
-      </DescriptionWrapper>
+      <ContentsWrapper>
+        <DescriptionWrapper>
+          {documentToReactComponents(work.description?.json, option)}
+          <DescriptionBackLink to="/works">back to WORKS</DescriptionBackLink>
+        </DescriptionWrapper>
+      </ContentsWrapper>
     </>
   );
 };
@@ -187,10 +191,47 @@ const Wave = styled.div`
   }
 `;
 
+const ContentsWrapper = styled.div`
+  ${tw`relative w-full bg-base-200`}
+`;
+
 const DescriptionWrapper = styled.div`
-  ${tw`relative w-full`}
+  ${tw`w-full m-auto`}
 
   max-width: 768px;
+
+  & > * {
+    ${tw`mb-16`}
+  }
+`;
+
+const DescriptionImage = styled(Image)`
+  height: 400px;
+`;
+
+const DescriptionBackLink = styled(Link)`
+  ${tw`relative inline-block align-middle text-sm`}
+
+  &::before {
+    ${tw`inline-block bg-gray-900 h-3 w-3 mr-2`}
+
+    content: '';
+  }
+
+  &::after {
+    ${tw`absolute w-0 m-0 bg-gray-900 transition-all duration-300 ease-out rounded-full`}
+
+    content: '';
+    height: 1px;
+    bottom: 0;
+    left: 0;
+  }
+
+  &:hover {
+    &::after {
+      ${tw`w-full`}
+    }
+  }
 `;
 
 export default Work;
