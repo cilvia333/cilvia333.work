@@ -78,6 +78,10 @@ const Header: React.FC = () => {
           <PageSubTitle isWhite={true}>
             {path.split('/')[2] ? `/${path.split('/')[2]}` : ''}
           </PageSubTitle>
+          <WorksBackButton
+            isWhite={true}
+            isActive={path.split('/')[1] === 'works' && path.split('/')[2]}
+          />
         </PageInfoWrapper>
       </Wrapper>
     </CustomHeader>
@@ -289,12 +293,22 @@ const PageTitle = styled.div<{ isWhite: boolean }>`
 `;
 
 const PageSubTitle = styled.div<{ isWhite: boolean }>`
-  ${tw`font-header font-bold text-2xl text-gray-900 relative lowercase inline-block ml-2`}
+  ${tw`font-header font-bold text-2xl text-gray-900 italic relative lowercase inline-block ml-2`}
 
   ${({ isWhite }) =>
     isWhite &&
     css`
       ${tw`text-base-200`}
+    `}
+`;
+
+const WorksBackButton = styled.div<{ isActive: boolean; isWhite: boolean }>`
+  ${tw`hidden h-12 w-12 bg-gray-900`}
+
+  ${({ isActive }) =>
+    isActive &&
+    css`
+      ${tw`block`}
     `}
 `;
 

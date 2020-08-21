@@ -1,7 +1,8 @@
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { Link } from 'gatsby';
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
+import { useMount, useUnmount } from 'react-use';
 import styled, { css, keyframes } from 'styled-components';
 import tw from 'twin.macro';
 
@@ -38,6 +39,36 @@ interface Props {
 
 const Work: React.FC<Props> = ({ pageContext }: Props) => {
   const { work } = pageContext;
+  const [currentPosition, setCurrentPosition] = useState(0);
+  const [windowHeight, setWindowHeight] = useState(0);
+
+  const overviewTranslate = () => {
+    if (currentPosition <= windowHeight / 4) {
+      return currentPosition;
+    } else {
+      return windowHeight / 4;
+    }
+  };
+
+  const onScroll = (): void => {
+    setCurrentPosition(window.pageYOffset);
+  };
+
+  const onResize = () => {
+    setWindowHeight(window.innerHeight);
+  };
+
+  useMount(() => {
+    onScroll();
+    document.addEventListener('scroll', onScroll);
+    onResize();
+    document.addEventListener('resize', onResize);
+  });
+
+  useUnmount(() => {
+    document.removeEventListener('scroll', onScroll);
+    document.removeEventListener('resize', onResize);
+  });
 
   return (
     <>
@@ -107,11 +138,13 @@ const BacgkroundImage = styled(Image)`
 `;
 
 const HeaderWrapper = styled.div`
-  ${tw`relative w-full h-screen grid grid-rows-4 grid-flow-col gap-4`}
+  ${tw`relative w-full h-screen`}
+  padding-top: 80vh;
+  height: 120vh;
 `;
 
 const OverViewWrapper = styled.div`
-  ${tw`row-start-4 row-end-5 text-base-200 w-full m-auto flex justify-start align-top`}
+  ${tw`text-base-200 w-full m-auto flex justify-start align-top`}
 
   max-width: 768px;
 
@@ -162,8 +195,10 @@ const OverView = styled.div`
 `;
 
 const WaveWrapper = styled.div`
-  ${tw`relative w-full overflow-hidden`}
-
+  ${tw`absolute w-full overflow-hidden m-auto`}
+  top: 100vh;
+  left: 0;
+  right: 0;
   height: 25vh;
 `;
 
