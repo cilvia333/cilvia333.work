@@ -50,6 +50,7 @@
     "dotenv": "^8.2.0",
     "gatsby": "^2.18.12",
     "gatsby-alias-imports": "^1.0.4",
+    "gatsby-awesome-pagination": "^0.3.6",
     "gatsby-background-image": "^1.1.1",
     "gatsby-image": "^2.2.34",
     "gatsby-plugin-canonical-urls": "^2.3.10",
