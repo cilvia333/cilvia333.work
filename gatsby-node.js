@@ -15,6 +15,9 @@ exports.createPages = async ({ graphql, actions }) => {
               date
               slug
               title
+              description {
+                json
+              }
               tags {
                 title
               }

@@ -1,3 +1,5 @@
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+import { BLOCKS } from '@contentful/rich-text-types';
 import { Link } from 'gatsby';
 import React, { useEffect } from 'react';
 import styled, { css, keyframes } from 'styled-components';
@@ -6,11 +8,22 @@ import tw from 'twin.macro';
 import Image from '~/components/image';
 import SEO from '~/components/seo';
 
+import { useContentfulImage } from '~/hooks';
+
 import wave01 from '~/images/wave-white_01.png';
 import wave02 from '~/images/wave-white_02.png';
 import wave03 from '~/images/wave-white_03.png';
 
 import { ContentfulWork } from '~/types/graphql-types';
+
+export const option = {
+  renderNode: {
+    [BLOCKS.EMBEDDED_ASSET]: function renderEmbeddedAsset(node: any) {
+      const fluid = useContentfulImage(node.data.target.fields.file['ja'].url);
+      return <Image alt={node.data.target.fields.title['ja']} fluid={fluid} />;
+    },
+  },
+};
 
 interface Props {
   pageContext: {
@@ -59,7 +72,9 @@ const Work: React.FC<Props> = ({ pageContext }: Props) => {
         <Wave />
         <Wave />
       </WaveWrapper>
-      <DescriptionWrapper></DescriptionWrapper>
+      <DescriptionWrapper>
+        {documentToReactComponents(work.description?.json, option)}
+      </DescriptionWrapper>
     </>
   );
 };
