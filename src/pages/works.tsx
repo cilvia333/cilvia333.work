@@ -1,9 +1,14 @@
 import { Link, graphql, useStaticQuery } from 'gatsby';
 import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import tw from 'twin.macro';
 
 import SEO from '~/components/seo';
+import WorkCard from '~/components/work-card';
 
-type Work = {
+import { ContentfulFluid } from '~/types/graphql-types';
+
+export type Work = {
   id?: string;
   slug?: string;
   title?: string;
@@ -12,13 +17,7 @@ type Work = {
   }[];
   thumbnail?: {
     title?: string;
-    sizes?: {
-      base64?: string;
-      aspectRatio?: string;
-      src?: string;
-      srcSet?: string;
-      sizes?: string;
-    };
+    fluid?: ContentfulFluid;
   };
 };
 
@@ -37,8 +36,8 @@ const Works: React.FC = () => {
             }
             thumbnail {
               title
-              sizes(maxWidth: 1440) {
-                ...GatsbyContentfulSizes
+              fluid(maxWidth: 1440) {
+                ...GatsbyContentfulFluid
               }
             }
           }
@@ -58,15 +57,33 @@ const Works: React.FC = () => {
   return (
     <>
       <SEO title="works" />
-      {works.map((work: Work, index) => {
-        return (
-          <Link to={`/works/${work.slug}`} key={`work_${index}`}>
-            {work.slug}
-          </Link>
-        );
-      })}
+      <Wrapper>
+        <CardWrapper>
+          {works.map((work: Work, index) => {
+            return (
+              <WorkCard
+                thumbnail={work.thumbnail?.fluid}
+                title={work.title ?? ''}
+                tags={work.tags}
+                to={`/works/${work.slug}`}
+                key={`work_${index}`}
+              />
+            );
+          })}
+        </CardWrapper>
+      </Wrapper>
     </>
   );
 };
+
+const Wrapper = styled.section`
+  ${tw`relative w-full m-0 pt-40`}
+`;
+
+const CardWrapper = styled.ul`
+  ${tw`w-full m-auto px-16 flex justify-around items-center`}
+
+  max-width: 1024px;
+`;
 
 export default Works;
