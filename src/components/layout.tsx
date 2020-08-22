@@ -75,7 +75,7 @@ const waveKeyframe = keyframes`
 const Main = styled.main<{ isIndex: boolean }>`
   ${tw`relative w-full h-full font-text bg-base-200`}
 
-  min-height: 80vh;
+  min-height: 85vh;
 
   ${({ isIndex }) =>
     isIndex &&
@@ -86,6 +86,7 @@ const Main = styled.main<{ isIndex: boolean }>`
 
 const Footer = styled.footer`
   ${tw`relative w-full bg-base-200`}
+  padding-top: 5vh;
 `;
 
 const WaveWrapper = styled.div`
