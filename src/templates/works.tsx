@@ -1,8 +1,9 @@
-import { Link, graphql, useStaticQuery } from 'gatsby';
+import { graphql, useStaticQuery } from 'gatsby';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import tw from 'twin.macro';
 
+import Pager from '~/components/pager';
 import SEO from '~/components/seo';
 import WorkCard from '~/components/work-card';
 
@@ -21,45 +22,17 @@ export type Work = {
   };
 };
 
-const Works: React.FC = () => {
-  const [works, setWorks] = useState<Work[]>([]);
-  const data = useStaticQuery(graphql`
-    query allContentfulWork {
-      allContentfulWork(limit: 1000) {
-        edges {
-          node {
-            id
-            slug
-            title
-            tags {
-              title
-            }
-            thumbnail {
-              title
-              fluid(maxWidth: 1440) {
-                ...GatsbyContentfulFluid
-              }
-            }
-          }
-        }
-      }
-    }
-  `);
-
-  useEffect(() => {
-    setWorks(
-      data.allContentfulWork.edges.map((edge: any) => {
-        return edge.node;
-      })
-    );
-  }, [data]);
+const WorksPage: React.FC = ({ data, pageContext }: any) => {
+  const works: Work[] = data.allContentfulWork.edges.map((edge: any) => {
+    return edge.node;
+  });
 
   return (
     <>
       <SEO title="works" />
       <Wrapper>
         <CardWrapper>
-          {works.map((work: Work, index) => {
+          {works?.map((work: Work, index) => {
             return (
               <WorkCard
                 thumbnail={work.thumbnail?.fluid}
@@ -71,6 +44,7 @@ const Works: React.FC = () => {
             );
           })}
         </CardWrapper>
+        <Pager pageContext={pageContext} />
       </Wrapper>
     </>
   );
@@ -86,4 +60,34 @@ const CardWrapper = styled.ul`
   max-width: 1024px;
 `;
 
-export default Works;
+export const query = graphql`
+  query($skip: Int!, $limit: Int!) {
+    allContentfulWork(
+      sort: { fields: [updatedAt], order: DESC }
+      skip: $skip
+      limit: $limit
+    ) {
+      edges {
+        node {
+          slug
+          title
+          tags {
+            title
+          }
+          thumbnail {
+            title
+            fluid(maxWidth: 1440) {
+              base64
+              aspectRatio
+              src
+              srcSet
+              sizes
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+export default WorksPage;

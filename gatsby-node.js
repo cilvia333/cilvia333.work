@@ -1,5 +1,6 @@
 const _ = require(`lodash`);
 const path = require(`path`);
+const { paginate } = require('gatsby-awesome-pagination');
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
@@ -7,7 +8,7 @@ exports.createPages = async ({ graphql, actions }) => {
   const works = await graphql(
     `
       {
-        allContentfulWork(limit: 1000) {
+        allContentfulWork(sort: { fields: [updatedAt], order: DESC }) {
           edges {
             node {
               id
@@ -42,7 +43,7 @@ exports.createPages = async ({ graphql, actions }) => {
     throw works.errors;
   }
 
-  const workTemplate = path.resolve(`./src/components/templates/work.tsx`);
+  const workTemplate = path.resolve(`./src/templates/work.tsx`);
   _.each(works.data.allContentfulWork.edges, edge => {
     createPage({
       path: `/works/${edge.node.slug}`,
@@ -51,5 +52,13 @@ exports.createPages = async ({ graphql, actions }) => {
         work: edge.node,
       },
     });
+  });
+
+  paginate({
+    createPage,
+    items: works.data.allContentfulWork.edges,
+    itemsPerPage: 12,
+    pathPrefix: '/works',
+    component: path.resolve('./src/templates/works.tsx'),
   });
 };
