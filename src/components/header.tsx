@@ -144,7 +144,7 @@ const NavWrapper = styled.div<{ isOpen: boolean }>`
   top:0;
   right: 0;
   transition-duration: 1ms;
-  grid-rows: [repeat(8, minmax(0, 1fr)) ];
+  grid-template-rows: repeat(8, minmax(0, 1fr));
 
   ${({ isOpen }) =>
     isOpen &&
@@ -204,9 +204,9 @@ const MenuLink = styled(({ isActive, ...props }: any) => <Link {...props} />)`
 `;
 
 const WaveWrapper = styled.div<{ isOpen: boolean }>`
-  ${tw`relative w-full h-full row-start-5 opacity-0 transition-opacity duration-100 ease-out delay-100`}
+  ${tw`relative w-full h-full row-start-7 opacity-0 transition-opacity duration-100 ease-out delay-100`}
 
-  grid-row-end: 8;
+  grid-row-end: 9;
 
   ${({ isOpen }) =>
     isOpen &&

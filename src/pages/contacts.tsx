@@ -58,19 +58,24 @@ const ContactsPage: React.FC = () => {
               name="contact"
               method="post"
               data-netlify="true"
+              data-netlify-honeypot="bot-field"
               onSubmit={onSubmit}
             >
+              <input type="hidden" name="form-name" value="contact" />
+              <input type="hidden" name="bot-field" />
+
               <noscript>
                 <p>This form won’t work with Javascript disabled.</p>
               </noscript>
               <Input>
-                <h4>
+                <label htmlFor="name">
                   お名前・会社<Required>*</Required>
-                </h4>
+                </label>
                 <InputText
                   type="text"
                   required
                   name="name"
+                  id="name"
                   placeholder="your name & company"
                   onChange={e => {
                     setFormState({ ...formState, name: e.target.value });
@@ -79,12 +84,13 @@ const ContactsPage: React.FC = () => {
                 />
               </Input>
               <Input>
-                <h4>
+                <label htmlFor="email">
                   メールアドレス<Required>*</Required>
-                </h4>
+                </label>
                 <InputText
                   type="email"
                   name="email"
+                  id="email"
                   placeholder="e-mail"
                   onChange={e => {
                     setFormState({ ...formState, email: e.target.value });
@@ -93,11 +99,12 @@ const ContactsPage: React.FC = () => {
                 />
               </Input>
               <Input>
-                <h4>
+                <label htmlFor="message">
                   メッセージ<Required>*</Required>
-                </h4>
+                </label>
                 <TextArea
                   name="message"
+                  id="message"
                   required
                   placeholder="message here"
                   onChange={e => {
@@ -170,7 +177,7 @@ const ContactsPage: React.FC = () => {
 const Wrapper = styled.div`
   ${tw`w-full pt-32 px-16 grid gap-16 m-auto`}
 
-  max-width: 1024px;
+  max-width: 1280px;
 
   grid-template-columns: minmax(0, 1.414fr) minmax(0, 1fr);
 `;
@@ -220,10 +227,10 @@ const Form = styled.form`
 `;
 
 const Input = styled.div`
-  ${tw`mb-4`}
+  ${tw`mb-4 text-left`}
 
-  h4 {
-    ${tw`text-gray-900 font-header font-medium text-base text-left`}
+  label {
+    ${tw`text-gray-900 font-header font-medium text-base`}
   }
 `;
 
@@ -247,7 +254,7 @@ const Button = styled.button`
 `;
 
 const AttentionWrapper = styled.section`
-  ${tw`w-full h-full col-start-2 col-end-3 bg-white px-4 py-6`}
+  ${tw`w-full h-full col-start-2 col-end-3 bg-white xl:px-8 xl:py-8 lg:px-4 lg:py-6`}
 
   border-radius: 1rem;
 `;
