@@ -11,7 +11,15 @@ type Form = {
   message: string;
 };
 
+const encode = (data: any) => {
+  return Object.keys(data)
+    .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+    .join('&');
+};
+
 const ContactsPage: React.FC = () => {
+  const [isSent, setIsSent] = useState(false);
+
   const [formState, setFormState] = useState<Form>({
     name: '',
     email: '',
@@ -24,7 +32,8 @@ const ContactsPage: React.FC = () => {
     message: false,
   });
 
-  const onSubmit = e => {
+  const onSubmit = async e => {
+    console.log(formState);
     if (formState.name === '') {
       setError({ ...error, name: true });
     } else if (formState.email === '') {
@@ -33,6 +42,20 @@ const ContactsPage: React.FC = () => {
       setError({ ...error, message: true });
     } else {
       e.preventDefault();
+      const form = e.target;
+      try {
+        await fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: encode({
+            'form-name': form.getAttribute('name'),
+            ...formState,
+          }),
+        });
+        setIsSent(true);
+      } catch (e) {
+        console.error(e);
+      }
     }
   };
 
