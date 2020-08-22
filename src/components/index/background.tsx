@@ -196,7 +196,7 @@ const BubbleOuter = styled.div<{ position: string; center: any }>`
           ${media.lg`
             transform: translate(
               ${center.contact.x - 96}px,
-              ${center.contact.y - 112}px
+              ${center.contact.y - 96}px
             )
             scale(2.7);
           `}

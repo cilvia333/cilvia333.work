@@ -6,6 +6,8 @@ import tw from 'twin.macro';
 import { CenterPosition } from '~/components/index/background';
 import LinkButton from '~/components/link-button';
 
+import { media } from '~/styles';
+
 interface Props {
   setPosition: (position: number) => void;
   setCenter: (position: CenterPosition) => void;
@@ -107,10 +109,18 @@ const Header = styled.div`
 
   h3 {
     ${tw`font-header font-bold text-3xl text-gray-900 leading-none`}
+
+    ${media.sm`
+      ${tw`text-2xl`}
+    `}
   }
 
   h2 {
     ${tw`inline-block relative font-header font-bold text-4xl text-gray-900 leading-none bg-base-200 px-16 py-4 rounded-full`}
+
+    ${media.sm`
+      ${tw`text-2xl px-8`}
+    `}
 
     &::after {
       ${tw`absolute bg-primary-500 w-full`}
