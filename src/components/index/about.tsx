@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useEffectOnce } from 'react-use';
+
 import styled from 'styled-components';
 import tw from 'twin.macro';
 
@@ -32,16 +32,11 @@ const About: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
 
   useEffect(() => {
     onChangeOffset();
-  }, [componentRef.current?.offsetTop]);
+  }, [componentRef]);
 
   useEffect(() => {
     onChangeCenter();
-  }, [
-    centerRef.current?.offsetTop,
-    centerRef.current?.offsetHeight,
-    centerRef.current?.offsetLeft,
-    centerRef.current?.offsetWidth,
-  ]);
+  }, [centerRef]);
 
   return (
     <>

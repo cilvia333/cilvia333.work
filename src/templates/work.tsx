@@ -15,6 +15,8 @@ import wave01 from '~/images/wave-white_01.png';
 import wave02 from '~/images/wave-white_02.png';
 import wave03 from '~/images/wave-white_03.png';
 
+import { media } from '~/styles';
+
 import { ContentfulWork } from '~/types/graphql-types';
 
 export const option = {
@@ -148,12 +150,25 @@ const OverViewWrapper = styled.div`
 
   max-width: 768px;
 
+  ${media.md`
+    ${tw`px-8`}
+    max-width: 100%;
+  `}
+
+  ${media.sm`
+    ${tw`px-8 flex-col`}
+  `}
+
   & > * {
     ${tw`mr-8`}
   }
 
   h1 {
     ${tw`font-header font-bold text-4xl leading-none`}
+
+    ${media.md`
+    ${tw`text-2xl`}
+  `}
   }
 `;
 
@@ -163,6 +178,10 @@ const TitleWrapper = styled.div`
 
 const TagWrapper = styled.div`
   ${tw`mt-4`}
+
+  ${media.sm`
+    ${tw`mt-2`}
+  `}
 `;
 
 const TagLink = styled(Link)`
@@ -185,6 +204,10 @@ const TagLink = styled(Link)`
 `;
 
 const OverView = styled.div`
+  ${media.sm`
+    ${tw`mt-2`}
+  `}
+
   h4 {
     ${tw`font-header font-bold text-sm leading-none mb-1`}
   }
@@ -234,6 +257,11 @@ const DescriptionWrapper = styled.div`
   ${tw`w-full m-auto`}
 
   max-width: 768px;
+
+  ${media.md`
+    ${tw`px-8`}
+    max-width: 100%;
+  `}
 
   & > * {
     ${tw`mb-16`}

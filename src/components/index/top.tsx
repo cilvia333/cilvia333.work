@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
+import { useMound } from 'react-use';
 import styled from 'styled-components';
 import tw from 'twin.macro';
 
@@ -26,12 +27,7 @@ const Top: React.FC<Props> = ({ setCenter }: Props) => {
 
   useEffect(() => {
     onChangeCenter();
-  }, [
-    centerRef.current?.offsetTop,
-    centerRef.current?.offsetHeight,
-    centerRef.current?.offsetLeft,
-    centerRef.current?.offsetWidth,
-  ]);
+  }, [centerRef]);
 
   return (
     <>

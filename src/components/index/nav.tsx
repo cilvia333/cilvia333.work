@@ -119,7 +119,7 @@ const Nav: React.FC<Props> = ({ position }: Props) => {
 };
 
 const Wrapper = styled.div<{ position: number }>`
-  ${tw`fixed text-right pr-12 w-full z-10`}
+  ${tw`fixed text-right pr-8 w-full z-10`}
 
   ${({ position }) =>
     css`

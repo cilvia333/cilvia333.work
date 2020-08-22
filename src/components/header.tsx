@@ -8,6 +8,8 @@ import wave01 from '~/images/wave-white_01.png';
 import wave02 from '~/images/wave-white_02.png';
 import wave03 from '~/images/wave-white_03.png';
 
+import { media } from '~/styles';
+
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [path, setPath] = useState('');
@@ -198,13 +200,17 @@ const MenuLink = styled(({ isActive, ...props }: any) => <Link {...props} />)`
     width: 0;
     bottom: 0;
     right: 0;
+
+    ${media.md`
+      bottom: 8px;
+    `}
   }
 
   ${({ isActive }) =>
     isActive &&
     css`
       &::after {
-        width: 50vw;
+        width: 100%;
       }
     `}
 `;
@@ -250,6 +256,10 @@ const ButtonWrapper = styled.div`
   ${tw`absolute px-8 py-8 mx-0 my-auto`}
   right: 0;
   top: 0;
+
+  ${media.sm`
+    ${tw`px-4 py-4`}
+  `}
 `;
 
 const Button = styled.div`

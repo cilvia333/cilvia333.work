@@ -32,16 +32,11 @@ const Contact: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
 
   useEffect(() => {
     onChangeOffset();
-  }, [componentRef.current?.offsetTop]);
+  }, [componentRef]);
 
   useEffect(() => {
     onChangeCenter();
-  }, [
-    centerRef.current?.offsetTop,
-    centerRef.current?.offsetHeight,
-    centerRef.current?.offsetLeft,
-    centerRef.current?.offsetWidth,
-  ]);
+  }, [centerRef]);
 
   return (
     <>
