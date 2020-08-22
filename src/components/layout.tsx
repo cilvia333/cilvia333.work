@@ -57,6 +57,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
+    position: relative;
   }
   ul {
     list-style: none;
@@ -73,7 +74,7 @@ const waveKeyframe = keyframes`
 `;
 
 const Main = styled.main<{ isIndex: boolean }>`
-  ${tw`relative w-full h-full font-text bg-base-200`}
+  ${tw`w-full h-full font-text bg-base-200`}
 
   min-height: 75vh;
 

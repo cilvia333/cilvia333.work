@@ -1,9 +1,12 @@
 import { Link } from 'gatsby';
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import { useWindowSize, useLockBodyScroll, useToggle } from 'react-use';
+import styled, { css } from 'styled-components';
 import tw from 'twin.macro';
 
 import SEO from '~/components/seo';
+
+import { media } from '~/styles';
 
 type Form = {
   name: string;
@@ -19,18 +22,18 @@ const encode = (data: any) => {
 
 const ContactsPage: React.FC = () => {
   const [isSent, setIsSent] = useState(false);
-
   const [formState, setFormState] = useState<Form>({
     name: '',
     email: '',
     message: '',
   });
-
   const [error, setError] = useState({
     name: false,
     email: false,
     message: false,
   });
+  const { width, height } = useWindowSize();
+  const [locked, toggleLocked] = useToggle(false);
 
   const onSubmit = async e => {
     if (formState.name === '') {
@@ -61,7 +64,7 @@ const ContactsPage: React.FC = () => {
   return (
     <>
       <SEO title="CONTACTS" />
-      <Wrapper>
+      <Wrapper isOpen={locked}>
         <Contacts>
           <Header>
             <h2>ご依頼を受け付けています</h2>
@@ -70,8 +73,14 @@ const ContactsPage: React.FC = () => {
               作品の感想もお待ちしております！
             </p>
           </Header>
+          <BeforeContactButton
+            isMobile={width <= 1024}
+            onClick={e => toggleLocked()}
+          >
+            ご依頼いただく前に...
+          </BeforeContactButton>
           <Email>
-            E-MAIL:
+            E-MAIL: <wbr />
             <a href="mailto:cilvia333x@gmail.com">cilvia333x@gmail.com</a>
           </Email>
           <FormWrapper>
@@ -139,7 +148,7 @@ const ContactsPage: React.FC = () => {
             </Form>
           </FormWrapper>
         </Contacts>
-        <AttentionWrapper>
+        <AttentionWrapper isOpen={locked}>
           <Attention>
             <h3>ご依頼の流れ</h3>
             <ol>
@@ -190,18 +199,28 @@ const ContactsPage: React.FC = () => {
               </AttentionItem>
             </ul>
           </Attention>
+          <AttentionCloseButton
+            isMobile={width <= 1024}
+            onClick={e => toggleLocked()}
+          >
+            承知しました
+          </AttentionCloseButton>
         </AttentionWrapper>
       </Wrapper>
     </>
   );
 };
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ isOpen: boolean }>`
   ${tw`w-full pt-32 px-16 grid gap-16 m-auto`}
 
   max-width: 1280px;
 
   grid-template-columns: minmax(0, 1.414fr) minmax(0, 1fr);
+
+  ${media.lg`
+    ${tw`block`}
+  `}
 `;
 
 const Contacts = styled.section`
@@ -225,7 +244,7 @@ const Email = styled.div`
   ${tw`relative w-full col-start-1 col-end-2 text-gray-900 font-header font-bold text-2xl mb-6`}
 
   a {
-    ${tw`relative text-primary-500 ml-2 underline`}
+    ${tw`relative text-primary-500 underline`}
   }
 `;
 
@@ -273,16 +292,41 @@ const TextArea = styled.textarea`
 const Button = styled.button`
   ${tw`bg-primary-500 text-gray-900 font-header font-bold rounded-full w-full py-2 text-center m-auto`}
   max-width: 256px;
+
+  ${media.md`
+    max-width: 100%;
+  `}
 `;
 
-const AttentionWrapper = styled.section`
-  ${tw`w-full h-full col-start-2 col-end-3 bg-white xl:px-8 xl:py-8 lg:px-4 lg:py-6`}
+const AttentionWrapper = styled.section<{ isOpen: boolean }>`
+  ${tw`w-full h-full col-start-2 col-end-3 bg-white px-8 py-8 transition-all duration-300 ease-out`}
 
   border-radius: 1rem;
+
+  ${media.lg`
+    ${tw`fixed top-0 right-0 left-0 overflow-scroll z-10 px-16 py-32 bg-primary-500`}
+    left: -110%;
+    transform: translateX(0);
+    border-radius: 0;
+
+    ${({ isOpen }) =>
+      isOpen &&
+      css`
+        transform: translateX(110%);
+      `}
+  `}
+
+  ${media.sm`
+    ${tw`px-8 py-32`}
+  `}
 `;
 
 const Attention = styled.div`
-  ${tw`w-full text-gray-900 font-text text-sm mb-4`}
+  ${tw`w-full text-gray-900 font-text text-sm mb-6 `}
+
+  ${media.lg`
+    ${tw`text-base-200`}
+  `}
 
   h3 {
     ${tw`relative font-header font-bold text-xl`}
@@ -292,6 +336,11 @@ const Attention = styled.div`
 
       content: "";
       height: 2px;
+      max-width: 256px;
+
+      ${media.lg`
+        ${tw`bg-base-200`}
+      `}
     }
   }
 
@@ -304,6 +353,10 @@ const Attention = styled.div`
 const AttentionItem = styled.li`
   ${tw`text-gray-900 text-sm mb-2`}
 
+  ${media.lg`
+      ${tw`text-base-200`}
+    `}
+
   h4 {
     ${tw`font-bold font-header`}
   }
@@ -311,6 +364,34 @@ const AttentionItem = styled.li`
   ul {
     ${tw`list-disc list-inside ml-2`}
   }
+`;
+
+const BeforeContactButton = styled.button<{ isMobile: boolean }>`
+  ${tw`bg-primary-500 text-gray-900 mb-12 w-full font-bold font-header p-4 rounded-full text-center hidden`}
+
+  ${({ isMobile }) =>
+    isMobile &&
+    css`
+      ${tw`block`}
+    `}
+`;
+
+const AttentionCloseButton = styled.button<{ isMobile: boolean }>`
+  ${tw`bg-base-200 text-gray-900 border-primary-500 border-solid border mt-12 w-full font-bold font-header p-4 rounded-full text-center hidden`}
+
+  ${({ isMobile }) =>
+    isMobile &&
+    css`
+      ${tw`block`}
+    `}
+
+  ${media.lg`
+    max-width: 256px;
+  `}
+
+  ${media.md`
+    max-width: 100%;
+  `}
 `;
 
 export default ContactsPage;

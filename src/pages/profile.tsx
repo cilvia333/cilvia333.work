@@ -121,12 +121,12 @@ const Heading = styled.section`
   }
 
   h2 {
-    ${tw`text-2xl`}
+    ${tw`text-2xl mt-2`}
   }
 `;
 
 const LinkWrapper = styled.div`
-  ${tw`mt-2`}
+  ${tw`mt-4`}
 `;
 
 const LinkButton = styled.a`
