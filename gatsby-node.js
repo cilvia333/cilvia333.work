@@ -8,7 +8,10 @@ exports.createPages = async ({ graphql, actions }) => {
   const works = await graphql(
     `
       {
-        allContentfulWork(sort: { fields: [updatedAt], order: DESC }) {
+        allContentfulWork(
+          sort: { fields: [updatedAt], order: DESC }
+          filter: { node_locale: { eq: "ja" } }
+        ) {
           edges {
             node {
               id
@@ -39,12 +42,34 @@ exports.createPages = async ({ graphql, actions }) => {
     `
   );
 
+  const tags = await graphql(
+    `
+      {
+        allContentfulTag {
+          edges {
+            node {
+              title
+            }
+          }
+        }
+      }
+    `
+  );
+
   if (works.errors) {
     throw works.errors;
   }
 
+  if (tags.errors) {
+    throw tags.errors;
+  }
+
+  console.log(works.data.allContentfulWork.edges);
+  const worksEdges = works.data.allContentfulWork.edges;
+  const tagsEdges = tags.data.allContentfulTag.edges;
+
   const workTemplate = path.resolve(`./src/templates/work.tsx`);
-  _.each(works.data.allContentfulWork.edges, edge => {
+  _.each(worksEdges, edge => {
     createPage({
       path: `/works/${edge.node.slug}`,
       component: workTemplate,
@@ -56,9 +81,30 @@ exports.createPages = async ({ graphql, actions }) => {
 
   paginate({
     createPage,
-    items: works.data.allContentfulWork.edges,
+    items: worksEdges,
     itemsPerPage: 12,
     pathPrefix: '/works',
     component: path.resolve('./src/templates/works.tsx'),
+  });
+
+  _.each(tagsEdges, edge => {
+    const title = edge.node.title;
+    const works = worksEdges.filter(edge =>
+      edge.node.tags.find(tag => tag.title === title)
+    );
+
+    console.log(title);
+    console.log(works);
+
+    paginate({
+      createPage,
+      items: works,
+      itemsPerPage: 12,
+      pathPrefix: `/works/t/${title}`,
+      component: path.resolve('./src/templates/tags.tsx'),
+      context: {
+        tag: title,
+      },
+    });
   });
 };

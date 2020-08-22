@@ -22,7 +22,7 @@ export type Work = {
   };
 };
 
-const WorksPage: React.FC = ({ data, pageContext }: any) => {
+const TagsPage: React.FC = ({ data, pageContext }: any) => {
   const works: Work[] = data.allContentfulWork.edges.map((edge: any) => {
     return edge.node;
   });
@@ -61,9 +61,10 @@ const CardWrapper = styled.ul`
 `;
 
 export const query = graphql`
-  query($skip: Int!, $limit: Int!) {
+  query($skip: Int!, $limit: Int!, $tag: String) {
     allContentfulWork(
       sort: { fields: [updatedAt], order: DESC }
+      filter: { tags: { elemMatch: { title: { eq: $tag } } } }
       skip: $skip
       limit: $limit
     ) {
@@ -90,4 +91,4 @@ export const query = graphql`
   }
 `;
 
-export default WorksPage;
+export default TagsPage;
