@@ -84,9 +84,17 @@ const About: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
 };
 
 const Wrapper = styled.section`
-  ${tw`flex justify-between items-center`}
+  ${tw`flex justify-between items-center w-full m-auto`}
 
-  padding-right: calc(50% - 512px);
+  max-width: 1980px;
+
+  @media (min-width: 1921px) {
+    padding-right: 448px;
+  }
+
+  @media (max-width: 1920px) {
+    padding-right: calc(50% - 512px);
+  }
 
   ${media.xl`
     ${tw`pr-16`}
@@ -145,11 +153,17 @@ const Description = styled.div`
   ${tw`py-32`}
 
   ${media.lg`
-    ${tw`py-0 mt-40 px-16 w-full text-center`}
+    ${tw`py-0 mt-40 w-full text-center`}
+
+    max-width: 512px;
+  `}
+
+  ${media.md`
+    ${tw`mt-32 px-16`}
   `}
 
   ${media.sm`
-    ${tw`mt-32 px-4`}
+    ${tw`mt-32 px-8`}
   `}
 `;
 

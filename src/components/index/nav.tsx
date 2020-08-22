@@ -4,6 +4,8 @@ import { useMount, useUnmount } from 'react-use';
 import styled, { css } from 'styled-components';
 import tw from 'twin.macro';
 
+import { media } from '~/styles';
+
 export type Positions = {
   current: number;
   about: number;
@@ -117,11 +119,17 @@ const Nav: React.FC<Props> = ({ position }: Props) => {
 };
 
 const Wrapper = styled.div<{ position: number }>`
-  ${tw`fixed text-right w-full pr-12 z-10`}
+  ${tw`fixed text-right pr-12 w-full z-10`}
 
   ${({ position }) =>
     css`
       transform: translateY(${position}px);
+
+      ${media.sm`
+        ${tw`pr-4`}
+
+        transform: translateY(${position}px);
+      `}
     `}
 `;
 

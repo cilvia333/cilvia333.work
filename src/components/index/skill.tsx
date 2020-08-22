@@ -8,7 +8,10 @@ import Work from '~/components/index/work';
 import LinkButton from '~/components/link-button';
 
 import LineWaveSvg from '~/images/line-wave.svg';
+import MoreTriBottomSvg from '~/images/more-tri-bottom.svg';
 import MoreTriSvg from '~/images/more-tri.svg';
+
+import { media } from '~/styles';
 
 type WorkHeadline = {
   title: string;
@@ -139,6 +142,18 @@ const Wrapper = styled.section`
   & > * {
     ${tw`my-16`}
   }
+
+  ${media.lg`
+    ${tw`px-32`}
+  `}
+
+  ${media.md`
+    ${tw`px-16`}
+  `}
+
+  ${media.sm`
+    ${tw`px-8`}
+  `}
 `;
 
 const Header = styled.div`
@@ -146,10 +161,18 @@ const Header = styled.div`
 
   h3 {
     ${tw`font-header font-bold text-2xl text-gray-500 leading-none mb-2`}
+
+    ${media.sm`
+      ${tw`text-xl`}
+    `}
   }
 
   h2 {
     ${tw`inline-block relative font-header font-bold text-4xl text-gray-900 leading-none mb-8`}
+
+    ${media.sm`
+      ${tw`text-3xl`}
+    `}
 
     &::after {
       ${tw`absolute bg-primary-500 w-full`}
@@ -164,6 +187,10 @@ const Header = styled.div`
 
   p {
     ${tw`font-header font-bold text-xl text-gray-900`}
+
+    ${media.sm`
+      ${tw`text-lg`}
+    `}
   }
 `;
 
@@ -185,10 +212,18 @@ const ContentWrapper = styled.li`
 
 const ContentTitle = styled.div`
   ${tw`font-header font-bold text-3xl text-gray-900 leading-10`}
+
+  ${media.sm`
+    ${tw`text-2xl leading-8`}
+  `}
 `;
 
 const ContentNum = styled.div`
   ${tw`text-base-200 bg-primary-500 rounded-circle w-10 h-10 inline-block text-center mr-2`}
+
+  ${media.sm`
+    ${tw`w-8 h-8`}
+  `}
 `;
 
 const ContentDescription = styled.div`
@@ -198,10 +233,22 @@ const ContentDescription = styled.div`
 
 const WorksWrapper = styled.div`
   ${tw`text-gray-900 flex justify-between items-center`}
+
+  ${media.sm`
+    ${tw`flex-col`}
+
+    & > * {
+      ${tw`mb-4`}
+    }
+  `}
 `;
 
 const WorkDivider = styled.div`
   ${tw`h-5 w-5 rounded-circle bg-primary-500`}
+
+  ${media.lg`
+    ${tw`w-4 h-4`}
+  `}
 `;
 
 const WorkMoreLinkButton = styled(Link)`
@@ -209,6 +256,17 @@ const WorkMoreLinkButton = styled(Link)`
 
   background: url(${MoreTriSvg}) center/contain no-repeat;
   line-height: 5rem;
+
+  ${media.lg`
+    ${tw`w-16 h-16 pl-3`}
+    line-height: 3.7rem;
+  `}
+
+  ${media.sm`
+    ${tw`w-16 h-16 pl-0 text-center`}
+    background: url(${MoreTriBottomSvg}) center/contain no-repeat;
+    line-height: 2.3rem;
+  `}
 `;
 
 const OtherWorks = styled.div`

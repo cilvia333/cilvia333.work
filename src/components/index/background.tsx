@@ -181,6 +181,18 @@ const BubbleOuter = styled.div<{ position: string; center: any }>`
               scale(10);
           `}
 
+          ${media.md`
+            transform: translate(${center.skill.x - 96}px, ${center.skill.y -
+            96}px)
+              scale(8);
+          `}
+
+        ${media.sm`
+            transform: translate(${center.skill.x - 96}px, ${center.skill.y -
+          96}px)
+              scale(20);
+          `}
+
         ${Bubble} {
           ${tw`bg-base-200`}
         }

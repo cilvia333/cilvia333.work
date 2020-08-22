@@ -5,6 +5,8 @@ import tw from 'twin.macro';
 
 import Image from '~/components/image';
 
+import { media } from '~/styles';
+
 interface Props {
   title: string;
   to: string;
@@ -37,6 +39,14 @@ const TitleLabelWrapper = styled.div`
 
 const Wrapper = styled(Link)`
   ${tw`block relative w-56 h-56 rounded-circle bg-white overflow-hidden`}
+
+  ${media.lg`
+    ${tw`w-32 h-32`}
+  `}
+
+  ${media.sm`
+    ${tw`w-56 h-56`}
+  `}
 
   &:hover ${TitleLabelWrapper} {
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
