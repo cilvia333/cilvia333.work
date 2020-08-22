@@ -55,14 +55,15 @@ const Wrapper = styled.section`
 `;
 
 const CardWrapper = styled.ul`
-  ${tw`w-full m-auto mb-12 px-16 flex justify-around items-center`}
+  ${tw`w-full m-auto mb-12 px-16 flex justify-between items-center flex-wrap`}
 
-  max-width: 1024px;
+  max-width: 768px;
 `;
 
 export const query = graphql`
   query($skip: Int!, $limit: Int!) {
     allContentfulWork(
+      filter: { node_locale: { eq: "ja" } }
       sort: { fields: [updatedAt], order: DESC }
       skip: $skip
       limit: $limit

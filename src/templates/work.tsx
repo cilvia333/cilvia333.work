@@ -83,7 +83,7 @@ const Work: React.FC<Props> = ({ pageContext }: Props) => {
             <TagWrapper>
               {work.tags?.map((tag, i) => (
                 <TagLink
-                  to={`/works?tag=${tag?.title ?? ''}`}
+                  to={`/works/t/${tag?.title ?? ''}`}
                   key={`work_tag-${i}`}
                 >{`#${tag?.title ?? ''}`}</TagLink>
               ))}

@@ -64,7 +64,10 @@ export const query = graphql`
   query($skip: Int!, $limit: Int!, $tag: String) {
     allContentfulWork(
       sort: { fields: [updatedAt], order: DESC }
-      filter: { tags: { elemMatch: { title: { eq: $tag } } } }
+      filter: {
+        tags: { elemMatch: { title: { eq: $tag } } }
+        node_locale: { eq: "ja" }
+      }
       skip: $skip
       limit: $limit
     ) {

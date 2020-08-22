@@ -76,11 +76,17 @@ const Header: React.FC = () => {
         <PageInfoWrapper>
           <PageTitle isWhite={true}>{path.split('/')[1]}</PageTitle>
           <PageSubTitle isWhite={true}>
-            {path.split('/')[2] ? `/${path.split('/')[2]}` : ''}
+            {path.split('/')[2] && path.split('/')[2] !== 't'
+              ? `/${path.split('/')[2]}`
+              : ''}
           </PageSubTitle>
           <WorksBackButton
             isWhite={true}
-            isActive={path.split('/')[1] === 'works' && path.split('/')[2]}
+            isActive={
+              path.split('/')[1] === 'works' &&
+              path.split('/')[2] !== 't' &&
+              path.split('/')[2]
+            }
           />
         </PageInfoWrapper>
       </Wrapper>

@@ -56,7 +56,7 @@ const Contact: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
               <br />
               なんでもご連絡ください。
             </p>
-            <LinkButton to="/contact">連絡してみる！</LinkButton>
+            <LinkButton to="/contacts">連絡してみる！</LinkButton>
           </Content>
           <Content>
             <ContentHeader>Other Links</ContentHeader>

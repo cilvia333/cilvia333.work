@@ -31,7 +31,7 @@ const WorkCard: React.FC<Props> = ({ thumbnail, title, tags, to }: Props) => {
         <TagWrapper>
           {tags?.map((tag, i) => (
             <TagLink
-              to={`/works?tag=${tag?.title ?? ''}`}
+              to={`/works/t/${tag?.title ?? ''}`}
               key={`work_tag-${i}`}
             >{`#${tag?.title ?? ''}`}</TagLink>
           ))}

@@ -40,21 +40,21 @@ const mockup = [
     description:
       'ウェブデザイン〜アニメーション、実装まで。かわいいデザインから、シンプルでスタイリッシュなデザインまで幅広く。CMSやSEO対策、アクセシビリティにも気を配ります。',
     works: webMockup,
-    link: '/works?tag=web',
+    link: '/works/t/web',
   },
   {
     title: 'DTP・装丁デザイン',
     description:
       '同人誌やZINE、CDジャケットなどのデザイン。特殊装丁や印刷のディレクションなども対応可能です。',
     works: webMockup,
-    link: '/works?tag=dtp',
+    link: '/works/t/dtp',
   },
   {
     title: 'ロゴデザイン',
     description:
       'VTuberからお店のロゴまで。幅広い媒体での利用も考えたデザインを行います。',
     works: webMockup,
-    link: '/works?tag=logo',
+    link: '/works/t/logo',
   },
 ];
 

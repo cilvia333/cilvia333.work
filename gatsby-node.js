@@ -64,7 +64,6 @@ exports.createPages = async ({ graphql, actions }) => {
     throw tags.errors;
   }
 
-  console.log(works.data.allContentfulWork.edges);
   const worksEdges = works.data.allContentfulWork.edges;
   const tagsEdges = tags.data.allContentfulTag.edges;
 
