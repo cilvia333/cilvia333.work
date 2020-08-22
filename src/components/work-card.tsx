@@ -18,7 +18,7 @@ interface Props {
 
 const WorkCard: React.FC<Props> = ({ thumbnail, title, tags, to }: Props) => {
   const onClick = e => {
-    navigate(to);
+    navigate(to ?? '');
   };
 
   return (
