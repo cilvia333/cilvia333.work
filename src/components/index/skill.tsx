@@ -81,7 +81,7 @@ const Skill: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
 
   useEffect(() => {
     onChangeOffset();
-  }, [componentRef]);
+  }, [componentRef.current]);
 
   return (
     <>

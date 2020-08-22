@@ -27,7 +27,7 @@ const Top: React.FC<Props> = ({ setCenter }: Props) => {
 
   useEffect(() => {
     onChangeCenter();
-  }, [centerRef]);
+  }, [centerRef.current]);
 
   return (
     <>
