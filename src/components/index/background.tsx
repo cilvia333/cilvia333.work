@@ -9,6 +9,8 @@ import wave01 from '~/images/wave-yellow_01.png';
 import wave02 from '~/images/wave-yellow_02.png';
 import wave03 from '~/images/wave-yellow_03.png';
 
+import { media } from '~/styles';
+
 export type CenterPosition = {
   x: number;
   y: number;
@@ -158,6 +160,12 @@ const BubbleOuter = styled.div<{ position: string; center: any }>`
         transform: translate(${center.about.x - 96}px, ${center.about.y - 96}px)
           scale(4);
 
+          ${media.lg`
+            transform: translate(${center.about.x - 96}px, ${center.about.y -
+            96}px)
+              scale(3.5);
+          `}
+
         & ${Bubble} {
           ${tw`bg-base-200`}
         }
@@ -166,6 +174,12 @@ const BubbleOuter = styled.div<{ position: string; center: any }>`
       return css`
         transform: translate(${center.skill.x - 96}px, ${center.skill.y - 96}px)
           scale(11);
+
+        ${media.lg`
+            transform: translate(${center.skill.x - 96}px, ${center.skill.y -
+          96}px)
+              scale(10);
+          `}
 
         ${Bubble} {
           ${tw`bg-base-200`}
@@ -178,6 +192,14 @@ const BubbleOuter = styled.div<{ position: string; center: any }>`
             ${center.contact.y - 96}px
           )
           scale(2.7);
+
+          ${media.lg`
+            transform: translate(
+              ${center.contact.x - 96}px,
+              ${center.contact.y - 112}px
+            )
+            scale(2.7);
+          `}
 
         & ${Bubble} {
           ${tw`bg-base-200`}

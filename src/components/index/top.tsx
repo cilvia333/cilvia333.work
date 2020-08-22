@@ -6,6 +6,8 @@ import { CenterPosition } from '~/components/index/background';
 
 import IconImg from '~/images/icon.png';
 
+import { media } from '~/styles';
+
 interface Props {
   setCenter: (position: CenterPosition) => void;
 }
@@ -60,6 +62,10 @@ const Icon = styled.img`
 
 const Title = styled.h1`
   ${tw`font-header font-bold text-6xl text-gray-900 text-shadow-black`}
+
+  ${media.sm`
+    ${tw`text-5xl`}
+  `}
 `;
 
 export default Top;

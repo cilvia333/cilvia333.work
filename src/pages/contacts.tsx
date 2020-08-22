@@ -33,7 +33,6 @@ const ContactsPage: React.FC = () => {
   });
 
   const onSubmit = async e => {
-    console.log(formState);
     if (formState.name === '') {
       setError({ ...error, name: true });
     } else if (formState.email === '') {
@@ -54,7 +53,7 @@ const ContactsPage: React.FC = () => {
         });
         setIsSent(true);
       } catch (e) {
-        console.error(e);
+        throw new Error(e);
       }
     }
   };

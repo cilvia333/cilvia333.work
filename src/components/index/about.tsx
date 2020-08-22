@@ -6,6 +6,8 @@ import tw from 'twin.macro';
 import { CenterPosition } from '~/components/index/background';
 import LinkButton from '~/components/link-button';
 
+import { media } from '~/styles';
+
 interface Props {
   setPosition: (position: number) => void;
   setCenter: (position: CenterPosition) => void;
@@ -82,7 +84,17 @@ const About: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
 };
 
 const Wrapper = styled.section`
-  ${tw`flex justify-between items-center pr-12`}
+  ${tw`flex justify-between items-center`}
+
+  padding-right: calc(50% - 512px);
+
+  ${media.xl`
+    ${tw`pr-16`}
+  `}
+
+  ${media.lg`
+    ${tw`flex-col px-0`}
+  `}
 `;
 
 const CatchWrapper = styled.div`
@@ -90,38 +102,104 @@ const CatchWrapper = styled.div`
 `;
 
 const CatchText = styled.h1`
-  ${tw`font-header font-bold text-base-200`}
-  font-size: 150px;
+  ${tw`font-header font-bold text-base-200 text-left`}
+  font-size: 200px;
   line-height: 1.1;
+
+  @media (max-width: 1685px) {
+    font-size: 160px;
+  }
+
+  ${media.xl`
+    font-size:140px;
+  `}
+
+  ${media.lg`
+    ${tw`text-justify`}
+    text-justify: distribute;
+    font-size:160px;
+  `}
+
+  ${media.md`
+    font-size:140px;
+  `}
+
+  ${media.sm`
+    font-size:70px;
+  `}
 `;
 
 const CatchSmallText = styled.span`
   font-size: 80px;
+
+  ${media.md`
+    font-size:60px;
+  `}
+
+  ${media.sm`
+    font-size:40px;
+  `}
 `;
 
 const Description = styled.div`
   ${tw`py-32`}
+
+  ${media.lg`
+    ${tw`py-0 mt-40 px-16 w-full text-center`}
+  `}
+
+  ${media.sm`
+    ${tw`mt-32 px-4`}
+  `}
 `;
 
 const ProfileWrapper = styled.h1`
-  ${tw`font-header font-bold text-base-200  mb-12`}
+  ${tw`font-header font-bold text-base-200 mb-12`}
+
+  ${media.lg`
+    ${tw`mb-6 text-center`}
+  `}
 `;
 
 const Name = styled.div`
   ${tw`text-gray-900 text-4xl leading-none`}
+
+  ${media.lg`
+    ${tw`text-3xl`}
+  `}
+
+  ${media.sm`
+    ${tw`text-2xl`}
+  `}
 `;
 
 const Pronounce = styled.div`
   ${tw`text-gray-900 text-2xl leading-none`}
+
+  ${media.lg`
+    ${tw`text-xl`}
+  `}
+
+  ${media.sm`
+    ${tw`text-lg`}
+  `}
 `;
 
 const DescriptionText = styled.div`
   ${tw`text-sm text-gray-900 leading-loose w-full`}
   max-width: 500px;
 
+  ${media.lg`
+    max-width: 100%;
+  `}
+
   p {
     ${tw`mb-8`}
     font-feature-settings: 'pkna';
+
+    ${media.lg`
+      ${tw`mb-4 text-center`}
+    `}
   }
 `;
 

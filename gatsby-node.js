@@ -92,9 +92,6 @@ exports.createPages = async ({ graphql, actions }) => {
       edge.node.tags.find(tag => tag.title === title)
     );
 
-    console.log(title);
-    console.log(works);
-
     paginate({
       createPage,
       items: works,
