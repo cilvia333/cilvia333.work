@@ -75,7 +75,7 @@ const waveKeyframe = keyframes`
 const Main = styled.main<{ isIndex: boolean }>`
   ${tw`relative w-full h-full font-text bg-base-200`}
 
-  min-height: 85vh;
+  min-height: 75vh;
 
   ${({ isIndex }) =>
     isIndex &&

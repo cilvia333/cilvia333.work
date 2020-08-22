@@ -1,15 +1,62 @@
+import { Link } from 'gatsby';
 import React from 'react';
+import styled from 'styled-components';
+import tw from 'twin.macro';
 
 import SEO from '~/components/seo';
 
 const NotFoundPage: React.FC = () => {
   return (
     <>
-      <SEO title="404: Not found" />
-      <h1>NOT FOUND</h1>
-      <p>You just hit a route that doesn&#39;t exist... the sadness.</p>
+      <SEO title="404:NOT-FOUND" />
+      <Wrapper>
+        <Header>404</Header>
+        <Text>
+          お探しのページはありません。
+          <br />
+          <BackLink to="/">back to TOP</BackLink>
+        </Text>
+      </Wrapper>
     </>
   );
 };
 
+const Wrapper = styled.div`
+  ${tw`relative w-full pt-24 text-center`}
+`;
+
+const Header = styled.div`
+  ${tw`font-header font-bold`}
+
+  font-size: 200px;
+`;
+
+const Text = styled.div`
+  ${tw`text-lg w-full h-full`}
+`;
+
+const BackLink = styled(Link)`
+  ${tw`relative inline-block align-middle text-sm`}
+
+  &::before {
+    ${tw`inline-block bg-gray-900 h-3 w-3 mr-2`}
+
+    content: '';
+  }
+
+  &::after {
+    ${tw`absolute w-0 m-0 bg-gray-900 transition-all duration-300 ease-out rounded-full`}
+
+    content: '';
+    height: 1px;
+    bottom: 0;
+    left: 0;
+  }
+
+  &:hover {
+    &::after {
+      ${tw`w-full`}
+    }
+  }
+`;
 export default NotFoundPage;
