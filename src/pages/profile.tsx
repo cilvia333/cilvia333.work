@@ -1,11 +1,12 @@
 import { Twitter, Github, Tumblr } from '@icons-pack/react-simple-icons';
-import { Link } from 'gatsby';
 import React from 'react';
 import styled from 'styled-components';
 import tw from 'twin.macro';
 
 import Image from '~/components/image';
 import SEO from '~/components/seo';
+
+import { media } from '~/styles';
 
 type Event = {
   date: string;
@@ -96,6 +97,10 @@ const Wrapper = styled.div`
   ${tw`w-full pt-32 px-16 grid gap-16`}
 
   grid-template-columns: 1fr minmax(auto,768px) 1fr;
+
+  ${media.lg`
+    ${tw`block`}
+  `}
 `;
 
 const Icon = styled(Image)`
@@ -148,6 +153,10 @@ const History = styled.section`
 
 const Event = styled.section`
   ${tw`text-gray-900 text-sm mb-8 leading-none`}
+
+  &:last-child {
+    ${tw`mb-0`}
+  }
 
   h4 {
     ${tw`font-header font-bold `}

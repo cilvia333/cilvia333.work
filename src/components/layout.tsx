@@ -87,6 +87,7 @@ const Main = styled.main<{ isIndex: boolean }>`
 const Footer = styled.footer`
   ${tw`relative w-full bg-base-200`}
   padding-top: 5vh;
+  z-index: -1;
 `;
 
 const WaveWrapper = styled.div`
