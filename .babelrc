@@ -2,13 +2,18 @@
   "presets": [
     [
       "@babel/preset-env",
-      { "targets": { "browsers": [">0.25%", "not dead"] }}
+      {
+        "targets": { "browsers": [">0.25%", "not dead"] },
+        "useBuiltIns": "entry",
+        "corejs": 3
+      }
     ],
     "@babel/preset-react"
   ],
   "plugins": [
     "@babel/plugin-proposal-optional-chaining",
     "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-transform-runtime",
     "macros"
   ]
 }
