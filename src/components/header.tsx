@@ -83,8 +83,11 @@ const Header: React.FC = () => {
           </Button>
         </ButtonWrapper>
         <PageInfoWrapper>
-          <PageTitle isWhite={ctx.white || isOpen}>
-            {path.split('/')[1]}
+          <PageTitle
+            isWhite={ctx.white || isOpen || !path.split('/')[1]}
+            isActive={path.split('/')[1] || isOpen}
+          >
+            {path.split('/')[1] ? path.split('/')[1] : 'TOP'}
           </PageTitle>
           <PageSubTitle isWhite={ctx.white || isOpen}>
             {path.split('/')[2] && path.split('/')[2] !== 't'
@@ -323,13 +326,19 @@ const PageInfoWrapper = styled.div`
   top: 0;
 `;
 
-const PageTitle = styled.div<{ isWhite: boolean }>`
-  ${tw`font-header font-bold text-4xl text-gray-900 relative uppercase inline-block transition-all duration-300 ease-out`}
+const PageTitle = styled.div<{ isWhite: boolean; isActive: boolean }>`
+  ${tw`font-header font-bold text-4xl text-gray-900 relative uppercase inline-block transition-all duration-300 ease-out opacity-0`}
 
   ${({ isWhite }) =>
     isWhite &&
     css`
       ${tw`text-base-200`}
+    `}
+
+  ${({ isActive }) =>
+    isActive &&
+    css`
+      ${tw`opacity-100`}
     `}
 `;
 
