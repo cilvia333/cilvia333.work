@@ -88,9 +88,12 @@ exports.createPages = async ({ graphql, actions }) => {
 
   _.each(tagsEdges, edge => {
     const title = edge.node.title;
-    const works = worksEdges.filter(edge =>
-      edge.node.tags.find(tag => tag.title === title)
-    );
+    const works = worksEdges.filter(edge => {
+      if (edge.node.tags) {
+        return edge.node.tags.find(tag => tag.title === title);
+      }
+      return false;
+    });
 
     paginate({
       createPage,

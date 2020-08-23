@@ -1,5 +1,5 @@
 import { useLocation } from '@reach/router';
-import { Link } from 'gatsby';
+import { Link, navigate } from 'gatsby';
 import React, { useEffect, useState, useContext } from 'react';
 import styled, { css, keyframes } from 'styled-components';
 import tw from 'twin.macro';
@@ -7,6 +7,7 @@ import tw from 'twin.macro';
 import { layoutContext } from '~/hooks';
 
 import BackArrow from '~/images/back-arrow.inline.svg';
+import CrossSvg from '~/images/cross.inline.svg';
 import wave01 from '~/images/wave-white_01.png';
 import wave02 from '~/images/wave-white_02.png';
 import wave03 from '~/images/wave-white_03.png';
@@ -89,6 +90,10 @@ const Header: React.FC = () => {
           >
             {path.split('/')[1] ? path.split('/')[1] : 'TOP'}
           </PageTitle>
+          <WorksTagBadge isActive={path.split('/')[2] === 't'}>
+            {`#${path.split('/')[3] ?? ''}`}
+            <WorksTagCross onClick={() => navigate('/works')} />
+          </WorksTagBadge>
           <PageSubTitle isWhite={ctx.white || isOpen}>
             {path.split('/')[2] && path.split('/')[2] !== 't'
               ? `/${path.split('/')[2]}`
@@ -368,6 +373,20 @@ const WorksBackButton = styled(({ isActive, isWhite, ...props }: any) => (
     css`
       ${tw`block`}
     `}
+`;
+
+const WorksTagBadge = styled.div<{ isActive: boolean }>`
+  ${tw`hidden relative text-base-200 rounded-full bg-primary-500 px-4 ml-4 mb-4 align-middle`}
+
+  ${({ isActive }) =>
+    isActive &&
+    css`
+      ${tw`inline-block`}
+    `}
+`;
+
+const WorksTagCross = styled(CrossSvg)`
+  ${tw`inline-block text-base-200 fill-current ml-2 cursor-pointer`}
 `;
 
 export default Header;
