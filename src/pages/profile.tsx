@@ -1,10 +1,13 @@
 import { Twitter, Github, Tumblr } from '@icons-pack/react-simple-icons';
-import React from 'react';
+import React, { useContext } from 'react';
+import { useEffectOnce } from 'react-use';
 import styled from 'styled-components';
 import tw from 'twin.macro';
 
 import Image from '~/components/image';
 import SEO from '~/components/seo';
+
+import { layoutContext } from '~/hooks';
 
 import { media } from '~/styles';
 
@@ -37,6 +40,12 @@ const events: Event[] = [
 ];
 
 const Profile: React.FC = () => {
+  const ctx = useContext(layoutContext);
+
+  useEffectOnce(() => {
+    ctx.setIsWhite(false);
+  });
+
   return (
     <>
       <SEO title="profile" />

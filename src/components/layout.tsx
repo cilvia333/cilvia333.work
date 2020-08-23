@@ -11,6 +11,8 @@ import tw from 'twin.macro';
 
 import Header from '~/components/header';
 
+import { useLayoutContext, layoutContext } from '~/hooks';
+
 import wave01 from '~/images/wave-yellow_01.png';
 import wave02 from '~/images/wave-yellow_02.png';
 import wave03 from '~/images/wave-yellow_03.png';
@@ -31,23 +33,27 @@ const Layout: React.FC<Props> = ({ children }: Props) => {
     primary: 'red',
   };
 
+  const ctx = useLayoutContext();
+
   return (
     <>
       <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <Header />
-        <Main isIndex={path === '/'}>{children}</Main>
-        {path === '/' ? (
-          ''
-        ) : (
-          <Footer>
-            <WaveWrapper>
-              <Wave />
-              <Wave />
-              <Wave />
-            </WaveWrapper>
-          </Footer>
-        )}
+        <layoutContext.Provider value={ctx}>
+          <GlobalStyle />
+          <Header />
+          <Main isIndex={path === '/'}>{children}</Main>
+          {path === '/' ? (
+            ''
+          ) : (
+            <Footer>
+              <WaveWrapper>
+                <Wave />
+                <Wave />
+                <Wave />
+              </WaveWrapper>
+            </Footer>
+          )}
+        </layoutContext.Provider>
       </ThemeProvider>
     </>
   );

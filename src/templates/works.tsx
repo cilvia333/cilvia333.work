@@ -1,11 +1,14 @@
-import { graphql, useStaticQuery } from 'gatsby';
-import React, { useEffect, useState } from 'react';
+import { graphql } from 'gatsby';
+import React, { useContext } from 'react';
+import { useEffectOnce } from 'react-use';
 import styled from 'styled-components';
 import tw from 'twin.macro';
 
 import Pager from '~/components/pager';
 import SEO from '~/components/seo';
 import WorkCard from '~/components/work-card';
+
+import { layoutContext } from '~/hooks';
 
 import { media } from '~/styles';
 
@@ -27,6 +30,12 @@ export type Work = {
 const WorksPage: React.FC = ({ data, pageContext }: any) => {
   const works: Work[] = data.allContentfulWork.edges.map((edge: any) => {
     return edge.node;
+  });
+
+  const ctx = useContext(layoutContext);
+
+  useEffectOnce(() => {
+    ctx.setIsWhite(false);
   });
 
   return (

@@ -1,15 +1,15 @@
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { Link } from 'gatsby';
-import React, { useState } from 'react';
-import { useMount, useUnmount } from 'react-use';
+import React, { useContext, useEffect } from 'react';
+import { useWindowSize, useWindowScroll } from 'react-use';
 import styled, { css, keyframes } from 'styled-components';
 import tw from 'twin.macro';
 
 import Image from '~/components/image';
 import SEO from '~/components/seo';
 
-import { useContentfulImage } from '~/hooks';
+import { useContentfulImage, layoutContext } from '~/hooks';
 
 import BackArrow from '~/images/back-arrow.inline.svg';
 import wave01 from '~/images/wave-white_01.png';
@@ -42,36 +42,17 @@ interface Props {
 
 const Work: React.FC<Props> = ({ pageContext }: Props) => {
   const { work } = pageContext;
-  const [currentPosition, setCurrentPosition] = useState(0);
-  const [windowHeight, setWindowHeight] = useState(0);
+  const { x, y } = useWindowScroll(0);
+  const { width, height } = useWindowSize();
+  const ctx = useContext(layoutContext);
 
-  const overviewTranslate = () => {
-    if (currentPosition <= windowHeight / 4) {
-      return currentPosition;
+  useEffect(() => {
+    if (y >= height) {
+      ctx.setIsWhite(false);
     } else {
-      return windowHeight / 4;
+      ctx.setIsWhite(true);
     }
-  };
-
-  const onScroll = (): void => {
-    setCurrentPosition(window.pageYOffset);
-  };
-
-  const onResize = () => {
-    setWindowHeight(window.innerHeight);
-  };
-
-  useMount(() => {
-    onScroll();
-    document.addEventListener('scroll', onScroll);
-    onResize();
-    document.addEventListener('resize', onResize);
-  });
-
-  useUnmount(() => {
-    document.removeEventListener('scroll', onScroll);
-    document.removeEventListener('resize', onResize);
-  });
+  }, [y]);
 
   return (
     <>

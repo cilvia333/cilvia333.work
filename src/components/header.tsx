@@ -1,8 +1,10 @@
 import { useLocation } from '@reach/router';
 import { Link } from 'gatsby';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import styled, { css, keyframes } from 'styled-components';
 import tw from 'twin.macro';
+
+import { layoutContext } from '~/hooks';
 
 import BackArrow from '~/images/back-arrow.inline.svg';
 import wave01 from '~/images/wave-white_01.png';
@@ -15,6 +17,7 @@ const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [path, setPath] = useState('');
   const location = useLocation();
+  const ctx = useContext(layoutContext);
 
   useEffect(() => {
     setPath(location.pathname);
@@ -72,20 +75,25 @@ const Header: React.FC = () => {
           </WaveWrapper>
         </NavWrapper>
         <ButtonWrapper>
-          <Button onClick={e => setIsOpen(!isOpen)}>
-            <Hamburger />
+          <Button
+            onClick={e => setIsOpen(!isOpen)}
+            isWhite={ctx.white && !isOpen}
+          >
+            <Hamburger isWhite={ctx.white && !isOpen} />
           </Button>
         </ButtonWrapper>
         <PageInfoWrapper>
-          <PageTitle isWhite={false}>{path.split('/')[1]}</PageTitle>
-          <PageSubTitle isWhite={false}>
+          <PageTitle isWhite={ctx.white || isOpen}>
+            {path.split('/')[1]}
+          </PageTitle>
+          <PageSubTitle isWhite={ctx.white || isOpen}>
             {path.split('/')[2] && path.split('/')[2] !== 't'
               ? `/${path.split('/')[2]}`
               : ''}
           </PageSubTitle>
           <Link to="/works">
             <WorksBackButton
-              isWhite={false}
+              isWhite={ctx.white || isOpen}
               isActive={
                 path.split('/')[1] === 'works' &&
                 path.split('/')[2] !== 't' &&
@@ -265,34 +273,48 @@ const ButtonWrapper = styled.div`
   `}
 `;
 
-const Button = styled.div`
-  ${tw`bg-primary-500 rounded-circle h-16 w-16 relative flex items-center justify-center text-right cursor-pointer`}
+const Button = styled.div<{ isWhite: boolean }>`
+  ${tw`bg-primary-500 rounded-circle h-16 w-16 relative flex items-center justify-center text-right cursor-pointer transition-all duration-300 ease-out`}
+
+  ${({ isWhite }) =>
+    isWhite &&
+    css`
+      ${tw`bg-base-200`}
+    `}
 `;
 
-const Hamburger = styled.div`
-  ${tw`absolute rounded-full px-4 bg-base-200`}
+const Hamburger = styled.div<{ isWhite: boolean }>`
+  ${tw`absolute rounded-full px-4 bg-base-200 transition-all duration-300 ease-out`}
   padding-top: 3px;
   padding-bottom: 3px;
 
-  &::before {
-    ${tw`absolute m-auto rounded-full px-4 bg-base-200`}
+  &::before,
+  &::after {
+    ${tw`absolute m-auto rounded-full px-4 bg-base-200 transition-all duration-300 ease-out`}
     content: '';
     padding-top: 3px;
     padding-bottom: 3px;
-    top: -14px;
     right: 0;
     left: 0;
   }
 
-  &::after {
-    ${tw`absolute m-auto rounded-full px-4 bg-base-200`}
-    content: '';
-    padding-top: 3px;
-    padding-bottom: 3px;
-    bottom: -14px;
-    right: 0;
-    left: 0;
+  &::before {
+    top: -14px;
   }
+
+  &::after {
+    bottom: -14px;
+  }
+
+  ${({ isWhite }) =>
+    isWhite &&
+    css`
+      ${tw`bg-gray-900`}
+
+      &::before, &::after {
+        ${tw`bg-gray-900`}
+      }
+    `}
 `;
 
 const PageInfoWrapper = styled.div`
@@ -302,7 +324,7 @@ const PageInfoWrapper = styled.div`
 `;
 
 const PageTitle = styled.div<{ isWhite: boolean }>`
-  ${tw`font-header font-bold text-4xl text-gray-900 relative uppercase inline-block`}
+  ${tw`font-header font-bold text-4xl text-gray-900 relative uppercase inline-block transition-all duration-300 ease-out`}
 
   ${({ isWhite }) =>
     isWhite &&
@@ -312,7 +334,7 @@ const PageTitle = styled.div<{ isWhite: boolean }>`
 `;
 
 const PageSubTitle = styled.div<{ isWhite: boolean }>`
-  ${tw`font-header font-bold text-2xl text-gray-900 italic relative lowercase inline-block ml-2`}
+  ${tw`font-header font-bold text-2xl text-gray-900 italic relative lowercase inline-block ml-2 transition-all duration-300 ease-out`}
 
   ${({ isWhite }) =>
     isWhite &&
@@ -324,7 +346,7 @@ const PageSubTitle = styled.div<{ isWhite: boolean }>`
 const WorksBackButton = styled(({ isActive, isWhite, ...props }: any) => (
   <BackArrow {...props} />
 ))`
-  ${tw`hidden h-12 w-12 text-gray-900 fill-current cursor-pointer`}
+  ${tw`hidden h-12 w-12 text-gray-900 fill-current cursor-pointer transition-all duration-300 ease-out`}
 
   ${({ isWhite }) =>
     isWhite &&

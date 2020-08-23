@@ -1,10 +1,12 @@
 import { Link } from 'gatsby';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useWindowSize, useLockBodyScroll, useToggle } from 'react-use';
 import styled, { css } from 'styled-components';
 import tw from 'twin.macro';
 
 import SEO from '~/components/seo';
+
+import { layoutContext } from '~/hooks';
 
 import { media } from '~/styles';
 
@@ -33,7 +35,12 @@ const ContactsPage: React.FC = () => {
     message: false,
   });
   const { width, height } = useWindowSize();
-  const [locked, toggleLocked] = useToggle(false);
+  const [attentionOpen, toggleAttentionOpen] = useToggle(false);
+  const ctx = useContext(layoutContext);
+
+  useEffect(() => {
+    ctx.setIsWhite(attentionOpen);
+  }, [attentionOpen]);
 
   const onSubmit = async e => {
     if (formState.name === '') {
@@ -64,7 +71,7 @@ const ContactsPage: React.FC = () => {
   return (
     <>
       <SEO title="CONTACTS" />
-      <Wrapper isOpen={locked}>
+      <Wrapper isOpen={attentionOpen}>
         <Contacts>
           <Header>
             <h2>ご依頼を受け付けています</h2>
@@ -75,7 +82,7 @@ const ContactsPage: React.FC = () => {
           </Header>
           <BeforeContactButton
             isMobile={width <= 1024}
-            onClick={e => toggleLocked()}
+            onClick={e => toggleAttentionOpen()}
           >
             ご依頼いただく前に...
           </BeforeContactButton>
@@ -148,7 +155,7 @@ const ContactsPage: React.FC = () => {
             </Form>
           </FormWrapper>
         </Contacts>
-        <AttentionWrapper isOpen={locked}>
+        <AttentionWrapper isOpen={attentionOpen}>
           <Attention>
             <h3>ご依頼の流れ</h3>
             <ol>
@@ -201,7 +208,7 @@ const ContactsPage: React.FC = () => {
           </Attention>
           <AttentionCloseButton
             isMobile={width <= 1024}
-            onClick={e => toggleLocked()}
+            onClick={e => toggleAttentionOpen()}
           >
             承知しました
           </AttentionCloseButton>
