@@ -11,6 +11,7 @@ import SEO from '~/components/seo';
 
 import { useContentfulImage } from '~/hooks';
 
+import BackArrow from '~/images/back-arrow.inline.svg';
 import wave01 from '~/images/wave-white_01.png';
 import wave02 from '~/images/wave-white_02.png';
 import wave03 from '~/images/wave-white_03.png';
@@ -109,7 +110,10 @@ const Work: React.FC<Props> = ({ pageContext }: Props) => {
       <ContentsWrapper>
         <DescriptionWrapper>
           {documentToReactComponents(work.description?.json, option)}
-          <DescriptionBackLink to="/works">back to WORKS</DescriptionBackLink>
+          <DescriptionBackLink to="/works">
+            <StyledBackArrow />
+            back to WORKS
+          </DescriptionBackLink>
         </DescriptionWrapper>
       </ContentsWrapper>
     </>
@@ -275,12 +279,6 @@ const DescriptionImage = styled(Image)`
 const DescriptionBackLink = styled(Link)`
   ${tw`relative inline-block align-middle text-sm`}
 
-  &::before {
-    ${tw`inline-block bg-gray-900 h-3 w-3 mr-2`}
-
-    content: '';
-  }
-
   &::after {
     ${tw`absolute w-0 m-0 bg-gray-900 transition-all duration-300 ease-out rounded-full`}
 
@@ -295,6 +293,10 @@ const DescriptionBackLink = styled(Link)`
       ${tw`w-full`}
     }
   }
+`;
+
+const StyledBackArrow = styled(BackArrow)`
+  ${tw`inline-block text-gray-900 h-3 w-3 mr-2 fill-current`}
 `;
 
 export default Work;

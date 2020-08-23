@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import styled, { css, keyframes } from 'styled-components';
 import tw from 'twin.macro';
 
+import BackArrow from '~/images/back-arrow.inline.svg';
 import wave01 from '~/images/wave-white_01.png';
 import wave02 from '~/images/wave-white_02.png';
 import wave03 from '~/images/wave-white_03.png';
@@ -37,7 +38,7 @@ const Header: React.FC = () => {
               </li>
               <li>
                 <MenuLink
-                  isActive={path === '/works'}
+                  isActive={path.includes('/works')}
                   onClick={e => setIsOpen(path === '/works')}
                   to="/works"
                 >
@@ -76,20 +77,22 @@ const Header: React.FC = () => {
           </Button>
         </ButtonWrapper>
         <PageInfoWrapper>
-          <PageTitle isWhite={true}>{path.split('/')[1]}</PageTitle>
-          <PageSubTitle isWhite={true}>
+          <PageTitle isWhite={false}>{path.split('/')[1]}</PageTitle>
+          <PageSubTitle isWhite={false}>
             {path.split('/')[2] && path.split('/')[2] !== 't'
               ? `/${path.split('/')[2]}`
               : ''}
           </PageSubTitle>
-          <WorksBackButton
-            isWhite={true}
-            isActive={
-              path.split('/')[1] === 'works' &&
-              path.split('/')[2] !== 't' &&
-              path.split('/')[2]
-            }
-          />
+          <Link to="/works">
+            <WorksBackButton
+              isWhite={false}
+              isActive={
+                path.split('/')[1] === 'works' &&
+                path.split('/')[2] !== 't' &&
+                path.split('/')[2]
+              }
+            />
+          </Link>
         </PageInfoWrapper>
       </Wrapper>
     </CustomHeader>
@@ -318,8 +321,16 @@ const PageSubTitle = styled.div<{ isWhite: boolean }>`
     `}
 `;
 
-const WorksBackButton = styled.div<{ isActive: boolean; isWhite: boolean }>`
-  ${tw`hidden h-12 w-12 bg-gray-900`}
+const WorksBackButton = styled(({ isActive, isWhite, ...props }: any) => (
+  <BackArrow {...props} />
+))`
+  ${tw`hidden h-12 w-12 text-gray-900 fill-current cursor-pointer`}
+
+  ${({ isWhite }) =>
+    isWhite &&
+    css`
+      ${tw`text-base-200`}
+    `}
 
   ${({ isActive }) =>
     isActive &&
