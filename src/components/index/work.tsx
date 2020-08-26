@@ -19,7 +19,7 @@ const Work: React.FC<Props> = ({ title, to, image }: Props) => {
   return (
     <>
       <Wrapper to={to} className="group">
-        <Image fluid={image} alt={title} />
+        <StyledImage fluid={image} alt={title} />
         <TitleLabelWrapper>
           <TitleLabel>{title}</TitleLabel>
         </TitleLabelWrapper>
@@ -57,6 +57,10 @@ const Wrapper = styled(Link)`
 
 const TitleLabel = styled.div`
   ${tw`absolute w-full h-8 bg-primary-500 mx-auto my-0 text-gray-900 font-header font-bold text-center leading-none py-2`}
+`;
+
+const StyledImage = styled(Image)`
+  ${tw`h-full`}
 `;
 
 export default Work;
