@@ -299,7 +299,7 @@ const DescriptionBackLink = styled(Link)`
 
     content: '';
     height: 1px;
-    bottom: 0;
+    bottom: 6px;
     left: 0;
   }
 
