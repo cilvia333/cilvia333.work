@@ -1,0 +1,68 @@
+name: CI
+
+on: [push]
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: Set cache directory
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Cache Dependencies
+        uses: actions/cache@v1
+        id: yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+      - name: Run lint
+        run: yarn run lint:eslint
+
+  lighthouse:
+    name: Lighthouse
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: Set cache directory
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+        id: yarn-cache-dir-path
+      - name: Cache Dependencies
+        uses: actions/cache@v1
+        id: yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile --ignore-optional
+      - name: Gatsby Cache Folder
+        uses: actions/cache@v1
+        id: gatsby-cache-folder
+        with:
+          path: ${{ github.workspace }}/.cache
+          key: ${{ runner.os }}-gatsby-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gatsby-
+      - name: Build Gatsby
+        run: yarn run build
+        env:
+          CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
+          CONTENTFUL_DELIVERY_ID: ${{ secrets.CONTENTFUL_DELIVERY_ID }}
+          CONTENTFUL_HOST: ${{ secrets.CONTENTFUL_HOST }}
+      - name: Run lighthouse
+        run: npx @lhci/cli@0.3.x autorun
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
