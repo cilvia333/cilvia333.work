@@ -37,8 +37,8 @@ const Header: React.FC = () => {
             <Menu>
               <li>
                 <MenuLink
-                  isActive={path[0] === '/'}
-                  onClick={e => setIsOpen(path[0] === '/')}
+                  isActive={path[0] === ''}
+                  onClick={e => setIsOpen(path[0] === '')}
                   to="/"
                 >
                   TOP
