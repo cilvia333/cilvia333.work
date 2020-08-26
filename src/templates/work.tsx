@@ -1,5 +1,5 @@
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
-import { BLOCKS } from '@contentful/rich-text-types';
+import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { Link } from 'gatsby';
 import React, { useContext, useEffect } from 'react';
 import { useWindowSize, useWindowScroll } from 'react-use';
@@ -29,6 +29,20 @@ export const option = {
           alt={node.data.target.fields.title['ja']}
           fluid={fluid}
         />
+      );
+    },
+    [INLINES.HYPERLINK]: function renderEmbeddedAsset(
+      node: any,
+      children: any
+    ) {
+      return (
+        <HyperLink
+          href={node.data.uri}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {children}
+        </HyperLink>
       );
     },
   },
@@ -239,9 +253,10 @@ const ContentsWrapper = styled.div`
 `;
 
 const DescriptionWrapper = styled.div`
-  ${tw`w-full m-auto`}
+  ${tw`w-full m-auto text-gray-900 text-sm`}
 
   max-width: 768px;
+  line-height: 35px;
 
   ${media.md`
     ${tw`px-8`}
@@ -249,12 +264,31 @@ const DescriptionWrapper = styled.div`
   `}
 
   & > * {
-    ${tw`mb-16`}
+    ${tw`mb-8`}
   }
 `;
 
 const DescriptionImage = styled(Image)`
-  height: 400px;
+  ${tw`h-full`}
+`;
+
+const HyperLink = styled.a`
+  ${tw`relative text-primary-500 `}
+
+  &::after {
+    ${tw`absolute w-0 m-0 bg-primary-500 transition-all duration-300 ease-out rounded-full`}
+
+    content: '';
+    height: 1px;
+    bottom: 0;
+    left: 0;
+  }
+
+  &:hover {
+    &::after {
+      ${tw`w-full`}
+    }
+  }
 `;
 
 const DescriptionBackLink = styled(Link)`
