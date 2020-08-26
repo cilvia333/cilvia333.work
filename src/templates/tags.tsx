@@ -7,6 +7,8 @@ import Pager from '~/components/pager';
 import SEO from '~/components/seo';
 import WorkCard from '~/components/work-card';
 
+import { media } from '~/styles';
+
 import { ContentfulFluid } from '~/types/graphql-types';
 
 export type Work = {
@@ -55,11 +57,18 @@ const Wrapper = styled.section`
 `;
 
 const CardWrapper = styled.ul`
-  ${tw`w-full m-auto mb-12 px-16 flex justify-around items-center`}
+  ${tw`w-full m-auto mb-12 px-16 flex justify-between items-center flex-wrap`}
 
-  max-width: 1024px;
+  max-width: 768px;
+
+  ${media.md`
+    ${tw`px-8`}
+  `}
+  ${media.sm`
+    ${tw`justify-center`}
+    max-width: 512px;
+  `}
 `;
-
 export const query = graphql`
   query($skip: Int!, $limit: Int!, $tag: String) {
     allContentfulWork(
