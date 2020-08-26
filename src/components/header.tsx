@@ -92,7 +92,7 @@ const Header: React.FC = () => {
             isWhite={ctx.white || isOpen || !path[0]}
             isActive={path[0] || isOpen}
           >
-            {path[0] ? path[0] : 'TOP'}
+            {ctx.pageTitle}
           </PageTitle>
           <WorksTagBadge isActive={path[1] === 't'}>
             {`#${path[2] ?? ''}`}

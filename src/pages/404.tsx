@@ -1,13 +1,22 @@
 import { Link } from 'gatsby';
-import React from 'react';
+import React, { useContext } from 'react';
+import { useEffectOnce } from 'react-use';
 import styled from 'styled-components';
 import tw from 'twin.macro';
 
 import SEO from '~/components/seo';
 
+import { layoutContext } from '~/hooks';
+
 import BackArrow from '~/images/back-arrow.inline.svg';
 
 const NotFoundPage: React.FC = () => {
+  const ctx = useContext(layoutContext);
+
+  useEffectOnce(() => {
+    ctx.setPageTitle('404');
+  });
+
   return (
     <>
       <SEO title="404:NOT-FOUND" />

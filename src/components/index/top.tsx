@@ -5,7 +5,7 @@ import tw from 'twin.macro';
 
 import { CenterPosition } from '~/components/index/background';
 
-import IconImg from '~/images/icon.png';
+import IconImg from '~/images/index-icon.png';
 
 import { media } from '~/styles';
 

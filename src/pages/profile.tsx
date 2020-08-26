@@ -44,6 +44,7 @@ const Profile: React.FC = () => {
 
   useEffectOnce(() => {
     ctx.setIsWhite(false);
+    ctx.setPageTitle('PROFILE');
   });
 
   return (

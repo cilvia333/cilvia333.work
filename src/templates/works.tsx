@@ -36,6 +36,7 @@ const WorksPage: React.FC = ({ data, pageContext }: any) => {
 
   useEffectOnce(() => {
     ctx.setIsWhite(false);
+    ctx.setPageTitle('WORKS');
   });
 
   return (

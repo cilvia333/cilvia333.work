@@ -2,7 +2,7 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { Link } from 'gatsby';
 import React, { useContext, useEffect } from 'react';
-import { useWindowSize, useWindowScroll } from 'react-use';
+import { useWindowSize, useWindowScroll, useEffectOnce } from 'react-use';
 import styled, { css, keyframes } from 'styled-components';
 import tw from 'twin.macro';
 
@@ -67,6 +67,10 @@ const Work: React.FC<Props> = ({ pageContext }: Props) => {
       ctx.setIsWhite(true);
     }
   }, [y]);
+
+  useEffectOnce(() => {
+    ctx.setPageTitle('WORKS');
+  });
 
   return (
     <>

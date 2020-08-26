@@ -40,6 +40,7 @@ const ContactsPage: React.FC = () => {
 
   useEffect(() => {
     ctx.setIsWhite(attentionOpen);
+    ctx.setPageTitle('CONTACTS');
   }, [attentionOpen]);
 
   const onSubmit = async e => {
