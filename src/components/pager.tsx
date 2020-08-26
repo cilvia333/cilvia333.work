@@ -43,7 +43,7 @@ const Wrapper = styled.div`
   ${tw`flex justify-center items-center`}
 `;
 
-const Button = styled(Link)<{ isCurrent?: boolean }>`
+const Button = styled(({ isCurrent, ...props }: any) => <Link {...props} />)`
   ${tw`bg-gray-400 text-gray-900 text-sm font-header font-bold rounded-circle py-2 text-center w-8 h-8 leading-none mx-1`}
 
   ${({ isCurrent }) =>
