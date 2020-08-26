@@ -19,7 +19,7 @@ const NotFoundPage: React.FC = () => {
 
   return (
     <>
-      <SEO title="404:NOT-FOUND" />
+      <SEO title="404" />
       <Wrapper>
         <Header>404</Header>
         <Text>

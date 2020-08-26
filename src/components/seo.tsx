@@ -34,6 +34,10 @@ const SEO: React.FC<Props> = ({
   );
 
   const metaDescription = description || site.siteMetadata.description;
+  const ogpTitle =
+    title === 'TOP'
+      ? site.siteMetadata.title
+      : `${title} | ${site.siteMetadata.title}`;
 
   return (
     <Helmet
@@ -41,8 +45,7 @@ const SEO: React.FC<Props> = ({
         lang,
         prefix: `og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#`,
       }}
-      title={title}
-      titleTemplate={`%s | ${site.siteMetadata.title}`}
+      title={ogpTitle}
       link={[
         { rel: 'stylesheet', href: 'https://use.typekit.net/kuy5zin.css' },
       ]}
@@ -53,7 +56,7 @@ const SEO: React.FC<Props> = ({
         },
         {
           property: `og:title`,
-          content: `${title} | ${site.siteMetadata.title}`,
+          content: ogpTitle,
         },
         {
           property: `og:description`,
@@ -81,7 +84,7 @@ const SEO: React.FC<Props> = ({
         },
         {
           name: `twitter:title`,
-          content: `${title} | ${site.siteMetadata.title}`,
+          content: ogpTitle,
         },
         {
           property: `og:url`,

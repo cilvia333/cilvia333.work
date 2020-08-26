@@ -74,7 +74,7 @@ const Work: React.FC<Props> = ({ pageContext }: Props) => {
 
   return (
     <>
-      <SEO title={work.title ?? ''} />
+      <SEO title={work.title ?? 'WORKS'} />
       <BacgkroundWrapper>
         <BacgkroundImage fluid={work.thumbnail?.fluid} alt={work.title ?? ''} />
       </BacgkroundWrapper>

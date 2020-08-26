@@ -41,7 +41,7 @@ const WorksPage: React.FC = ({ data, pageContext }: any) => {
 
   return (
     <>
-      <SEO title="works" />
+      <SEO title="WORKS" />
       <Wrapper>
         <CardWrapper>
           {works?.map((work: Work, index) => {

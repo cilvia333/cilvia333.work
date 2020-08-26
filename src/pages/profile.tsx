@@ -49,7 +49,7 @@ const Profile: React.FC = () => {
 
   return (
     <>
-      <SEO title="profile" />
+      <SEO title="PROFILE" />
       <Wrapper>
         <Icon filename={'icon.png'} alt="icon" />
         <TextWrapper>

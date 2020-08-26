@@ -41,7 +41,7 @@ const IndexPage: React.FC = () => {
 
   return (
     <>
-      <SEO title="index" />
+      <SEO title="TOP" />
       <Background
         position={{
           current: y,
