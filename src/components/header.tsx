@@ -16,12 +16,16 @@ import { media } from '~/styles';
 
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [path, setPath] = useState('');
+  const [path, setPath] = useState<string[]>([]);
   const location = useLocation();
   const ctx = useContext(layoutContext);
 
+  const worksRegex = RegExp('(^[0-9]$)|(^t$)');
+
   useEffect(() => {
-    setPath(location.pathname);
+    const path = location.pathname.split('/');
+    path.shift();
+    setPath(path);
   }, [location]);
 
   return (
@@ -33,8 +37,8 @@ const Header: React.FC = () => {
             <Menu>
               <li>
                 <MenuLink
-                  isActive={path === '/'}
-                  onClick={e => setIsOpen(path === '/')}
+                  isActive={path[0] === '/'}
+                  onClick={e => setIsOpen(path[0] === '/')}
                   to="/"
                 >
                   TOP
@@ -42,8 +46,8 @@ const Header: React.FC = () => {
               </li>
               <li>
                 <MenuLink
-                  isActive={path.includes('/works')}
-                  onClick={e => setIsOpen(path === '/works')}
+                  isActive={path[0] === 'works'}
+                  onClick={e => setIsOpen(path[0] === 'works')}
                   to="/works"
                 >
                   WORKS
@@ -51,8 +55,8 @@ const Header: React.FC = () => {
               </li>
               <li>
                 <MenuLink
-                  isActive={path === '/profile'}
-                  onClick={e => setIsOpen(path === '/profile')}
+                  isActive={path[0] === 'profile'}
+                  onClick={e => setIsOpen(path[0] === 'profile')}
                   to="/profile"
                 >
                   PROFILE
@@ -60,8 +64,8 @@ const Header: React.FC = () => {
               </li>
               <li>
                 <MenuLink
-                  isActive={path === '/contacts'}
-                  onClick={e => setIsOpen(path === '/contacts')}
+                  isActive={path[0] === 'contacts'}
+                  onClick={e => setIsOpen(path[0] === 'contacts')}
                   to="/contacts"
                 >
                   CONTACTS
@@ -85,27 +89,23 @@ const Header: React.FC = () => {
         </ButtonWrapper>
         <PageInfoWrapper>
           <PageTitle
-            isWhite={ctx.white || isOpen || !path.split('/')[1]}
-            isActive={path.split('/')[1] || isOpen}
+            isWhite={ctx.white || isOpen || !path[0]}
+            isActive={path[0] || isOpen}
           >
-            {path.split('/')[1] ? path.split('/')[1] : 'TOP'}
+            {path[0] ? path[0] : 'TOP'}
           </PageTitle>
-          <WorksTagBadge isActive={path.split('/')[2] === 't'}>
-            {`#${path.split('/')[3] ?? ''}`}
+          <WorksTagBadge isActive={path[1] === 't'}>
+            {`#${path[2] ?? ''}`}
             <WorksTagCross onClick={() => navigate('/works')} />
           </WorksTagBadge>
           <PageSubTitle isWhite={ctx.white || isOpen}>
-            {path.split('/')[2] && path.split('/')[2] !== 't'
-              ? `/${path.split('/')[2]}`
-              : ''}
+            {path[1] && !worksRegex.test(path[1]) ? `/${path[1]}` : ''}
           </PageSubTitle>
           <Link to="/works">
             <WorksBackButton
               isWhite={ctx.white || isOpen}
               isActive={
-                path.split('/')[1] === 'works' &&
-                path.split('/')[2] !== 't' &&
-                path.split('/')[2]
+                path[0] === 'works' && !worksRegex.test(path[1]) && path[1]
               }
             />
           </Link>

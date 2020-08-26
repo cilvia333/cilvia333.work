@@ -9,17 +9,25 @@ interface Props {
 
 const Pager: React.FC<Props> = ({ pageContext }: Props) => {
   const buttons = [];
+  const { tag } = pageContext;
 
   for (let i = 0; i < pageContext.numberOfPages; i++) {
     buttons.push(i);
   }
+
+  const getPath = (page: number) => {
+    const base = '/works';
+    const paging = page > 0 ? `/${page + 1}` : '';
+
+    return tag ? `${base}/t/${tag}${paging}` : `${base}${paging}`;
+  };
 
   return (
     <>
       <Wrapper>
         {buttons.map((button, i) => (
           <Button
-            to={`/works${i + 1}`}
+            to={getPath(i)}
             key={`pager_${i}`}
             isCurrent={i === pageContext.pageNumber}
           >
