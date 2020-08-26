@@ -5,6 +5,8 @@ import tw from 'twin.macro';
 
 import SEO from '~/components/seo';
 
+import BackArrow from '~/images/back-arrow.inline.svg';
+
 const NotFoundPage: React.FC = () => {
   return (
     <>
@@ -14,7 +16,10 @@ const NotFoundPage: React.FC = () => {
         <Text>
           お探しのページはありません。
           <br />
-          <BackLink to="/">back to TOP</BackLink>
+          <BackLink to="/">
+            <StyledBackArrow />
+            back to TOP
+          </BackLink>
         </Text>
       </Wrapper>
     </>
@@ -38,12 +43,6 @@ const Text = styled.div`
 const BackLink = styled(Link)`
   ${tw`relative inline-block align-middle text-sm`}
 
-  &::before {
-    ${tw`inline-block bg-gray-900 h-3 w-3 mr-2`}
-
-    content: '';
-  }
-
   &::after {
     ${tw`absolute w-0 m-0 bg-gray-900 transition-all duration-300 ease-out rounded-full`}
 
@@ -59,4 +58,9 @@ const BackLink = styled(Link)`
     }
   }
 `;
+
+const StyledBackArrow = styled(BackArrow)`
+  ${tw`inline-block text-gray-900 h-3 w-3 mr-2 fill-current`}
+`;
+
 export default NotFoundPage;
