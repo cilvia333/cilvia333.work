@@ -24,6 +24,22 @@ jobs:
             ${{ runner.os }}-yarn-
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
+      - name: Gatsby Cache
+        uses: actions/cache@v1
+        id: gatsby-cache
+        with:
+          path: .cache
+          key: ${{ runner.os }}-gatsby-cache-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gatsby-cache-
+      - name: Gatsby Public
+        uses: actions/cache@v1
+        id: gatsby-public
+        with:
+          path: public/
+          key: ${{ runner.os }}-gatsby-public-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gatsby-public-
       - name: Build Gatsby
         run: yarn run build
         env:
@@ -54,6 +70,22 @@ jobs:
             ${{ runner.os }}-yarn-
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
+      - name: Gatsby Cache
+        uses: actions/cache@v1
+        id: gatsby-cache
+        with:
+          path: .cache
+          key: ${{ runner.os }}-gatsby-cache-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gatsby-cache-
+      - name: Gatsby Public
+        uses: actions/cache@v1
+        id: gatsby-public
+        with:
+          path: public/
+          key: ${{ runner.os }}-gatsby-public-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gatsby-public-
       - name: Build Gatsby
         run: yarn run build
         env:
