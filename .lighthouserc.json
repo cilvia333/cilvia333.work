@@ -1,7 +1,14 @@
 {
   "ci": {
     "collect": {
-      "staticDistDir": "public"
+      "staticDistDir": "public",
+      "url": [
+        "http://localhost:3000/",
+        "http://localhost:3000/works",
+        "http://localhost:3000/works/vividtune",
+        "http://localhost:3000/profile",
+        "http://localhost:3000/contacts"
+      ]
     },
     "upload": {
       "target": "temporary-public-storage"

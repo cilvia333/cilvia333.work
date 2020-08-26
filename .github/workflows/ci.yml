@@ -34,6 +34,10 @@ jobs:
             ${{ runner.os }}-gatsby-
       - name: Build Gatsby
         run: yarn run build
+        env:
+          CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
+          CONTENTFUL_DELIVERY_ID: ${{ secrets.CONTENTFUL_DELIVERY_ID }}
+          CONTENTFUL_HOST: ${{ secrets.CONTENTFUL_HOST }}
       - name: Run lint
         run: yarn run lint:eslint
 
