@@ -1,3 +1,4 @@
+import { useLocation } from '@reach/router';
 import { useStaticQuery, graphql } from 'gatsby';
 import React from 'react';
 import Helmet from 'react-helmet';
@@ -15,6 +16,7 @@ const SEO: React.FC<Props> = ({
   meta = [],
   title,
 }: Props) => {
+  const { pathname } = useLocation();
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -23,6 +25,8 @@ const SEO: React.FC<Props> = ({
             title
             description
             author
+            image
+            siteUrl
           }
         }
       }
@@ -35,6 +39,7 @@ const SEO: React.FC<Props> = ({
     <Helmet
       htmlAttributes={{
         lang,
+        prefix: `og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#`,
       }}
       title={title}
       titleTemplate={`%s | ${site.siteMetadata.title}`}
@@ -48,31 +53,55 @@ const SEO: React.FC<Props> = ({
         },
         {
           property: `og:title`,
-          content: title,
+          content: `${title} | ${site.siteMetadata.title}`,
         },
         {
           property: `og:description`,
           content: metaDescription,
         },
         {
+          property: `og:url`,
+          content: `${site.siteMetadata.siteUrl}${pathname}`,
+        },
+        {
+          property: `og:image`,
+          content: `${site.siteMetadata.siteUrl}${site.siteMetadata.image}`,
+        },
+        {
           property: `og:type`,
           content: `website`,
         },
         {
-          name: `twitter:card`,
-          content: `summary`,
+          property: `og:locale`,
+          content: `ja_JP`,
         },
         {
-          name: `twitter:creator`,
-          content: site.siteMetadata.author,
+          name: `twitter:card`,
+          content: `summary_large_image`,
         },
         {
           name: `twitter:title`,
-          content: title,
+          content: `${title} | ${site.siteMetadata.title}`,
+        },
+        {
+          property: `og:url`,
+          content: `${site.siteMetadata.siteUrl}${pathname}`,
         },
         {
           name: `twitter:description`,
           content: metaDescription,
+        },
+        {
+          property: `twitter:image`,
+          content: `${site.siteMetadata.siteUrl}${site.siteMetadata.image}`,
+        },
+        {
+          name: `twitter:site`,
+          content: site.siteMetadata.author,
+        },
+        {
+          name: `twitter:creator`,
+          content: site.siteMetadata.author,
         },
       ].concat(meta)}
     />

@@ -7,8 +7,9 @@ if (process.env.NODE_ENV !== 'production') {
 module.exports = {
   siteMetadata: {
     title: `Cilvia333.work`,
-    description: `I'm a Designer. Musashino Art University, Informatic Design.`,
+    description: `Graphic designer / Web front-end engineer`,
     author: `@cilvia333`,
+    image: `/ogp.png`,
     siteUrl: `https://www.cilvia333.work`,
   },
   plugins: [
