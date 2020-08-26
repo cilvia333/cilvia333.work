@@ -76,6 +76,10 @@ const TagLink = styled(Link)`
     left: 0;
   }
 
+  &:last-child {
+    ${tw`mr-0`}
+  }
+
   &:hover {
     &::after {
       ${tw`w-full`}
