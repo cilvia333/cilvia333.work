@@ -14,7 +14,7 @@ jobs:
       - name: Set cache directory
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
-      - name: Cache Dependencies
+      - name: Dependencies Cache
         uses: actions/cache@v1
         id: yarn-cache
         with:
@@ -24,14 +24,22 @@ jobs:
             ${{ runner.os }}-yarn-
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
-      - name: Gatsby Cache Folder
+      - name: Gatsby Cache
         uses: actions/cache@v1
-        id: gatsby-cache-folder
+        id: gatsby-cache
         with:
           path: ${{ github.workspace }}/.cache
-          key: ${{ runner.os }}-gatsby-${{ hashFiles('yarn.lock') }}
+          key: ${{ runner.os }}-gatsby-cache-${{ hashFiles('yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-gatsby-
+            ${{ runner.os }}-gatsby-cache-
+      - name: Gatsby Public
+        uses: actions/cache@v1
+        id: gatsby-public
+        with:
+          path: ${{ github.workspace }}/public/
+          key: ${{ runner.os }}-public-gatsby-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gatsby-public-
       - name: Build Gatsby
         run: yarn run build
         env:
@@ -52,7 +60,7 @@ jobs:
       - name: Set cache directory
         run: echo "::set-output name=dir::$(yarn cache dir)"
         id: yarn-cache-dir-path
-      - name: Cache Dependencies
+      - name: Dependencies Cache
         uses: actions/cache@v1
         id: yarn-cache
         with:
@@ -70,6 +78,14 @@ jobs:
           key: ${{ runner.os }}-gatsby-${{ hashFiles('yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-gatsby-
+      - name: Gatsby Public Folder
+        uses: actions/cache@v1
+        id: gatsby-public-folder
+        with:
+          path: ${{ github.workspace }}/public/
+          key: ${{ runner.os }}-public-gatsby-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gatsby-public-
       - name: Build Gatsby
         run: yarn run build
         env:
