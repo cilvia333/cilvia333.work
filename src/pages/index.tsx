@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useMount, useUnmount } from 'react-use';
+import { useWindowScroll, useMount, useUnmount } from 'react-use';
+
 import styled from 'styled-components';
 import tw from 'twin.macro';
 
@@ -16,7 +17,7 @@ const IndexPage: React.FC = () => {
   const [aboutPosition, setAboutPosition] = useState(0);
   const [skillPosition, setSkillPosition] = useState(0);
   const [contactPosition, setContactPosition] = useState(0);
-  const [currentPosition, setCurrentPosition] = useState(0);
+  const { x, y } = useWindowScroll();
   const [aboutCenter, setAboutCenter] = useState<CenterPosition>({
     x: 0,
     y: 0,
@@ -34,25 +35,12 @@ const IndexPage: React.FC = () => {
     y: 0,
   });
 
-  const onScroll = (): void => {
-    setCurrentPosition(window.pageYOffset);
-  };
-
-  useMount(() => {
-    onScroll();
-    document.addEventListener('scroll', onScroll);
-  });
-
-  useUnmount(() => {
-    document.removeEventListener('scroll', onScroll);
-  });
-
   return (
     <>
       <SEO title="index" />
       <Background
         position={{
-          current: currentPosition,
+          current: y,
           about: aboutPosition,
           skill: skillPosition,
           contact: contactPosition,
@@ -66,7 +54,7 @@ const IndexPage: React.FC = () => {
       />
       <Nav
         position={{
-          current: currentPosition,
+          current: y,
           about: aboutPosition,
           skill: skillPosition,
           contact: contactPosition,
