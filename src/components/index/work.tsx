@@ -7,17 +7,19 @@ import Image from '~/components/image';
 
 import { media } from '~/styles';
 
+import { ContentfulFluid } from '~/types/graphql-types';
+
 interface Props {
   title: string;
   to: string;
-  image: string;
+  image: ContentfulFluid;
 }
 
 const Work: React.FC<Props> = ({ title, to, image }: Props) => {
   return (
     <>
       <Wrapper to={to} className="group">
-        <Image filename={image} alt={title} />
+        <Image fluid={image} alt={title} />
         <TitleLabelWrapper>
           <TitleLabel>{title}</TitleLabel>
         </TitleLabelWrapper>

@@ -1,4 +1,4 @@
-import { Link } from 'gatsby';
+import { Link, graphql, useStaticQuery } from 'gatsby';
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import tw from 'twin.macro';
@@ -13,53 +13,20 @@ import MoreTriSvg from '~/images/more-tri.svg';
 
 import { media } from '~/styles';
 
+import { ContentfulFluid } from '~/types/graphql-types';
+
 type WorkHeadline = {
   title: string;
-  link: string;
-  image: string;
+  slug: string;
+  image: ContentfulFluid;
 };
 
-const webMockup: WorkHeadline[] = [
-  {
-    title: 'VIVIDTUNE -yellow-',
-    link: 'vividtune',
-    image: 'icon.png',
-  },
-  {
-    title: 'VIVIDTUNE -yellow-',
-    link: 'vividtune',
-    image: 'icon.png',
-  },
-  {
-    title: 'VIVIDTUNE -yellow-',
-    link: 'vividtune',
-    image: 'icon.png',
-  },
-];
-
-const mockup = [
-  {
-    title: 'LP制作',
-    description:
-      'ウェブデザイン〜アニメーション、実装まで。かわいいデザインから、シンプルでスタイリッシュなデザインまで幅広く。CMSやSEO対策、アクセシビリティにも気を配ります。',
-    works: webMockup,
-    link: '/works/t/web',
-  },
-  {
-    title: 'DTP・装丁デザイン',
-    description:
-      '同人誌やZINE、CDジャケットなどのデザイン。特殊装丁や印刷のディレクションなども対応可能です。',
-    works: webMockup,
-    link: '/works/t/dtp',
-  },
-  {
-    title: 'ロゴデザイン',
-    description:
-      'VTuberからお店のロゴまで。幅広い媒体での利用も考えたデザインを行います。',
-    works: webMockup,
-    link: '/works/t/logo',
-  },
-];
+type Skills = {
+  title: string;
+  description: string;
+  slug: string;
+  works: WorkHeadline[];
+};
 
 interface Props {
   setPosition: (position: number) => void;
@@ -67,6 +34,71 @@ interface Props {
 }
 
 const Skill: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
+  const skills: Skills[] = [
+    {
+      title: 'LP制作',
+      description:
+        'ウェブデザイン〜アニメーション、実装まで。かわいいデザインから、シンプルでスタイリッシュなデザインまで幅広く。CMSやSEO対策、アクセシビリティにも気を配ります。',
+      works: [],
+      slug: 'web',
+    },
+    {
+      title: 'DTP・装丁デザイン',
+      description:
+        '同人誌やZINE、CDジャケットなどのデザイン。特殊装丁や印刷のディレクションなども対応可能です。',
+      works: [],
+      slug: 'dtp',
+    },
+    {
+      title: 'ロゴデザイン',
+      description:
+        'VTuberからお店のロゴまで。幅広い媒体での利用も考えたデザインを行います。',
+      works: [],
+      slug: 'logo',
+    },
+  ];
+
+  const data = useStaticQuery(graphql`
+    query {
+      skills: allContentfulSkill(filter: { node_locale: { eq: "ja" } }) {
+        edges {
+          node {
+            slug
+            works {
+              title
+              slug
+              thumbnail {
+                title
+                fluid(maxWidth: 1440) {
+                  ...GatsbyContentfulFluid_withWebp
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  `);
+  data.skills.edges.forEach(edge => {
+    const works = edge.node.works.map(work => {
+      return {
+        title: work.title,
+        slug: work.slug,
+        image: work.thumbnail.fluid,
+      } as WorkHeadline;
+    });
+
+    if (edge.node.slug === 'web') {
+      skills[0].works = works;
+    } else if (edge.node.slug === 'dtp') {
+      skills[1].works = works;
+    } else if (edge.node.slug === 'logo') {
+      skills[2].works = works;
+    } else {
+      throw new Error(`Cannot find ${edge.node.slug}`);
+    }
+  });
+
   const componentRef = React.createRef<HTMLElement>();
 
   const onChangeOffset = () => {
@@ -92,20 +124,20 @@ const Skill: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
           <p>こんなお手伝いができます！</p>
         </Header>
         <ContentsWrapper>
-          {mockup.map((data, i) => {
+          {skills.map((skill, i) => {
             return (
               <ContentWrapper key={`skill-content${i}`}>
                 <ContentTitle>
                   <ContentNum>{i + 1}</ContentNum>
-                  {data.title}
+                  {skill.title}
                 </ContentTitle>
-                <ContentDescription>{data.description}</ContentDescription>
+                <ContentDescription>{skill.description}</ContentDescription>
                 <WorksWrapper>
-                  {data.works.map((work, j) => {
+                  {skill.works.map((work, j) => {
                     return (
                       <>
                         <Work
-                          to={`/works/${work.link}`}
+                          to={`/works/${work.slug}`}
                           title={work.title}
                           image={work.image}
                           key={`skill-work${i}_${j}`}
@@ -116,7 +148,9 @@ const Skill: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
                       </>
                     );
                   })}
-                  <WorkMoreLinkButton to={data.link}>more</WorkMoreLinkButton>
+                  <WorkMoreLinkButton to={`/works/t/${skill.slug}`}>
+                    more
+                  </WorkMoreLinkButton>
                 </WorksWrapper>
               </ContentWrapper>
             );
