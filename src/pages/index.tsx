@@ -1,8 +1,5 @@
-import React, { useState } from 'react';
-import { useWindowScroll, useMount, useUnmount } from 'react-use';
-
-import styled from 'styled-components';
-import tw from 'twin.macro';
+import React, { useState, useContext } from 'react';
+import { useWindowScroll, useEffectOnce } from 'react-use';
 
 import About from '~/components/index/about';
 import Background, { CenterPosition } from '~/components/index/background';
@@ -10,8 +7,9 @@ import Contact from '~/components/index/contact';
 import Nav from '~/components/index/nav';
 import Skill from '~/components/index/skill';
 import Top from '~/components/index/top';
-
 import SEO from '~/components/seo';
+
+import { layoutContext } from '~/hooks';
 
 const IndexPage: React.FC = () => {
   const [aboutPosition, setAboutPosition] = useState(0);
@@ -33,6 +31,12 @@ const IndexPage: React.FC = () => {
   const [topCenter, setTopCenter] = useState<CenterPosition>({
     x: 0,
     y: 0,
+  });
+
+  const ctx = useContext(layoutContext);
+
+  useEffectOnce(() => {
+    ctx.setPageTitle('TOP');
   });
 
   return (
