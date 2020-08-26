@@ -119,7 +119,7 @@ const Nav: React.FC<Props> = ({ position }: Props) => {
 };
 
 const Wrapper = styled.div<{ position: number }>`
-  ${tw`fixed text-right pr-8 w-full z-10`}
+  ${tw`fixed text-right pr-8 z-10 flex flex-col justify-center items-end right-0`}
 
   ${({ position }) =>
     css`
@@ -134,7 +134,7 @@ const Wrapper = styled.div<{ position: number }>`
 `;
 
 const Scale = styled.div<{ lengthRate: number }>`
-  ${tw`text-right align-middle cursor-pointer`}
+  ${tw`text-right align-middle cursor-pointer inline-block`}
 
   &::after {
     ${tw`bg-gray-900 text-gray-900 inline-block mb-1 ml-2`}
