@@ -37,7 +37,7 @@ jobs:
         id: gatsby-public
         with:
           path: ${{ github.workspace }}/public/
-          key: ${{ runner.os }}-public-gatsby-${{ hashFiles('yarn.lock') }}
+          key: ${{ runner.os }}-gatsby-public-${{ hashFiles('yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-gatsby-public-
       - name: Build Gatsby
@@ -69,21 +69,21 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile --ignore-optional
-      - name: Gatsby Cache Folder
+        run: yarn install --frozen-lockfile
+      - name: Gatsby Cache
         uses: actions/cache@v1
-        id: gatsby-cache-folder
+        id: gatsby-cache
         with:
           path: ${{ github.workspace }}/.cache
-          key: ${{ runner.os }}-gatsby-${{ hashFiles('yarn.lock') }}
+          key: ${{ runner.os }}-gatsby-cache-${{ hashFiles('yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-gatsby-
-      - name: Gatsby Public Folder
+            ${{ runner.os }}-gatsby-cache-
+      - name: Gatsby Public
         uses: actions/cache@v1
-        id: gatsby-public-folder
+        id: gatsby-public
         with:
           path: ${{ github.workspace }}/public/
-          key: ${{ runner.os }}-public-gatsby-${{ hashFiles('yarn.lock') }}
+          key: ${{ runner.os }}-gatsby-public-${{ hashFiles('yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-gatsby-public-
       - name: Build Gatsby
