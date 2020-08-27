@@ -18,16 +18,24 @@ import { media } from '~/styles';
 
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isAnimation, setIsAnimation] = useState(false);
   const [path, setPath] = useState<string[]>([]);
   const location = useLocation();
   const ctx = useContext(layoutContext);
 
   const worksRegex = RegExp('(^[0-9]$)|(^t$)');
 
+  const onAnimationEnd = () => {
+    setIsAnimation(false);
+  };
+
   useEffect(() => {
     const path = location.pathname.split('/');
     path.shift();
     setPath(path);
+    if (path[1] && !worksRegex.test(path[1])) {
+      setIsAnimation(true);
+    }
   }, [location]);
 
   return (
@@ -96,14 +104,16 @@ const Header: React.FC = () => {
             {`#${path[2] ?? ''}`}
             <WorksTagCross onClick={() => navigate('/works')} />
           </WorksTagBadge>
-          <PageSubTitle isWhite={ctx.white || isOpen}>
+          <PageSubTitle
+            isWhite={ctx.white || isOpen}
+            isAnimation={isAnimation}
+            onAnimationEnd={onAnimationEnd}
+          >
             {path[1] && !worksRegex.test(path[1]) ? `/${path[1]}` : ''}
           </PageSubTitle>
           <WorkBackLink
             to={`${ctx.workBack.path}${
-              (ctx.workBack.path === ctx.workBack.path) === '/'
-                ? ctx.workBack.scroll
-                : ''
+              ctx.workBack.path === '/' ? ctx.workBack.scroll : ''
             }`}
             isActive={
               path[0] === 'works' && !worksRegex.test(path[1]) && path[1]
@@ -127,6 +137,30 @@ const Header: React.FC = () => {
     </CustomHeader>
   );
 };
+
+const TextAppearKeyframes = keyframes`
+  0%{
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+  }
+  50%{
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  100%{
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+`;
+
+const TextAppearOverlayKeyframes = keyframes`
+  0%{
+    clip-path: polygon(0 0, 0 0, -10% 100%, -10% 100%);
+  }
+  50%{
+    clip-path: polygon(0 0, 110% 0, 100% 100%, -10% 100%);
+  }
+  100%{
+    clip-path: polygon(110% 0, 110% 0, 100% 100%, 100% 100%);
+  }
+`;
 
 const CustomHeader = styled.header`
   ${tw`fixed w-full z-20`}
@@ -295,14 +329,45 @@ const PageTitle = styled.div<{ isWhite: boolean; isActive: boolean }>`
     `}
 `;
 
-const PageSubTitle = styled.div<{ isWhite: boolean }>`
-  ${tw`font-header font-bold text-2xl text-gray-900 italic relative lowercase inline-block ml-2 transition-all duration-300 ease-out`}
+const PageSubTitle = styled.div<{ isWhite: boolean; isAnimation: boolean }>`
+  ${tw`relative font-header font-bold text-2xl text-gray-900 italic lowercase inline-block ml-2`}
+
+  animation: 600ms ease-in-out forwards;
+  clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+
+  &::after {
+    ${tw`absolute bg-gray-900 inset-0 m-auto`}
+    content: "";
+    animation: 600ms ease-in-out forwards;
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+  }
 
   ${({ isWhite }) =>
     isWhite &&
     css`
       ${tw`text-base-200`}
+
+      &::after {
+        ${tw`bg-base-200`}
+      }
     `}
+
+  ${({ isAnimation }) =>
+    isAnimation
+      ? css`
+          animation-name: ${TextAppearKeyframes};
+
+          &::after {
+            animation-name: ${TextAppearOverlayKeyframes};
+          }
+        `
+      : css`
+          clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+
+          &::after {
+            clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+          }
+        `}
 `;
 
 const WorkBackButton = styled(({ isActive, isWhite, ...props }) => (
@@ -333,7 +398,9 @@ const WorkBackButton = styled(({ isActive, isWhite, ...props }) => (
     `}
 `;
 
-const WorkBackLink = styled(({ isActive, ...props }) => <Link {...props} />)`
+const WorkBackLink = styled(({ isActive, isAnimate, ...props }) => (
+  <Link {...props} />
+))`
   ${tw`hidden h-8 w-8 mt-2 relative`}
 
   ${({ isActive }) =>
