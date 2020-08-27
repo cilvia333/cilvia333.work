@@ -1,6 +1,6 @@
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
-import { Link, navigate } from 'gatsby';
+import { Link, navigate, useStaticQuery, graphql } from 'gatsby';
 import React, { useContext, useEffect, useState } from 'react';
 import { useWindowSize, useWindowScroll, useEffectOnce } from 'react-use';
 import styled, { css, keyframes } from 'styled-components';
@@ -50,11 +50,40 @@ export const option = {
 interface Props {
   pageContext: {
     work: ContentfulWork;
+    defaultPosition: number;
   };
 }
 
 const Work: React.FC<Props> = ({ pageContext }: Props) => {
-  const { work } = pageContext;
+  const data = useStaticQuery(graphql`
+    query {
+      allContentfulWork(
+        filter: { node_locale: { eq: "ja" } }
+        sort: { fields: [updatedAt], order: DESC }
+      ) {
+        edges {
+          node {
+            slug
+            title
+            thumbnail {
+              fluid(maxWidth: 1440) {
+                ...GatsbyContentfulFluid_withWebp
+              }
+            }
+          }
+        }
+      }
+    }
+  `);
+  const defaultWorks = data.allContentfulWork.edges.map((edge: any) => {
+    return {
+      title: edge.node.title ?? '',
+      slug: edge.node.slug ?? '',
+      thumbnail: edge.node.thumbnail.fluid ?? '',
+    } as WorkHeadLine;
+  });
+
+  const { work, defaultPosition } = pageContext;
   const { x, y } = useWindowScroll(0);
   const { width, height } = useWindowSize();
   const ctx = useContext(layoutContext);
@@ -81,11 +110,24 @@ const Work: React.FC<Props> = ({ pageContext }: Props) => {
 
   useEffectOnce(() => {
     ctx.setPageTitle('WORKS');
-    if (ctx.workPosition > 0) {
-      setPrevWork(ctx.workList[ctx.workPosition - 1]);
-    }
-    if (ctx.workPosition < ctx.workList.length - 1) {
-      setNextWork(ctx.workList[ctx.workPosition + 1]);
+    console.log(ctx.workPosition);
+    if (ctx.workPosition < 0) {
+      ctx.setWorkPosition(defaultPosition);
+      ctx.setWorkList(defaultWorks);
+      console.log(defaultWorks);
+      if (defaultPosition > 0) {
+        setPrevWork(defaultWorks[defaultPosition - 1]);
+      }
+      if (defaultPosition < defaultWorks.length - 1) {
+        setNextWork(defaultWorks[defaultPosition + 1]);
+      }
+    } else {
+      if (ctx.workPosition > 0) {
+        setPrevWork(ctx.workList[ctx.workPosition - 1]);
+      }
+      if (ctx.workPosition < ctx.workList.length - 1) {
+        setNextWork(ctx.workList[ctx.workPosition + 1]);
+      }
     }
   });
 

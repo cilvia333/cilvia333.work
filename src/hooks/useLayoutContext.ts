@@ -30,7 +30,7 @@ export const layoutContext = createContext<LayoutContext>({
   workList: [],
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   setWorkList: () => {},
-  workPosition: 0,
+  workPosition: -1,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   setWorkPosition: () => {},
   workBackPath: '',
@@ -51,7 +51,7 @@ export const useLayoutContext = (): LayoutContext => {
   const setWorkList = useCallback((current: WorkHeadLine[]): void => {
     setCurrentWorkList(current);
   }, []);
-  const [workPosition, setCurrentWorkPosition] = useState(0);
+  const [workPosition, setCurrentWorkPosition] = useState(-1);
   const setWorkPosition = useCallback((current: number): void => {
     setCurrentWorkPosition(current);
   }, []);

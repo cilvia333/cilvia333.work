@@ -1,6 +1,6 @@
 import { useLocation } from '@reach/router';
-import { useStaticQuery, graphql } from 'gatsby';
 import React, { useEffect, useState } from 'react';
+import { useEffectOnce } from 'react-use';
 import styled, {
   createGlobalStyle,
   ThemeProvider,
@@ -17,6 +17,8 @@ import wave01 from '~/images/wave-yellow_01.png';
 import wave02 from '~/images/wave-yellow_02.png';
 import wave03 from '~/images/wave-yellow_03.png';
 
+import { WorkHeadLine } from '~/types/work';
+
 interface Props {
   children: React.ReactNode;
 }
@@ -24,16 +26,15 @@ interface Props {
 const Layout: React.FC<Props> = ({ children }: Props) => {
   const [path, setPath] = useState('');
   const location = useLocation();
-
-  useEffect(() => {
-    setPath(location.pathname);
-  }, [location]);
+  const ctx = useLayoutContext();
 
   const theme = {
     primary: 'red',
   };
 
-  const ctx = useLayoutContext();
+  useEffect(() => {
+    setPath(location.pathname);
+  }, [location]);
 
   return (
     <>

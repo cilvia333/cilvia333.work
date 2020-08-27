@@ -68,12 +68,13 @@ exports.createPages = async ({ graphql, actions }) => {
   const tagsEdges = tags.data.allContentfulTag.edges;
 
   const workTemplate = path.resolve(`./src/templates/work.tsx`);
-  _.each(worksEdges, edge => {
+  _.each(worksEdges, (edge, i) => {
     createPage({
       path: `/works/${edge.node.slug}`,
       component: workTemplate,
       context: {
         work: edge.node,
+        defaultPosition: i,
       },
     });
   });
