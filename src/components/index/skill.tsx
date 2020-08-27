@@ -128,7 +128,7 @@ const Skill: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
   return (
     <>
       <Wrapper ref={componentRef} id="skill">
-        <Header ref={headerRef}>
+        <Header ref={headerRef} isIntersection={isHeaderIntersection}>
           <h3>skill</h3>
           <h2>できること</h2>
           <p>こんなお手伝いができます！</p>
@@ -206,11 +206,12 @@ const Wrapper = styled.section`
   `}
 `;
 
-const Header = styled.div`
+const Header = styled.div<{ isIntersection: boolean }>`
   ${tw`flex justify-between items-center flex-col`}
 
   h3 {
-    ${tw`font-header font-bold text-2xl text-gray-500 leading-none mb-2`}
+    ${tw`font-header font-bold text-2xl text-gray-500 leading-none mb-2 opacity-0 transition-all duration-300 ease-out`}
+    transform: translateY(10%);
 
     ${media.sm`
       ${tw`text-xl`}
@@ -218,36 +219,72 @@ const Header = styled.div`
   }
 
   h2 {
-    ${tw`inline-block relative font-header font-bold text-4xl text-gray-900 leading-none mb-8`}
+    ${tw`inline-block relative font-header font-bold text-4xl text-gray-900 leading-none mb-8 opacity-0 transition-all duration-300 ease-out`}
 
     ${media.sm`
       ${tw`text-3xl`}
     `}
 
-    &::after {
-      ${tw`absolute bg-primary-500 w-full`}
+    &::before, &::after {
+      ${tw`absolute bg-primary-500 m-0 transition-all duration-300 ease-out`}
       content: '';
-      height: 18px;
+      height: 12px;
+      width: 54%;
       background: url(${LineWaveSvg}) no-repeat;
+      background-size: cover;
       bottom: -24px;
-      left: 0;
-      right: 0;
+    }
+
+    &::before {
+      right: -4%;
+      background-position: center right -100%;
+    }
+
+    &::after {
+      left: -4%;
+      background-position: center left -100%;
     }
   }
 
   p {
-    ${tw`font-header font-bold text-xl text-gray-900`}
+    ${tw`font-header font-bold text-xl text-gray-900 opacity-0 transition-all duration-300 ease-out delay-200`}
+    transform: translateY(10%);
 
     ${media.sm`
       ${tw`text-lg`}
     `}
   }
+
+  ${({ isIntersection }) =>
+    isIntersection &&
+    css`
+      h3 {
+        ${tw`opacity-100`}
+        transform: translateY(0);
+      }
+      h2 {
+        ${tw`opacity-100`}
+
+        &::before {
+          background-position: center right 0%;
+        }
+
+        &::after {
+          background-position: center left 0%;
+        }
+      }
+      p {
+        ${tw`opacity-100`}
+        transform: translateY(0);
+      }
+    `}
 `;
 
 const ContentsWrapper = styled.ol`
   ${tw`w-full m-auto`}
 
   max-width: 1024px;
+  list-style: none;
 `;
 
 const ContentWrapper = styled.li`
