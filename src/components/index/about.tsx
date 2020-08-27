@@ -175,7 +175,7 @@ const CatchSmallText = styled.span`
 const Description = styled.div<{ isIntersected: boolean }>`
   ${tw`py-32 opacity-0 transition-all duration-300 ease-out`}
 
-  transition-delay: 1s;
+  transition-delay: 400ms;
 
   ${media.lg`
     ${tw`py-0 mt-40 w-full text-center`}
