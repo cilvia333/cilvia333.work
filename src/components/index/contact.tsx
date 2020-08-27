@@ -63,21 +63,27 @@ const Contact: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Twitter color="#F2F2F0" size={24} />
+                <SvgWrapper>
+                  <Twitter size={24} />
+                </SvgWrapper>
               </OtherLinkButton>
               <OtherLinkButton
                 href="https://github.com/cilvia333"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Github color="#F2F2F0" size={24} />
+                <SvgWrapper>
+                  <Github size={24} />
+                </SvgWrapper>
               </OtherLinkButton>
               <OtherLinkButton
                 href="https://design.cilvia333.work"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Tumblr color="#F2F2F0" size={24} />
+                <SvgWrapper>
+                  <Tumblr size={24} />
+                </SvgWrapper>
               </OtherLinkButton>
             </OtherLinkWrapper>
           </Content>
@@ -166,11 +172,36 @@ const OtherLinkWrapper = styled.div`
   ${tw`flex justify-around items-center`}
 `;
 
+const SvgWrapper = styled.div`
+  svg {
+    ${tw`text-primary-500 fill-current absolute inset-0 m-auto transition-all duration-300 ease-out`}
+  }
+`;
+
 const OtherLinkButton = styled.a`
-  ${tw`relative h-12 w-12 rounded-circle bg-primary-500`}
+  ${tw`relative h-12 w-12 rounded-circle bg-base-200 border-primary-500 border-solid border-2 overflow-hidden`}
+
+  &::before {
+    ${tw`absolute bg-primary-500 inset-0 m-auto transition-transform duration-300 ease-out rounded-circle`}
+
+    content: "";
+    transform: scale(0);
+    height: 105%;
+    width: 105%;
+  }
 
   & > * {
     ${tw`absolute inset-0 m-auto`}
+  }
+
+  &:hover {
+    &::before {
+      transform: scale(1);
+    }
+
+    svg {
+      ${tw`text-base-200`}
+    }
   }
 `;
 export default Contact;
