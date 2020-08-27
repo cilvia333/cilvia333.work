@@ -12,24 +12,18 @@ import { layoutContext } from '~/hooks';
 
 import { media } from '~/styles';
 
-import { ContentfulFluid } from '~/types/graphql-types';
-
-export type Work = {
-  id?: string;
-  slug?: string;
-  title?: string;
-  tags?: {
-    title?: string;
-  }[];
-  thumbnail?: {
-    title?: string;
-    fluid?: ContentfulFluid;
-  };
-};
+import { Work, WorkHeadLine } from '~/types/work';
 
 const WorksPage: React.FC = ({ data, pageContext }: any) => {
-  const works: Work[] = data.allContentfulWork.edges.map((edge: any) => {
-    return edge.node;
+  const pageWorks: Work[] = data.page.edges.map((edge: any) => {
+    return edge.node as Work;
+  });
+  const allWorks: WorkHeadLine[] = data.all.edges.map((edge: any) => {
+    return {
+      title: edge.node.title ?? '',
+      slug: edge.node.slug ?? '',
+      thumbnail: edge.node.thumbnail.fluid ?? '',
+    } as WorkHeadLine;
   });
 
   const ctx = useContext(layoutContext);
@@ -37,6 +31,8 @@ const WorksPage: React.FC = ({ data, pageContext }: any) => {
   useEffectOnce(() => {
     ctx.setIsWhite(false);
     ctx.setPageTitle('WORKS');
+    ctx.setWorkList(allWorks);
+    ctx.setWorkBackPath('/works');
   });
 
   return (
@@ -44,7 +40,7 @@ const WorksPage: React.FC = ({ data, pageContext }: any) => {
       <SEO title="WORKS" />
       <Wrapper>
         <CardWrapper>
-          {works?.map((work: Work, index) => {
+          {pageWorks?.map((work: Work, index) => {
             return (
               <WorkCard
                 thumbnail={work.thumbnail?.fluid}
@@ -52,6 +48,9 @@ const WorksPage: React.FC = ({ data, pageContext }: any) => {
                 tags={work.tags}
                 to={`/works/${work.slug}`}
                 key={`work_${index}`}
+                onClick={() => {
+                  ctx.setWorkPosition(index);
+                }}
               />
             );
           })}
@@ -82,7 +81,7 @@ const CardWrapper = styled.ul`
 
 export const query = graphql`
   query($skip: Int!, $limit: Int!) {
-    allContentfulWork(
+    page: allContentfulWork(
       filter: { node_locale: { eq: "ja" } }
       sort: { fields: [updatedAt], order: DESC }
       skip: $skip
@@ -98,11 +97,23 @@ export const query = graphql`
           thumbnail {
             title
             fluid(maxWidth: 1440) {
-              base64
-              aspectRatio
-              src
-              srcSet
-              sizes
+              ...GatsbyContentfulFluid_withWebp
+            }
+          }
+        }
+      }
+    }
+    all: allContentfulWork(
+      filter: { node_locale: { eq: "ja" } }
+      sort: { fields: [updatedAt], order: DESC }
+    ) {
+      edges {
+        node {
+          slug
+          title
+          thumbnail {
+            fluid(maxWidth: 1440) {
+              ...GatsbyContentfulFluid_withWebp
             }
           }
         }

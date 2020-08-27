@@ -14,20 +14,28 @@ interface Props {
     title?: string;
   }[];
   to?: string;
+  onClick: () => void;
 }
 
-const WorkCard: React.FC<Props> = ({ thumbnail, title, tags, to }: Props) => {
-  const onClick = e => {
+const WorkCard: React.FC<Props> = ({
+  thumbnail,
+  title,
+  tags,
+  to,
+  onClick,
+}: Props) => {
+  const onLinkClick = e => {
+    onClick();
     navigate(to ?? '');
   };
 
   return (
     <>
       <Wrapper>
-        <ThumbnailWrapper onClick={onClick}>
+        <ThumbnailWrapper onClick={onLinkClick}>
           <Thumbnail fluid={thumbnail} alt={title ?? ''} />
         </ThumbnailWrapper>
-        <Title onClick={onClick}>{title}</Title>
+        <Title onClick={onLinkClick}>{title}</Title>
         <TagWrapper>
           {tags?.map((tag, i) => (
             <TagLink

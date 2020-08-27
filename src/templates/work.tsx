@@ -1,24 +1,23 @@
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
-import { Link } from 'gatsby';
-import React, { useContext, useEffect } from 'react';
+import { Link, navigate } from 'gatsby';
+import React, { useContext, useEffect, useState } from 'react';
 import { useWindowSize, useWindowScroll, useEffectOnce } from 'react-use';
 import styled, { css, keyframes } from 'styled-components';
 import tw from 'twin.macro';
 
 import Image from '~/components/image';
 import SEO from '~/components/seo';
+import Wave from '~/components/wave';
 
 import { useContentfulImage, layoutContext } from '~/hooks';
 
 import BackArrow from '~/images/back-arrow.inline.svg';
-import wave01 from '~/images/wave-white_01.png';
-import wave02 from '~/images/wave-white_02.png';
-import wave03 from '~/images/wave-white_03.png';
 
 import { media } from '~/styles';
 
 import { ContentfulWork } from '~/types/graphql-types';
+import { WorkHeadLine } from '~/types/work';
 
 export const option = {
   renderNode: {
@@ -59,6 +58,18 @@ const Work: React.FC<Props> = ({ pageContext }: Props) => {
   const { x, y } = useWindowScroll(0);
   const { width, height } = useWindowSize();
   const ctx = useContext(layoutContext);
+  const [prevWork, setPrevWork] = useState<WorkHeadLine>();
+  const [nextWork, setNextWork] = useState<WorkHeadLine>();
+
+  const handlePrevClick = () => {
+    ctx.setWorkPosition(ctx.workPosition - 1);
+    navigate(`/works/${prevWork?.slug}`);
+  };
+
+  const handleNextClick = () => {
+    ctx.setWorkPosition(ctx.workPosition + 1);
+    navigate(`/works/${nextWork?.slug}`);
+  };
 
   useEffect(() => {
     if (y >= height) {
@@ -70,6 +81,12 @@ const Work: React.FC<Props> = ({ pageContext }: Props) => {
 
   useEffectOnce(() => {
     ctx.setPageTitle('WORKS');
+    if (ctx.workPosition > 0) {
+      setPrevWork(ctx.workList[ctx.workPosition - 1]);
+    }
+    if (ctx.workPosition < ctx.workList.length - 1) {
+      setNextWork(ctx.workList[ctx.workPosition + 1]);
+    }
   });
 
   return (
@@ -101,11 +118,7 @@ const Work: React.FC<Props> = ({ pageContext }: Props) => {
           </OverView>
         </OverViewWrapper>
       </HeaderWrapper>
-      <WaveWrapper>
-        <Wave />
-        <Wave />
-        <Wave />
-      </WaveWrapper>
+      <StyledWave color="white" />
       <ContentsWrapper>
         <DescriptionWrapper>
           {documentToReactComponents(work.description?.json, option)}
@@ -115,18 +128,25 @@ const Work: React.FC<Props> = ({ pageContext }: Props) => {
           </DescriptionBackLink>
         </DescriptionWrapper>
       </ContentsWrapper>
+      <ControlWrapper>
+        {prevWork && (
+          <Control>
+            <ControlText onClick={handlePrevClick}>PREV WORK</ControlText>
+            <ControlBG fluid={prevWork?.thumbnail} alt={prevWork?.title} />
+          </Control>
+        )}
+        {nextWork && (
+          <Control Next>
+            <ControlText onClick={handleNextClick} Next>
+              NEXT WORK
+            </ControlText>
+            <ControlBG fluid={nextWork?.thumbnail} alt={nextWork?.title} Next />
+          </Control>
+        )}
+      </ControlWrapper>
     </>
   );
 };
-
-const waveKeyframe = keyframes`
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-1920px);
-  }
-`;
 
 const BacgkroundWrapper = styled.div`
   ${tw`fixed w-full h-screen inset-0`}
@@ -142,6 +162,80 @@ const BacgkroundImage = styled(Image)`
   }
 `;
 
+const ControlWrapper = styled.div`
+  ${tw`fixed w-full h-screen inset-0 z-10 pointer-events-none`}
+`;
+
+const Control = styled.div<{ Next?: boolean }>`
+  ${tw`absolute h-full pointer-events-none`}
+  top: 0;
+  bottom: 0;
+
+  ${({ Next }) =>
+    Next
+      ? css`
+          right: 0;
+        `
+      : css`
+          left: 0;
+        `}
+`;
+
+const ControlBG = styled(Image)<{ Next?: boolean }>`
+  ${tw`absolute h-full w-0 transition-all duration-300 ease-out inset-y-0 my-auto mx-0`}
+
+  &::after {
+    ${tw`absolute h-full w-full transition-all duration-300 ease-out inset-0 bg-gray-900 opacity-75`}
+    content: '';
+  }
+
+  ${({ Next }) =>
+    Next
+      ? css`
+          right: 0;
+        `
+      : css`
+          left: 0;
+        `}
+`;
+
+const ControlText = styled.div<{ Next?: boolean }>`
+  ${tw`absolute text-gray-900 text-lg font-header font-bold cursor-pointer pointer-events-auto inset-y-0 my-auto text-center`}
+  writing-mode: vertical-rl;
+  z-index: 1;
+
+  ${({ Next }) =>
+    Next
+      ? css`
+          ${tw`pr-4`}
+          right: 0;
+
+          &::after {
+            ${tw`absolute inset-y-0 my-auto bg-base-200`}
+            content: '';
+            height: 1px;
+            width: 22px;
+            right: -4px;
+          }
+        `
+      : css`
+          ${tw`pl-4`}
+          left: 0;
+
+          &::before {
+            ${tw`absolute inset-y-0 my-auto bg-base-200`}
+            content: '';
+            height: 1px;
+            width: 22px;
+            left: -4px;
+          }
+        `}
+
+  &:hover ~ ${ControlBG}{
+    width: 100px;
+  }
+`;
+
 const HeaderWrapper = styled.div`
   ${tw`relative w-full h-screen`}
   padding-top: 80vh;
@@ -149,7 +243,7 @@ const HeaderWrapper = styled.div`
 `;
 
 const OverViewWrapper = styled.div`
-  ${tw`text-base-200 w-full m-auto flex justify-start align-top`}
+  ${tw`text-base-200 w-full m-auto flex justify-start align-top pointer-events-auto`}
 
   max-width: 768px;
 
@@ -220,36 +314,12 @@ const OverView = styled.div`
   }
 `;
 
-const WaveWrapper = styled.div`
-  ${tw`absolute w-full overflow-hidden m-auto`}
+const StyledWave = styled(Wave)`
+  ${tw`absolute  m-auto pointer-events-none`}
   top: 100vh;
   left: 0;
   right: 0;
   height: 25vh;
-`;
-
-const Wave = styled.div`
-  ${tw`absolute h-full`}
-  animation: ${waveKeyframe} 12s linear infinite 0s;
-  background: top left/1920px repeat-x ;
-  min-width: 3840px;
-  width: 200%;
-  top: 0;
-  transform: translateX(10px);
-
-  &:nth-child(1) {
-    background-image:  url(${wave03});
-    left: 240px;
-  }
-
-  &:nth-child(2) {
-    background-image:  url(${wave02});
-    left: 120px;
-  }
-  &:nth-child(3) {
-    background-image:  url(${wave01});
-    left: 0;
-  }
 `;
 
 const ContentsWrapper = styled.div`
