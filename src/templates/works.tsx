@@ -32,7 +32,7 @@ const WorksPage: React.FC = ({ data, pageContext }: any) => {
     ctx.setIsWhite(false);
     ctx.setPageTitle('WORKS');
     ctx.setWorkList(allWorks);
-    ctx.setWorkBack({ path: '/works', title: 'WORKS' });
+    ctx.setWorkBack({ ...ctx.workBack, path: '/works', title: 'WORKS' });
   });
 
   return (
@@ -49,7 +49,7 @@ const WorksPage: React.FC = ({ data, pageContext }: any) => {
                 to={`/works/${work.slug}`}
                 key={`work_${index}`}
                 onClick={() => {
-                  ctx.setWorkPosition(index);
+                  ctx.setWorkPosition(pageContext.pageNumber * 12 + index);
                 }}
               />
             );
@@ -66,13 +66,14 @@ const Wrapper = styled.section`
 `;
 
 const CardWrapper = styled.ul`
-  ${tw`w-full m-auto mb-12 px-16 flex justify-between items-center flex-wrap`}
+  ${tw`w-full m-auto mb-12 px-16 flex justify-between items-start flex-wrap`}
 
-  max-width: 768px;
+  max-width: 1024px;
 
   ${media.md`
     ${tw`px-8`}
   `}
+
   ${media.sm`
     ${tw`justify-center`}
     max-width: 512px;

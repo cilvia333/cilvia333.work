@@ -28,17 +28,27 @@ export type Work = {
 };
 
 const TagsPage: React.FC = ({ data, pageContext }: any) => {
-  const works: Work[] = data.allContentfulWork.edges.map((edge: any) => {
-    return edge.node;
+  const pageWorks: Work[] = data.page.edges.map((edge: any) => {
+    return edge.node as Work;
+  });
+  const allWorks: WorkHeadLine[] = data.all.edges.map((edge: any) => {
+    return {
+      title: edge.node.title ?? '',
+      slug: edge.node.slug ?? '',
+      thumbnail: edge.node.thumbnail.fluid ?? '',
+    } as WorkHeadLine;
   });
 
   const ctx = useContext(layoutContext);
 
   useEffectOnce(() => {
+    ctx.setIsWhite(false);
     ctx.setPageTitle('WORKS');
+    ctx.setWorkList(allWorks);
     ctx.setWorkBack({
-      path: `/works/t/${pageContext.tag.title}`,
-      title: `WORKS #${pageContext.tag.title}`,
+      ...ctx.workBack,
+      path: `/works/t/${pageContext.tag}`,
+      title: `WORKS #${pageContext.tag}`,
     });
   });
 
@@ -47,7 +57,7 @@ const TagsPage: React.FC = ({ data, pageContext }: any) => {
       <SEO title="works" />
       <Wrapper>
         <CardWrapper>
-          {works?.map((work: Work, index) => {
+          {pageWorks?.map((work: Work, index) => {
             return (
               <WorkCard
                 thumbnail={work.thumbnail?.fluid}
@@ -55,6 +65,9 @@ const TagsPage: React.FC = ({ data, pageContext }: any) => {
                 tags={work.tags}
                 to={`/works/${work.slug}`}
                 key={`work_${index}`}
+                onClick={() => {
+                  ctx.setWorkPosition(pageContext.pageNumber * 12 + index);
+                }}
               />
             );
           })}
@@ -70,13 +83,14 @@ const Wrapper = styled.section`
 `;
 
 const CardWrapper = styled.ul`
-  ${tw`w-full m-auto mb-12 px-16 flex justify-between items-center flex-wrap`}
+  ${tw`w-full m-auto mb-12 px-16 flex justify-between items-start flex-wrap`}
 
-  max-width: 768px;
+  max-width: 1024px;
 
   ${media.md`
     ${tw`px-8`}
   `}
+
   ${media.sm`
     ${tw`justify-center`}
     max-width: 512px;
@@ -84,7 +98,7 @@ const CardWrapper = styled.ul`
 `;
 export const query = graphql`
   query($skip: Int!, $limit: Int!, $tag: String) {
-    allContentfulWork(
+    page: allContentfulWork(
       sort: { fields: [updatedAt], order: DESC }
       filter: {
         tags: { elemMatch: { title: { eq: $tag } } }
@@ -92,6 +106,33 @@ export const query = graphql`
       }
       skip: $skip
       limit: $limit
+    ) {
+      edges {
+        node {
+          slug
+          title
+          tags {
+            title
+          }
+          thumbnail {
+            title
+            fluid(maxWidth: 1440) {
+              base64
+              aspectRatio
+              src
+              srcSet
+              sizes
+            }
+          }
+        }
+      }
+    }
+    all: allContentfulWork(
+      sort: { fields: [updatedAt], order: DESC }
+      filter: {
+        tags: { elemMatch: { title: { eq: $tag } } }
+        node_locale: { eq: "ja" }
+      }
     ) {
       edges {
         node {

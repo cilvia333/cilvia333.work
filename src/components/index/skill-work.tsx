@@ -11,12 +11,15 @@ import { layoutContext } from '~/hooks';
 import { media } from '~/styles';
 
 import { ContentfulFluid } from '~/types/graphql-types';
+import { WorkHeadLine } from '~/types/work';
 
 interface Props {
   title: string;
   to: string;
   image: ContentfulFluid;
   number: number;
+  position: number;
+  works: WorkHeadLine;
   className?: string;
 }
 
@@ -25,12 +28,16 @@ const SkillWork: React.FC<Props> = ({
   to,
   image,
   number,
+  position,
+  works,
   className,
 }: Props) => {
   const ctx = useContext(layoutContext);
 
   const onClick = () => {
     ctx.setWorkBack({ ...ctx.workBack, scroll: `#skill-${number}` });
+    ctx.setWorkList(works);
+    ctx.setWorkPosition(position);
     navigate(to);
   };
 

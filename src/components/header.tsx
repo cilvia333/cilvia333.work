@@ -8,11 +8,7 @@ import Wave from '~/components/wave';
 import { layoutContext } from '~/hooks';
 
 import BackArrow from '~/images/back-arrow.inline.svg';
-import BackArrow2 from '~/images/back-arrow.svg';
 import CrossSvg from '~/images/cross.inline.svg';
-import wave01 from '~/images/wave-white_01.png';
-import wave02 from '~/images/wave-white_02.png';
-import wave03 from '~/images/wave-white_03.png';
 
 import { media } from '~/styles';
 
@@ -27,6 +23,12 @@ const Header: React.FC = () => {
 
   const onAnimationEnd = () => {
     setIsAnimation(false);
+  };
+
+  const getPage = () => {
+    const page = Math.floor(ctx.workPosition / 12);
+
+    return page > 0 ? `/${page + 1}` : '';
   };
 
   useEffect(() => {
@@ -114,7 +116,7 @@ const Header: React.FC = () => {
           <WorkBackLink
             to={`${ctx.workBack.path}${
               ctx.workBack.path === '/' ? ctx.workBack.scroll : ''
-            }`}
+            }${getPage()}`}
             isActive={
               path[0] === 'works' && !worksRegex.test(path[1]) && path[1]
             }
@@ -341,6 +343,10 @@ const PageSubTitle = styled.div<{ isWhite: boolean; isAnimation: boolean }>`
     animation: 600ms ease-in-out forwards;
     clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
   }
+
+  ${media.sm`
+    ${tw`text-lg`}
+  `}
 
   ${({ isWhite }) =>
     isWhite &&

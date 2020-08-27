@@ -100,6 +100,14 @@ const Work: React.FC<Props> = ({ pageContext }: Props) => {
     navigate(`/works/${nextWork?.slug}`);
   };
 
+  const getPage = () => {
+    const page = Math.floor(ctx.workPosition / 12);
+    console.log(ctx.workPosition);
+    console.log(page);
+
+    return page > 0 ? `/${page + 1}` : '';
+  };
+
   useEffect(() => {
     if (y >= height) {
       ctx.setIsWhite(false);
@@ -165,7 +173,7 @@ const Work: React.FC<Props> = ({ pageContext }: Props) => {
           <DescriptionBackLink
             to={`${ctx.workBack.path}${
               ctx.workBack.path === '/' ? ctx.workBack.scroll : ''
-            }`}
+            }${getPage()}`}
           >
             <StyledBackArrow />
             back to {ctx.workBack.title}

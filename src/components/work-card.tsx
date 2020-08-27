@@ -5,6 +5,8 @@ import tw from 'twin.macro';
 
 import Image from '~/components/image';
 
+import { media } from '~/styles';
+
 import { ContentfulFluid } from '~/types/graphql-types';
 
 interface Props {
@@ -50,16 +52,46 @@ const WorkCard: React.FC<Props> = ({
 };
 
 const Wrapper = styled.li`
-  ${tw`w-full py-2`}
-  max-width: 256px;
+  ${tw`w-1/2 pb-12`}
+
+  &:nth-child(2n) {
+    ${tw`pl-8`}
+  }
+  &:nth-child(2n + 1) {
+    ${tw`pr-8`}
+  }
+
+  &:nth-last-child(1),
+  &:nth-last-child(2) {
+    ${tw`pb-0`}
+  }
+
+  ${media.sm`
+    ${tw`w-full pb-8`}
+
+    &:nth-child(2n) {
+    ${tw`pl-0`}
+    }
+    &:nth-child(2n + 1) {
+      ${tw`pr-0`}
+    }
+
+  &:nth-last-child(2) {
+    ${tw`pb-8`}
+  }
+
+    &:last-child {
+      ${tw`pb-0`}
+    }
+  `}
 `;
 
 const ThumbnailWrapper = styled.div`
-  ${tw`w-full h-32 cursor-pointer`}
+  ${tw`relative w-full cursor-pointer`}
 `;
 
 const Thumbnail = styled(Image)`
-  ${tw`w-full h-full`}
+  ${tw`absolute inset-0 w-full h-full`}
 
   border-radius: 1rem;
 `;
@@ -69,11 +101,11 @@ const Title = styled.h2`
 `;
 
 const TagWrapper = styled.div`
-  ${tw`w-full`}
+  ${tw`w-full mt-2`}
 `;
 
 const TagLink = styled(Link)`
-  ${tw`relative font-header font-bold text-sm leading-none text-primary-500 mr-2`}
+  ${tw`relative font-header font-bold leading-none text-primary-500 mr-2`}
 
   &::after {
     ${tw`absolute w-0 m-0 bg-primary-500 transition-all duration-300 ease-out rounded-full`}

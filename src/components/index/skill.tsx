@@ -16,12 +16,7 @@ import MoreTriSvg from '~/images/more-tri.svg';
 import { media } from '~/styles';
 
 import { ContentfulFluid } from '~/types/graphql-types';
-
-type WorkHeadline = {
-  title: string;
-  slug: string;
-  image: ContentfulFluid;
-};
+import { WorkHeadLine } from '~/types/work';
 
 type Skills = {
   title: string;
@@ -159,6 +154,8 @@ const Skill: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
                           title={work.title}
                           image={work.image}
                           number={i + 1}
+                          position={j}
+                          works={skill.works}
                           key={`skill-work${i}_${j}`}
                           isIntersected={intersection[i].isIntersection}
                         />
