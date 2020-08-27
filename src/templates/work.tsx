@@ -201,7 +201,7 @@ const BacgkroundImage = styled(Image)`
   ${tw`absolute inset-0 m-0 h-full w-full`}
 
   &::after {
-    ${tw`absolute h-full w-full inset-0 m-0 bg-gray-900 opacity-75`}
+    ${tw`absolute h-full w-full inset-0 m-0 bg-gray-700 opacity-25`}
 
     content: '';
   }
