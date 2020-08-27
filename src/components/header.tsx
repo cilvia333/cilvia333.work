@@ -8,6 +8,7 @@ import Wave from '~/components/wave';
 import { layoutContext } from '~/hooks';
 
 import BackArrow from '~/images/back-arrow.inline.svg';
+import BackArrow2 from '~/images/back-arrow.svg';
 import CrossSvg from '~/images/cross.inline.svg';
 import wave01 from '~/images/wave-white_01.png';
 import wave02 from '~/images/wave-white_02.png';
@@ -98,14 +99,26 @@ const Header: React.FC = () => {
           <PageSubTitle isWhite={ctx.white || isOpen}>
             {path[1] && !worksRegex.test(path[1]) ? `/${path[1]}` : ''}
           </PageSubTitle>
-          <Link to="/works">
-            <WorksBackButton
+          <WorkBackLink
+            to={`${ctx.workBack.path}${ctx.workBack.path === '/' &&
+              ctx.workBack.scroll}`}
+            isActive={
+              path[0] === 'works' && !worksRegex.test(path[1]) && path[1]
+            }
+          >
+            <WorkBackButton
               isWhite={ctx.white || isOpen}
               isActive={
                 path[0] === 'works' && !worksRegex.test(path[1]) && path[1]
               }
             />
-          </Link>
+            <WorkBackButton
+              isWhite={ctx.white || isOpen}
+              isActive={
+                path[0] === 'works' && !worksRegex.test(path[1]) && path[1]
+              }
+            />
+          </WorkBackLink>
         </PageInfoWrapper>
       </Wrapper>
     </CustomHeader>
@@ -289,22 +302,51 @@ const PageSubTitle = styled.div<{ isWhite: boolean }>`
     `}
 `;
 
-const WorksBackButton = styled(({ isActive, isWhite, ...props }: any) => (
+const WorkBackButton = styled(({ isActive, isWhite, ...props }) => (
   <BackArrow {...props} />
 ))`
-  ${tw`hidden h-12 w-12 text-gray-900 fill-current cursor-pointer transition-all duration-300 ease-out`}
+  ${tw`absolute opacity-0 h-8 w-8 text-gray-900 fill-current cursor-pointer transition-none duration-300 ease-out`}
+
+  &:nth-child(1) {
+    ${tw`text-gray-900`}
+  }
+  &:nth-child(2) {
+    ${tw`text-primary-500`}
+    clip-path: circle(0%);
+  }
 
   ${({ isWhite }) =>
     isWhite &&
     css`
-      ${tw`text-base-200`}
+      &:nth-child(1) {
+        ${tw`text-gray-200`}
+      }
     `}
+
+  ${({ isActive }) =>
+    isActive &&
+    css`
+      ${tw`opacity-100 transition-all`}
+    `}
+`;
+
+const WorkBackLink = styled(({ isActive, ...props }) => <Link {...props} />)`
+  ${tw`hidden h-8 w-8 mt-2 relative`}
 
   ${({ isActive }) =>
     isActive &&
     css`
       ${tw`block`}
     `}
+
+  &:hover {
+    ${WorkBackButton} {
+      &:nth-child(2) {
+        ${tw`text-primary-500`}
+        clip-path: circle(100%);
+      }
+    }
+  }
 `;
 
 const WorksTagBadge = styled.div<{ isActive: boolean }>`
