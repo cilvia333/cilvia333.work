@@ -4,6 +4,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import styled, { css, keyframes } from 'styled-components';
 import tw from 'twin.macro';
 
+import Wave from '~/components/wave';
 import { layoutContext } from '~/hooks';
 
 import BackArrow from '~/images/back-arrow.inline.svg';
@@ -73,11 +74,7 @@ const Header: React.FC = () => {
               </li>
             </Menu>
           </Nav>
-          <WaveWrapper isOpen={isOpen}>
-            <Wave />
-            <Wave />
-            <Wave />
-          </WaveWrapper>
+          <StyledWave isOpen={isOpen} color="white" />
         </NavWrapper>
         <ButtonWrapper>
           <Button
@@ -114,49 +111,6 @@ const Header: React.FC = () => {
     </CustomHeader>
   );
 };
-
-const fadeIn = keyframes`
-  0% {
-    display: none;
-    opacity:0;
-  }
-
-  1% {
-    display: grid;
-    opacity:1;
-  }
-
-  100% {
-    display: grid;
-    opacity:1;
-  }
-`;
-
-const fadeOut = keyframes`
-  0% {
-    display: grid;
-    opacity:1;
-  }
-
-  99% {
-    display: grid;
-    opacity:1;
-  }
-
-  100% {
-    display: none;
-    opacity:0;
-  }
-`;
-
-const waveKeyframe = keyframes`
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-1920px);
-  }
-`;
 
 const CustomHeader = styled.header`
   ${tw`fixed w-full z-20`}
@@ -234,8 +188,10 @@ const MenuLink = styled(({ isActive, ...props }: any) => <Link {...props} />)`
     `}
 `;
 
-const WaveWrapper = styled.div<{ isOpen: boolean }>`
-  ${tw`relative w-full h-full row-start-7 opacity-0 transition-opacity duration-100 ease-out delay-100`}
+const StyledWave = styled(({ isOpen: boolean, ...props }) => (
+  <Wave {...props} />
+))`
+  ${tw`h-full row-start-7 opacity-0 transition-opacity duration-100 ease-out delay-100`}
 
   grid-row-end: 9;
 
@@ -245,30 +201,6 @@ const WaveWrapper = styled.div<{ isOpen: boolean }>`
       ${tw`opacity-100`}
       transition-delay: 0;
     `}
-`;
-
-const Wave = styled.div`
-  ${tw`absolute h-full row-start-4 row-end-5`}
-  animation: ${waveKeyframe} 12s linear infinite 0s;
-  background: top left/1920px repeat-x ;
-  min-width: 3840px;
-  width: 200%;
-  top: 0;
-  transform: translateX(10px);
-
-  &:nth-child(1) {
-    background-image:  url(${wave03});
-    left: 240px;
-  }
-
-  &:nth-child(2) {
-    background-image:  url(${wave02});
-    left: 120px;
-  }
-  &:nth-child(3) {
-    background-image:  url(${wave01});
-    left: 0;
-  }
 `;
 
 const ButtonWrapper = styled.div`
