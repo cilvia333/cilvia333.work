@@ -45,8 +45,18 @@ const About: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
   return (
     <>
       <Wrapper ref={componentRef} id="about">
-        <CatchWrapper ref={catchRef} isIntersected={isCatchIntersected}>
-          <CatchText>
+        <CatchWrapper ref={catchRef}>
+          <CatchText isIntersected={isCatchIntersected}>
+            Cilvia333 <nobr />
+            <CatchSmallText>is</CatchSmallText> <br />
+            Creater<CatchSmallText>,</CatchSmallText>
+            <br />
+            Coder <nobr />
+            <CatchSmallText>and</CatchSmallText>
+            <br />
+            Comfort.
+          </CatchText>
+          <CatchText isIntersected={isCatchIntersected}>
             Cilvia333 <nobr />
             <CatchSmallText>is</CatchSmallText> <br />
             Creater<CatchSmallText>,</CatchSmallText>
@@ -82,18 +92,29 @@ const About: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
   );
 };
 
+const catchBlurKeyframe = keyframes`
+0% {
+  opacity: 0;
+}
+10% {
+  opacity: 1;
+}
+50% {
+  opacity: 1;
+}
+100% {
+  opacity: 0;
+}
+`;
+
 const catchKeyframe = keyframes`
   0% {
-    transform: scale(1.2);
-    filter: blur(4px);
     opacity: 0;
   }
   50% {
-    opacity: 1;
+    opacity: 0;
   }
   100% {
-    transform: scale(1);
-    filter: blur(0);
     opacity: 1;
   }
 `;
@@ -120,10 +141,10 @@ const Wrapper = styled.section`
   `}
 `;
 
-const CatchWrapper = styled.div<{ isIntersected: boolean }>`
-  ${tw`text-base-200 opacity-0`}
+const CatchWrapper = styled.div`
+  ${tw`relative text-base-200 w-full`}
 
-  animation: 1s ease-out forwards;
+  height: 800px;
 
   ${({ isIntersected }) =>
     isIntersected &&
@@ -132,10 +153,26 @@ const CatchWrapper = styled.div<{ isIntersected: boolean }>`
     `}
 `;
 
-const CatchText = styled.h1`
-  ${tw`font-header font-bold text-base-200 text-left`}
+const CatchText = styled.h1<{ isIntersected: boolean }>`
+  ${tw`absolute font-header font-bold text-base-200 text-left inset-0 m-auto h-full w-full opacity-0`}
   font-size: 200px;
   line-height: 1.1;
+  animation: 1s ease-out forwards;
+
+  &:nth-child(2){
+    filter: blur(20px);
+  }
+
+  ${({ isIntersected }) =>
+    isIntersected &&
+    css`
+      &:nth-child(1) {
+        animation-name: ${catchKeyframe};
+      }
+      &:nth-child(2) {
+        animation-name: ${catchBlurKeyframe};
+      }
+    `}
 
   @media (max-width: 1685px) {
     font-size: 160px;
