@@ -1,6 +1,6 @@
 import { Link, navigate } from 'gatsby';
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import tw from 'twin.macro';
 
 import Image from '~/components/image';
@@ -17,6 +17,7 @@ interface Props {
   }[];
   to?: string;
   onClick: () => void;
+  className: string;
 }
 
 const WorkCard: React.FC<Props> = ({
@@ -25,6 +26,7 @@ const WorkCard: React.FC<Props> = ({
   tags,
   to,
   onClick,
+  className,
 }: Props) => {
   const onLinkClick = e => {
     onClick();
@@ -33,7 +35,7 @@ const WorkCard: React.FC<Props> = ({
 
   return (
     <>
-      <Wrapper>
+      <Wrapper className={className}>
         <ThumbnailWrapper onClick={onLinkClick}>
           <Thumbnail fluid={thumbnail} alt={title ?? ''} />
         </ThumbnailWrapper>
@@ -51,8 +53,20 @@ const WorkCard: React.FC<Props> = ({
   );
 };
 
+const displayKeyframes = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(50%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
 const Wrapper = styled.li`
   ${tw`w-1/2 pb-12`}
+  animation: ${displayKeyframes} 1s ease-out forwards;
 
   &:nth-child(2n) {
     ${tw`pl-8`}
@@ -66,6 +80,31 @@ const Wrapper = styled.li`
     ${tw`pb-0`}
   }
 
+  &:nth-child(1),
+  &:nth-child(2) {
+    animation-delay: 0ms;
+  }
+  &:nth-child(3),
+  &:nth-child(4) {
+    animation-delay: 150ms;
+  }
+  &:nth-child(5),
+  &:nth-child(6) {
+    animation-delay: 300ms;
+  }
+  &:nth-child(7),
+  &:nth-child(8) {
+    animation-delay: 450ms;
+  }
+  &:nth-child(9),
+  &:nth-child(10) {
+    animation-delay: 600ms;
+  }
+  &:nth-child(11),
+  &:nth-child(12) {
+    animation-delay: 750ms;
+  }
+
   ${media.sm`
     ${tw`w-full pb-8`}
 
@@ -76,12 +115,49 @@ const Wrapper = styled.li`
       ${tw`pr-0`}
     }
 
-  &:nth-last-child(2) {
-    ${tw`pb-8`}
-  }
+    &:nth-last-child(2) {
+      ${tw`pb-8`}
+    }
 
     &:last-child {
       ${tw`pb-0`}
+    }
+
+    &:nth-child(1){
+      animation-delay: 0ms;
+    }
+    &:nth-child(2){
+      animation-delay: 100ms;
+    }
+    &:nth-child(3){
+      animation-delay: 200ms;
+    }
+    &:nth-child(4){
+      animation-delay: 300ms;
+    }
+    &:nth-child(5){
+      animation-delay: 400ms;
+    }
+    &:nth-child(6){
+      animation-delay: 500ms;
+    }
+    &:nth-child(7){
+      animation-delay: 600ms;
+    }
+    &:nth-child(8){
+      animation-delay: 700ms;
+    }
+    &:nth-child(9){
+      animation-delay: 800ms;
+    }
+    &:nth-child(10){
+      animation-delay: 900ms;
+    }
+    &:nth-child(11){
+      animation-delay: 1000ms;
+    }
+    &:nth-child(12){
+      animation-delay: 1100ms;
     }
   `}
 `;
