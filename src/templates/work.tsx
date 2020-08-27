@@ -110,11 +110,9 @@ const Work: React.FC<Props> = ({ pageContext }: Props) => {
 
   useEffectOnce(() => {
     ctx.setPageTitle('WORKS');
-    console.log(ctx.workPosition);
     if (ctx.workPosition < 0) {
       ctx.setWorkPosition(defaultPosition);
       ctx.setWorkList(defaultWorks);
-      console.log(defaultWorks);
       if (defaultPosition > 0) {
         setPrevWork(defaultWorks[defaultPosition - 1]);
       }
