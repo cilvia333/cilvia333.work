@@ -100,8 +100,11 @@ const Header: React.FC = () => {
             {path[1] && !worksRegex.test(path[1]) ? `/${path[1]}` : ''}
           </PageSubTitle>
           <WorkBackLink
-            to={`${ctx.workBack.path}${ctx.workBack.path === '/' &&
-              ctx.workBack.scroll}`}
+            to={`${ctx.workBack.path}${
+              (ctx.workBack.path === ctx.workBack.path) === '/'
+                ? ctx.workBack.scroll
+                : ''
+            }`}
             isActive={
               path[0] === 'works' && !worksRegex.test(path[1]) && path[1]
             }

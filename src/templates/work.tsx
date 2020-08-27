@@ -165,8 +165,9 @@ const Work: React.FC<Props> = ({ pageContext }: Props) => {
         <DescriptionWrapper>
           {documentToReactComponents(work.description?.json, option)}
           <DescriptionBackLink
-            to={`${ctx.workBack.path}${ctx.workBack.path === '/' &&
-              ctx.workBack.scroll}`}
+            to={`${ctx.workBack.path}${
+              ctx.workBack.path === '/' ? ctx.workBack.scroll : ''
+            }`}
           >
             <StyledBackArrow />
             back to {ctx.workBack.title}
