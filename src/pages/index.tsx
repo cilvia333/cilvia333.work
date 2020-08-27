@@ -37,6 +37,7 @@ const IndexPage: React.FC = () => {
 
   useEffectOnce(() => {
     ctx.setPageTitle('TOP');
+    ctx.setWorkBack({ path: '/', title: `TOP` });
   });
 
   return (

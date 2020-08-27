@@ -36,6 +36,10 @@ const TagsPage: React.FC = ({ data, pageContext }: any) => {
 
   useEffectOnce(() => {
     ctx.setPageTitle('WORKS');
+    ctx.setWorkBack({
+      path: `/works/t/${pageContext.tag.title}`,
+      title: `WORKS #${pageContext.tag.title}`,
+    });
   });
 
   return (

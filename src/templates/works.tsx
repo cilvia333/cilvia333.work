@@ -32,7 +32,7 @@ const WorksPage: React.FC = ({ data, pageContext }: any) => {
     ctx.setIsWhite(false);
     ctx.setPageTitle('WORKS');
     ctx.setWorkList(allWorks);
-    ctx.setWorkBackPath('/works');
+    ctx.setWorkBack({ path: '/works', title: 'WORKS' });
   });
 
   return (

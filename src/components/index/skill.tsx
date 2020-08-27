@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components';
 import tw from 'twin.macro';
 
 import { CenterPosition } from '~/components/index/background';
-import Work from '~/components/index/work';
+import SkillWork from '~/components/index/skill-work';
 import LinkButton from '~/components/link-button';
 
 import { useIntersectionObserver } from '~/hooks';
@@ -139,6 +139,7 @@ const Skill: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
               <ContentWrapper
                 key={`skill-content${i}`}
                 ref={intersection[i].ref}
+                id={`skill-${i + 1}`}
               >
                 <ContentTitle isIntersected={intersection[i].isIntersection}>
                   <ContentNum>{i + 1}</ContentNum>
@@ -157,6 +158,7 @@ const Skill: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
                           to={`/works/${work.slug}`}
                           title={work.title}
                           image={work.image}
+                          number={i + 1}
                           key={`skill-work${i}_${j}`}
                           isIntersected={intersection[i].isIntersection}
                         />
@@ -364,7 +366,7 @@ const WorksWrapper = styled.div`
 `;
 
 const StyledWork = styled(({ isIntersected, ...props }: any) => (
-  <Work {...props} />
+  <SkillWork {...props} />
 ))`
   ${tw`transition-all duration-300 ease-out opacity-0`}
   transform: translateY(10%);

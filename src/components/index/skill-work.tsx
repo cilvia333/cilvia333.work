@@ -1,10 +1,12 @@
-import { Link } from 'gatsby';
-import React from 'react';
+import { navigate } from 'gatsby';
+import React, { useContext } from 'react';
 import styled, { keyframes } from 'styled-components';
 import tw from 'twin.macro';
 
 import Image from '~/components/image';
 import Wave from '~/components/wave';
+
+import { layoutContext } from '~/hooks';
 
 import { media } from '~/styles';
 
@@ -14,14 +16,28 @@ interface Props {
   title: string;
   to: string;
   image: ContentfulFluid;
+  number: number;
   className?: string;
 }
 
-const Work: React.FC<Props> = ({ title, to, image, className }: Props) => {
+const SkillWork: React.FC<Props> = ({
+  title,
+  to,
+  image,
+  number,
+  className,
+}: Props) => {
+  const ctx = useContext(layoutContext);
+
+  const onClick = () => {
+    ctx.setWorkBack({ ...ctx.workBack, scroll: `#skill-${number}` });
+    navigate(to);
+  };
+
   return (
     <>
       <Wrapper className={className}>
-        <LinkWrapper to={to} className="group">
+        <LinkWrapper className="group" onClick={onClick}>
           <StyledImage fluid={image} alt={title} />
           <TitleLabelWrapper>
             <StyledWave color="yellow" />
@@ -88,8 +104,8 @@ const StyledWave = styled(Wave)`
   transform: translateY(10%) scaleY(0.4);
 `;
 
-const LinkWrapper = styled(Link)`
-  ${tw`w-56 h-56 bg-white overflow-hidden rounded-circle block relative transition-all duration-300 ease-out`}
+const LinkWrapper = styled.div`
+  ${tw`w-56 h-56 bg-white overflow-hidden rounded-circle block relative transition-all duration-300 ease-out cursor-pointer`}
 
   ${media.lg`
     ${tw`w-32 h-32`}
@@ -141,4 +157,4 @@ const Wrapper = styled.div`
     }
   }
 `;
-export default Work;
+export default SkillWork;

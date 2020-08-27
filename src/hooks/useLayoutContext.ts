@@ -16,8 +16,16 @@ type LayoutContext = {
   setWorkList: (current: WorkHeadLine[]) => void;
   workPosition: number;
   setWorkPosition: (current: number) => void;
-  workBackPath: string;
-  setWorkBackPath: (current: string) => void;
+  workBack: {
+    path: string;
+    scroll: string;
+    title: string;
+  };
+  setWorkBack: (current: {
+    path: string;
+    scroll: string;
+    title: string;
+  }) => void;
 };
 
 export const layoutContext = createContext<LayoutContext>({
@@ -33,9 +41,13 @@ export const layoutContext = createContext<LayoutContext>({
   workPosition: -1,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   setWorkPosition: () => {},
-  workBackPath: '',
+  workBack: {
+    path: '/works',
+    scroll: '',
+    title: 'WORK',
+  },
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  setWorkBackPath: () => {},
+  setWorkBack: () => {},
 });
 
 export const useLayoutContext = (): LayoutContext => {
@@ -55,10 +67,17 @@ export const useLayoutContext = (): LayoutContext => {
   const setWorkPosition = useCallback((current: number): void => {
     setCurrentWorkPosition(current);
   }, []);
-  const [workBackPath, setCurrentWorkBackPath] = useState('');
-  const setWorkBackPath = useCallback((current: string): void => {
-    setCurrentWorkBackPath(current);
-  }, []);
+  const [workBack, setCurrentWorkBack] = useState({
+    path: '/works',
+    scroll: 'string',
+    title: 'WORK',
+  });
+  const setWorkBack = useCallback(
+    (current: { path: string; title: string }): void => {
+      setCurrentWorkBack(current);
+    },
+    []
+  );
   return {
     white,
     setIsWhite,
@@ -68,7 +87,7 @@ export const useLayoutContext = (): LayoutContext => {
     setWorkList,
     workPosition,
     setWorkPosition,
-    workBackPath,
-    setWorkBackPath,
+    workBack,
+    setWorkBack,
   };
 };
