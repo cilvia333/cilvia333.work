@@ -1,10 +1,12 @@
 import { Twitter, Github, Tumblr } from '@icons-pack/react-simple-icons';
 import React, { useEffect } from 'react';
-import styled from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import tw from 'twin.macro';
 
 import { CenterPosition } from '~/components/index/background';
 import LinkButton from '~/components/link-button';
+
+import { useIntersectionObserver } from '~/hooks';
 
 import { media } from '~/styles';
 
@@ -16,6 +18,7 @@ interface Props {
 const Contact: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
   const componentRef = React.createRef<HTMLElement>();
   const centerRef = React.createRef<HTMLDivElement>();
+  const [contactRef, isIntersected] = useIntersectionObserver();
 
   const onChangeOffset = () => {
     setPosition(componentRef.current?.offsetTop ?? 0);
@@ -41,7 +44,7 @@ const Contact: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
   return (
     <>
       <Wrapper ref={componentRef} id="contact">
-        <Header>
+        <Header ref={contactRef} isIntersected={isIntersected}>
           <h3>Get in touch!</h3>
           <h2>ぜひ、ご連絡ください</h2>
         </Header>
@@ -93,6 +96,20 @@ const Contact: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
   );
 };
 
+const headerKeyframes = keyframes`
+  0%{
+    opacity: 0;
+    width: 5%;
+  }
+  10% {
+    opacity: 1;
+  }
+  100%{
+    opacity: 1;
+    width: 100%;
+  }
+`;
+
 const Wrapper = styled.section`
   ${tw`w-full py-32`}
 
@@ -101,7 +118,7 @@ const Wrapper = styled.section`
   }
 `;
 
-const Header = styled.div`
+const Header = styled.div<{ isIntersected: boolean }>`
   ${tw`flex justify-between items-center flex-col`}
 
   & > * {
@@ -109,7 +126,8 @@ const Header = styled.div`
   }
 
   h3 {
-    ${tw`font-header font-bold text-3xl text-gray-900 leading-none`}
+    ${tw`font-header font-bold text-3xl text-gray-900 leading-none opacity-0 transition-all duration-500 ease-out`}
+    transform: translateY(10%);
 
     ${media.sm`
       ${tw`text-2xl`}
@@ -117,11 +135,19 @@ const Header = styled.div`
   }
 
   h2 {
-    ${tw`inline-block relative font-header font-bold text-4xl text-gray-900 leading-none bg-base-200 px-16 py-4 rounded-full`}
+    ${tw`inline-block relative font-header font-bold text-4xl text-gray-900 leading-none px-16 py-4 opacity-0 transition-all duration-500 ease-out delay-200`}
 
     ${media.sm`
       ${tw`text-2xl px-8`}
     `}
+
+    &::before {
+      ${tw`absolute bg-base-200 h-full rounded-full inset-0 m-auto`}
+      content: '';
+      z-index: -1;
+      width: 5%;
+      animation: 600ms cubic-bezier(0, 0.35, 0.76, 1) forwards;
+    }
 
     &::after {
       ${tw`absolute bg-primary-500 w-full`}
@@ -132,6 +158,22 @@ const Header = styled.div`
       right: 0;
     }
   }
+
+  ${({ isIntersected }) =>
+    isIntersected &&
+    css`
+      h3 {
+        ${tw`opacity-100`}
+        transform: translateY(0);
+      }
+      h2 {
+        ${tw`opacity-100`}
+
+        &::before {
+          animation-name: ${headerKeyframes};
+        }
+      }
+    `}
 `;
 
 const ContentsWrapper = styled.div`
