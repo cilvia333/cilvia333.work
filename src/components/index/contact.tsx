@@ -49,7 +49,7 @@ const Contact: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
           <h2>ぜひ、ご連絡ください</h2>
         </Header>
         <ContentsWrapper ref={centerRef}>
-          <Content>
+          <Content isIntersected={isIntersected}>
             <ContentHeader>Contact</ContentHeader>
             <p>
               案件のご相談や作品の感想など、
@@ -58,7 +58,7 @@ const Contact: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
             </p>
             <LinkButton to="/contacts">連絡してみる！</LinkButton>
           </Content>
-          <Content>
+          <Content isIntersected={isIntersected}>
             <ContentHeader>Other Links</ContentHeader>
             <OtherLinkWrapper>
               <OtherLinkButton
@@ -111,7 +111,7 @@ const headerKeyframes = keyframes`
 `;
 
 const Wrapper = styled.section`
-  ${tw`w-full py-32`}
+  ${tw`w-full pb-32`}
 
   & > * {
     ${tw`my-16`}
@@ -179,14 +179,15 @@ const Header = styled.div<{ isIntersected: boolean }>`
 const ContentsWrapper = styled.div`
   ${tw`w-full m-auto`}
   max-width: 400px;
-
-  & > * {
-    ${tw`my-16`}
-  }
 `;
 
-const Content = styled.div`
-  ${tw`w-full text-center`}
+const Content = styled.div<{ isIntersected: boolean }>`
+  ${tw`w-full text-center opacity-0 transition-all duration-500 ease-out my-16`}
+  transform: translateY(10%);
+
+  &:nth-child(2) {
+    ${tw`delay-200`}
+  }
 
   & > * {
     ${tw`my-3`}
@@ -195,6 +196,13 @@ const Content = styled.div`
   p {
     ${tw`font-sans text-sm text-gray-900 leading-loose`}
   }
+
+  ${({ isIntersected }) =>
+    isIntersected &&
+    css`
+      ${tw`opacity-100`}
+      transform: translateY(0);
+    `}
 `;
 
 const ContentHeader = styled.h4`
