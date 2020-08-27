@@ -1,11 +1,13 @@
 import { Link, graphql, useStaticQuery } from 'gatsby';
 import React, { useEffect } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import tw from 'twin.macro';
 
 import { CenterPosition } from '~/components/index/background';
 import Work from '~/components/index/work';
 import LinkButton from '~/components/link-button';
+
+import { useIntersectionObserver } from '~/hooks';
 
 import LineWaveSvg from '~/images/line-wave.svg';
 import MoreTriBottomSvg from '~/images/more-tri-bottom.svg';
@@ -100,6 +102,14 @@ const Skill: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
   });
 
   const componentRef = React.createRef<HTMLElement>();
+  const [headerRef, isHeaderIntersection] = useIntersectionObserver();
+  const intersection = skills.map(() => {
+    const [ref, isIntersection] = useIntersectionObserver<HTMLLIElement>();
+    return {
+      ref,
+      isIntersection,
+    };
+  });
 
   const onChangeOffset = () => {
     const offsetX = componentRef.current?.offsetLeft ?? 0;
@@ -118,7 +128,7 @@ const Skill: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
   return (
     <>
       <Wrapper ref={componentRef} id="skill">
-        <Header>
+        <Header ref={headerRef}>
           <h3>skill</h3>
           <h2>できること</h2>
           <p>こんなお手伝いができます！</p>
@@ -126,21 +136,29 @@ const Skill: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
         <ContentsWrapper>
           {skills.map((skill, i) => {
             return (
-              <ContentWrapper key={`skill-content${i}`}>
-                <ContentTitle>
+              <ContentWrapper
+                key={`skill-content${i}`}
+                ref={intersection[i].ref}
+              >
+                <ContentTitle isIntersected={intersection[i].isIntersection}>
                   <ContentNum>{i + 1}</ContentNum>
                   {skill.title}
                 </ContentTitle>
-                <ContentDescription>{skill.description}</ContentDescription>
+                <ContentDescription
+                  isIntersected={intersection[i].isIntersection}
+                >
+                  {skill.description}
+                </ContentDescription>
                 <WorksWrapper>
                   {skill.works.map((work, j) => {
                     return (
                       <>
-                        <Work
+                        <StyledWork
                           to={`/works/${work.slug}`}
                           title={work.title}
                           image={work.image}
                           key={`skill-work${i}_${j}`}
+                          isIntersected={intersection[i].isIntersection}
                         />
                         {j < 3 && (
                           <WorkDivider key={`skill-work-devider${i}_${j}`} />
@@ -242,12 +260,18 @@ const ContentWrapper = styled.li`
   }
 `;
 
-const ContentTitle = styled.div`
-  ${tw`font-header font-bold text-3xl text-gray-900 leading-10`}
+const ContentTitle = styled.div<{ isIntersected: boolean }>`
+  ${tw`font-header font-bold text-3xl text-gray-900 leading-10 transition-all duration-300 ease-out opacity-0`}
 
   ${media.sm`
     ${tw`text-2xl leading-8`}
   `}
+
+  ${({ isIntersected }) =>
+    isIntersected &&
+    css`
+      ${tw`opacity-100`}
+    `}
 `;
 
 const ContentNum = styled.div`
@@ -258,13 +282,40 @@ const ContentNum = styled.div`
   `}
 `;
 
-const ContentDescription = styled.div`
-  ${tw`text-sm text-gray-900 leading-loose w-full`}
+const ContentDescription = styled.div<{ isIntersected: boolean }>`
+  ${tw`text-sm text-gray-900 leading-loose w-full transition-all duration-300 ease-out opacity-0`}
   max-width: 530px;
+
+  ${({ isIntersected }) =>
+    isIntersected &&
+    css`
+      ${tw`opacity-100`}
+    `}
 `;
 
 const WorksWrapper = styled.div`
   ${tw`text-gray-900 flex justify-between items-center`}
+
+  & > * {
+    &:nth-child(1) {
+      transition-delay: 0;
+    }
+    &:nth-child(2) {
+      transition-delay: 100ms;
+    }
+    &:nth-child(3) {
+      transition-delay: 200ms;
+    }
+    &:nth-child(4) {
+      transition-delay: 300ms;
+    }
+    &:nth-child(5) {
+      transition-delay: 400ms;
+    }
+    &:nth-child(6) {
+      transition-delay: 500ms;
+    }
+  }
 
   ${media.sm`
     ${tw`flex-col`}
@@ -273,6 +324,20 @@ const WorksWrapper = styled.div`
       ${tw`mb-4`}
     }
   `}
+`;
+
+const StyledWork = styled(({ isIntersected, ...props }: any) => (
+  <Work {...props} />
+))`
+  ${tw`transition-all duration-300 ease-out opacity-0`}
+  transform: translateY(10%);
+
+  ${({ isIntersected }) =>
+    isIntersected &&
+    css`
+      ${tw`opacity-100`}
+      transform: translateY(0);
+    `}
 `;
 
 const WorkDivider = styled.div`
@@ -302,6 +367,10 @@ const WorkMoreImage = styled.div`
     ${tw`delay-0`}
     transform: translateX(-60px) scale(1);
   }
+
+  ${media.sm`
+    ${tw`hidden`}
+  `}
 `;
 
 const WorkMoreLinkButton = styled(Link)`

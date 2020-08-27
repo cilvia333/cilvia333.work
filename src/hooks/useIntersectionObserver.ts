@@ -17,15 +17,18 @@ export const useIntersectionObserver = <T extends HTMLElement = HTMLDivElement>(
       return;
     }
 
-    const observer = new IntersectionObserver(changes => {
-      changes.forEach(change => {
-        setIsIntersected(change.isIntersecting);
+    const observer = new IntersectionObserver(
+      changes => {
+        changes.forEach(change => {
+          setIsIntersected(change.isIntersecting);
 
-        if (change.isIntersecting && once) {
-          observer.disconnect();
-        }
-      });
-    });
+          if (change.isIntersecting && once) {
+            observer.disconnect();
+          }
+        });
+      },
+      { rootMargin: `0px 0px -${margin}px` }
+    );
 
     const handleScroll = () => {
       if (!targetRef?.current) {

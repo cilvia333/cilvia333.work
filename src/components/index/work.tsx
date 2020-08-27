@@ -14,12 +14,13 @@ interface Props {
   title: string;
   to: string;
   image: ContentfulFluid;
+  className?: string;
 }
 
-const Work: React.FC<Props> = ({ title, to, image }: Props) => {
+const Work: React.FC<Props> = ({ title, to, image, className }: Props) => {
   return (
     <>
-      <Wrapper>
+      <Wrapper className={className}>
         <LinkWrapper to={to} className="group">
           <StyledImage fluid={image} alt={title} />
           <TitleLabelWrapper>

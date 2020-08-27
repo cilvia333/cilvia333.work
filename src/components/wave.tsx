@@ -34,7 +34,7 @@ const waveKeyframe = keyframes`
 `;
 
 const WaveWrapper = styled.div`
-  ${tw`relative w-full overflow-hidden `}
+  ${tw`relative w-full overflow-hidden`}
   height: 20vw;
 `;
 
