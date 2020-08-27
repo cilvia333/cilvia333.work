@@ -1,9 +1,10 @@
 import { Link } from 'gatsby';
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import tw from 'twin.macro';
 
 import Image from '~/components/image';
+import Wave from '~/components/wave';
 
 import { media } from '~/styles';
 
@@ -18,29 +19,88 @@ interface Props {
 const Work: React.FC<Props> = ({ title, to, image }: Props) => {
   return (
     <>
-      <Wrapper to={to} className="group">
-        <StyledImage fluid={image} alt={title} />
-        <TitleLabelWrapper>
-          <TitleLabel>{title}</TitleLabel>
-        </TitleLabelWrapper>
+      <Wrapper>
+        <LinkWrapper to={to} className="group">
+          <StyledImage fluid={image} alt={title} />
+          <TitleLabelWrapper>
+            <StyledWave color="yellow" />
+            <TitleLabel>{title}</TitleLabel>
+          </TitleLabelWrapper>
+        </LinkWrapper>
       </Wrapper>
     </>
   );
 };
 
-const TitleLabelWrapper = styled.div`
-  ${tw`absolute w-full h-8 overflow-hidden mx-auto my-0 transition-all duration-200 ease-out`}
-
-  transform-origin: center left;
-  transform: rotate(-6deg);
-  clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
-  bottom: 20px;
-  right: 0;
-  left: 6px;
+const rippleBaseKeyframe = keyframes`
+  0% {
+    transform: scale(1.05);
+  }
+  5% {
+    transform: scale(1);
+  }
+  7% {
+    transform: scale(1.05);
+  }
+  12% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+  }
 `;
 
-const Wrapper = styled(Link)`
-  ${tw`block relative w-56 h-56 rounded-circle bg-white overflow-hidden`}
+const rippleKeyframe = keyframes`
+  0% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+`;
+
+const StyledImage = styled(Image)`
+  ${tw`h-full`}
+`;
+
+const TitleLabel = styled.h4`
+  ${tw`absolute text-gray-900 font-header font-bold text-center leading-none inline-block m-auto`}
+
+  max-width: 200px;
+
+  bottom: 40px;
+  left: 0;
+  right: 0;
+`;
+
+const TitleLabelWrapper = styled.div`
+  ${tw`absolute w-full transition-all duration-200 ease-out opacity-0 text-center inset-0`}
+
+  transform: translateY(100%);
+`;
+
+const StyledWave = styled(Wave)`
+  ${tw`relative w-full`}
+
+  transform: translateY(10%) scaleY(0.4);
+`;
+
+const LinkWrapper = styled(Link)`
+  ${tw`w-56 h-56 bg-white overflow-hidden rounded-circle block relative transition-all duration-300 ease-out`}
+
+  ${media.lg`
+    ${tw`w-32 h-32`}
+  `}
+
+  ${media.sm`
+    ${tw`w-56 h-56`}
+  `}
+`;
+
+const Wrapper = styled.div`
+  ${tw`w-56 h-56 relative transition-all duration-300 ease-out`}
 
   ${media.lg`
     ${tw`w-32 h-32`}
@@ -50,17 +110,34 @@ const Wrapper = styled(Link)`
     ${tw`w-56 h-56`}
   `}
 
-  &:hover ${TitleLabelWrapper} {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  animation: 3s linear infinite 500ms;
+
+  &::before, &::after {
+    ${tw`absolute w-full h-full rounded-circle transition-all duration-300 ease-out inset-0 m-auto border-primary-500 border-2 border-solid opacity-0`}
+    animation: 3s linear infinite 500ms;
+
+    z-index: -1;
+
+    content: '';
+  }
+
+  &::after {
+    animation-delay: 710ms;
+  }
+
+  &:hover {
+    animation-name: ${rippleBaseKeyframe};
+
+    &::before,
+    &::after {
+      animation-name: ${rippleKeyframe};
+    }
+
+    ${TitleLabelWrapper} {
+      ${tw`opacity-100`}
+
+      transform: translateY(0);
+    }
   }
 `;
-
-const TitleLabel = styled.div`
-  ${tw`absolute w-full h-8 bg-primary-500 mx-auto my-0 text-gray-900 font-header font-bold text-center leading-none py-2`}
-`;
-
-const StyledImage = styled(Image)`
-  ${tw`h-full`}
-`;
-
 export default Work;

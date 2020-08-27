@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
 
-import styled from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import tw from 'twin.macro';
 
 import { CenterPosition } from '~/components/index/background';
 import LinkButton from '~/components/link-button';
+
+import { useIntersectionObserver } from '~/hooks';
 
 import { media } from '~/styles';
 
@@ -16,6 +18,8 @@ interface Props {
 const About: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
   const componentRef = React.createRef<HTMLElement>();
   const centerRef = React.createRef<HTMLDivElement>();
+  const [catchRef, isCatchIntersected] = useIntersectionObserver();
+  const [profileRef, isProfileIntersected] = useIntersectionObserver();
 
   const onChangeOffset = () => {
     setPosition(componentRef.current?.offsetTop ?? 0);
@@ -41,7 +45,7 @@ const About: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
   return (
     <>
       <Wrapper ref={componentRef} id="about">
-        <CatchWrapper>
+        <CatchWrapper ref={catchRef} isIntersected={isCatchIntersected}>
           <CatchText>
             Cilvia333 <nobr />
             <CatchSmallText>is</CatchSmallText> <br />
@@ -53,8 +57,8 @@ const About: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
             Comfort.
           </CatchText>
         </CatchWrapper>
-        <Description ref={centerRef}>
-          <ProfileWrapper>
+        <Description ref={centerRef} isIntersected={isProfileIntersected}>
+          <ProfileWrapper ref={profileRef}>
             <Name>塩見海怜 / cilvia333</Name>
             <Pronounce>Shiomi Kairi / sílviə333</Pronounce>
           </ProfileWrapper>
@@ -78,6 +82,22 @@ const About: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
   );
 };
 
+const catchKeyframe = keyframes`
+  0% {
+    transform: scale(1.2);
+    filter: blur(4px);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    filter: blur(0);
+    opacity: 1;
+  }
+`;
+
 const Wrapper = styled.section`
   ${tw`flex justify-between items-center w-full m-auto`}
 
@@ -100,8 +120,16 @@ const Wrapper = styled.section`
   `}
 `;
 
-const CatchWrapper = styled.div`
-  ${tw`text-base-200`}
+const CatchWrapper = styled.div<{ isIntersected: boolean }>`
+  ${tw`text-base-200 opacity-0`}
+
+  animation: 1s ease-out forwards;
+
+  ${({ isIntersected }) =>
+    isIntersected &&
+    css`
+      animation-name: ${catchKeyframe};
+    `}
 `;
 
 const CatchText = styled.h1`
@@ -144,8 +172,10 @@ const CatchSmallText = styled.span`
   `}
 `;
 
-const Description = styled.div`
-  ${tw`py-32`}
+const Description = styled.div<{ isIntersected: boolean }>`
+  ${tw`py-32 opacity-0 transition-all duration-300 ease-out`}
+
+  transition-delay: 1s;
 
   ${media.lg`
     ${tw`py-0 mt-40 w-full text-center`}
@@ -160,6 +190,12 @@ const Description = styled.div`
   ${media.sm`
     ${tw`mt-32 px-8`}
   `}
+
+  ${({ isIntersected }) =>
+    isIntersected &&
+    css`
+      ${tw`opacity-100`}
+    `}
 `;
 
 const ProfileWrapper = styled.h1`

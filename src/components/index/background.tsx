@@ -35,19 +35,19 @@ const Background: React.FC<Props> = ({ position, center }: Props) => {
     const skillDiff = current - position.skill;
     const contactDiff = current - position.contact;
 
-    if (topDiff <= position.about - windowHeight / 2) {
+    if (topDiff <= position.about - (windowHeight - 200)) {
       return 'top';
     } else if (
-      windowHeight / -2 <= aboutDiff &&
-      aboutDiff <= position.skill - position.about - windowHeight / 2
+      -(windowHeight - 200) <= aboutDiff &&
+      aboutDiff <= position.skill - position.about - (windowHeight - 200)
     ) {
       return 'about';
     } else if (
-      windowHeight / -2 <= skillDiff &&
-      skillDiff <= position.contact - position.skill - windowHeight / 2
+      -(windowHeight - 200) <= skillDiff &&
+      skillDiff <= position.contact - position.skill - (windowHeight - 200)
     ) {
       return 'skill';
-    } else if (windowHeight / -2 <= contactDiff) {
+    } else if (-(windowHeight - 200) <= contactDiff) {
       return 'contact';
     } else {
       return '';

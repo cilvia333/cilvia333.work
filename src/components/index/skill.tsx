@@ -149,6 +149,9 @@ const Skill: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
                     );
                   })}
                   <WorkMoreLinkButton to={`/works/t/${skill.slug}`}>
+                    <WorkMoreImage />
+                    <WorkMoreImage />
+                    <WorkMoreImage />
                     more
                   </WorkMoreLinkButton>
                 </WorksWrapper>
@@ -280,11 +283,47 @@ const WorkDivider = styled.div`
   `}
 `;
 
-const WorkMoreLinkButton = styled(Link)`
-  ${tw`h-20 w-20 font-header font-bold text-lg text-gray-900 pl-4`}
+const WorkMoreImage = styled.div`
+  ${tw`absolute h-20 w-20 font-header text-gray-900 opacity-0 transition-all duration-300 ease-out`}
 
   background: url(${MoreTriSvg}) center/contain no-repeat;
+
+  z-index: -1;
+
+  &:nth-child(1) {
+    ${tw`opacity-100 delay-200`}
+      transform: translateX(0) scale(1);
+  }
+  &:nth-child(2) {
+    ${tw`delay-100`}
+    transform: translateX(-40px) scale(1);
+  }
+  &:nth-child(3) {
+    ${tw`delay-0`}
+    transform: translateX(-60px) scale(1);
+  }
+`;
+
+const WorkMoreLinkButton = styled(Link)`
+  ${tw`relative h-20 w-20 font-header font-bold text-lg text-gray-900 pl-4 text-center`}
   line-height: 5rem;
+
+  &:hover {
+    ${WorkMoreImage} {
+      ${tw`opacity-100 delay-0`}
+      &:nth-child(1) {
+        transform: translateX(0) scale(0.8);
+      }
+      &:nth-child(2) {
+        ${tw`delay-0`}
+        transform: translateX(-20px) scale(0.8);
+      }
+      &:nth-child(3) {
+        ${tw`delay-100`}
+        transform: translateX(-40px) scale(0.8);
+      }
+    }
+  }
 
   ${media.lg`
     ${tw`w-16 h-16 pl-3`}
