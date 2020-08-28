@@ -4,10 +4,7 @@ import styled, { css, keyframes } from 'styled-components';
 import tw from 'twin.macro';
 
 import { Positions } from '~/components/index/nav';
-
-import wave01 from '~/images/wave-yellow_01.png';
-import wave02 from '~/images/wave-yellow_02.png';
-import wave03 from '~/images/wave-yellow_03.png';
+import Wave from '~/components/wave';
 
 import { media } from '~/styles';
 
@@ -71,11 +68,7 @@ const Background: React.FC<Props> = ({ position, center }: Props) => {
     <>
       <Wrapper>
         <WaveGrid>
-          <WaveWrapper>
-            <Wave />
-            <Wave />
-            <Wave />
-          </WaveWrapper>
+          <StyledWave color="yellow" />
         </WaveGrid>
         <BubbleWrapper>
           <BubbleOuter
@@ -225,32 +218,8 @@ const WaveGrid = styled.div`
   ${tw`absolute grid grid-rows-4 grid-flow-col gap-4 w-full h-screen bg-base-200`}
 `;
 
-const WaveWrapper = styled.div`
-  ${tw`relative w-full h-full row-start-4 row-end-5 overflow-hidden`}
-`;
-
-const Wave = styled.div`
-  ${tw`absolute h-full row-start-4 row-end-5`}
-  animation: ${waveKeyframe} 12s linear infinite 0s;
-  background: top left/1920px repeat-x ;
-  min-width: 3840px;
-  width: 200%;
-  top: 0;
-  transform: translateX(10px);
-
-  &:nth-child(1) {
-    background-image:  url(${wave03});
-    left: 240px;
-  }
-
-  &:nth-child(2) {
-    background-image:  url(${wave02});
-    left: 120px;
-  }
-  &:nth-child(3) {
-    background-image:  url(${wave01});
-    left: 0;
-  }
+const StyledWave = styled(Wave)`
+  ${tw`row-start-4 row-end-5 h-full`}
 `;
 
 export default Background;

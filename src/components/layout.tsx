@@ -10,14 +10,10 @@ import styled, {
 import tw from 'twin.macro';
 
 import Header from '~/components/header';
+import Loading from '~/components/loading';
+import Wave from '~/components/wave';
 
 import { useLayoutContext, layoutContext } from '~/hooks';
-
-import wave01 from '~/images/wave-yellow_01.png';
-import wave02 from '~/images/wave-yellow_02.png';
-import wave03 from '~/images/wave-yellow_03.png';
-
-import { WorkHeadLine } from '~/types/work';
 
 interface Props {
   children: React.ReactNode;
@@ -25,6 +21,8 @@ interface Props {
 
 const Layout: React.FC<Props> = ({ children }: Props) => {
   const [path, setPath] = useState('');
+  const [isFirst, setIsFirst] = useState(true);
+  const [isDelay, setIsDelay] = useState(false);
   const location = useLocation();
   const ctx = useLayoutContext();
 
@@ -32,26 +30,41 @@ const Layout: React.FC<Props> = ({ children }: Props) => {
     primary: 'red',
   };
 
+  const onAnimationEnd = () => {
+    setIsFirst(false);
+  };
+
   useEffect(() => {
     setPath(location.pathname);
   }, [location]);
+
+  useEffectOnce(() => {
+    setTimeout(() => {
+      if (
+        document
+          .getElementsByTagName('html')[0]
+          .classList.contains('wf-active') != true
+      ) {
+        setIsDelay(true);
+      }
+    }, 1000);
+  });
 
   return (
     <>
       <ThemeProvider theme={theme}>
         <layoutContext.Provider value={ctx}>
           <GlobalStyle />
+          {isFirst ? (
+            <Loading onAnimationEnd={onAnimationEnd} delay={isDelay} />
+          ) : null}
           <Header />
           <Main isIndex={path === '/'}>{children}</Main>
           {path === '/' ? (
             ''
           ) : (
             <Footer>
-              <WaveWrapper>
-                <Wave />
-                <Wave />
-                <Wave />
-              </WaveWrapper>
+              <Wave color="yellow" />
             </Footer>
           )}
         </layoutContext.Provider>
@@ -71,15 +84,6 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const waveKeyframe = keyframes`
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-1920px);
-  }
-`;
-
 const Main = styled.main<{ isIndex: boolean }>`
   ${tw`w-full h-full font-text bg-base-200`}
 
@@ -95,34 +99,5 @@ const Main = styled.main<{ isIndex: boolean }>`
 const Footer = styled.footer`
   ${tw`relative w-full bg-base-200`}
   padding-top: 5vh;
-`;
-
-const WaveWrapper = styled.div`
-  ${tw`relative w-full overflow-hidden`}
-  height: 20vh;
-`;
-
-const Wave = styled.div`
-  ${tw`absolute h-full`}
-  animation: ${waveKeyframe} 12s linear infinite 0s;
-  background: top left/1920px repeat-x ;
-  min-width: 3840px;
-  width: 200%;
-  top: 0;
-  transform: translateX(10px);
-
-  &:nth-child(1) {
-    background-image:  url(${wave03});
-    left: 240px;
-  }
-
-  &:nth-child(2) {
-    background-image:  url(${wave02});
-    left: 120px;
-  }
-  &:nth-child(3) {
-    background-image:  url(${wave01});
-    left: 0;
-  }
 `;
 export default Layout;
