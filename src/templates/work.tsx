@@ -111,7 +111,7 @@ const Work: React.FC<Props> = ({ pageContext }: Props) => {
   };
 
   useEffect(() => {
-    if (y >= height) {
+    if (y >= height * 0.5) {
       ctx.setIsWhite(false);
     } else {
       ctx.setIsWhite(true);
@@ -187,13 +187,15 @@ const Work: React.FC<Props> = ({ pageContext }: Props) => {
       <ControlWrapper>
         {prevWork && (
           <Control>
-            <ControlText onClick={handlePrevClick}>PREV WORK</ControlText>
+            <ControlText onClick={handlePrevClick} isWhite={ctx.white}>
+              PREV WORK
+            </ControlText>
             <ControlBG fluid={prevWork?.thumbnail} alt={prevWork?.title} />
           </Control>
         )}
         {nextWork && (
           <Control Next>
-            <ControlText onClick={handleNextClick} Next>
+            <ControlText onClick={handleNextClick} isWhite={ctx.white} Next>
               NEXT WORK
             </ControlText>
             <ControlBG fluid={nextWork?.thumbnail} alt={nextWork?.title} Next />
@@ -255,8 +257,8 @@ const ControlBG = styled(Image)<{ Next?: boolean }>`
         `}
 `;
 
-const ControlText = styled.div<{ Next?: boolean }>`
-  ${tw`absolute text-gray-900 text-lg font-header font-bold cursor-pointer pointer-events-auto inset-y-0 my-auto text-center`}
+const ControlText = styled.div<{ Next?: boolean; isWhite: boolean }>`
+  ${tw`absolute text-gray-900 text-lg font-header font-bold cursor-pointer pointer-events-auto inset-y-0 my-auto text-center transition-all duration-300 ease-out`}
   writing-mode: vertical-rl;
   z-index: 1;
 
@@ -267,7 +269,7 @@ const ControlText = styled.div<{ Next?: boolean }>`
           right: 0;
 
           &::after {
-            ${tw`absolute inset-y-0 my-auto bg-base-200`}
+            ${tw`absolute inset-y-0 my-auto bg-gray-900 transition-all duration-300 ease-out`}
             content: '';
             height: 1px;
             width: 22px;
@@ -279,13 +281,24 @@ const ControlText = styled.div<{ Next?: boolean }>`
           left: 0;
 
           &::before {
-            ${tw`absolute inset-y-0 my-auto bg-base-200`}
+            ${tw`absolute inset-y-0 my-auto bg-gray-900 transition-all duration-300 ease-out`}
             content: '';
             height: 1px;
             width: 22px;
             left: -4px;
           }
         `}
+
+  ${({ isWhite }) =>
+    isWhite &&
+    css`
+      ${tw`text-base-200`}
+
+      &::before, &::after {
+        ${tw`bg-base-200`}
+      }
+    `}
+
 
   &:hover ~ ${ControlBG}{
     width: 100px;
