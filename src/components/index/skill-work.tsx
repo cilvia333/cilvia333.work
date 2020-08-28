@@ -19,7 +19,7 @@ interface Props {
   image: ContentfulFluid;
   number: number;
   position: number;
-  works: WorkHeadLine;
+  works: WorkHeadLine[];
   className?: string;
 }
 
@@ -107,8 +107,9 @@ const TitleLabelWrapper = styled.div`
 
 const StyledWave = styled(Wave)`
   ${tw`relative w-full`}
+  height: 200%;
 
-  transform: translateY(10%) scaleY(0.4);
+  transform: translateY(-5%) scaleY(0.4);
 `;
 
 const LinkWrapper = styled.div`

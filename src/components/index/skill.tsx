@@ -15,14 +15,13 @@ import MoreTriSvg from '~/images/more-tri.svg';
 
 import { media } from '~/styles';
 
-import { ContentfulFluid } from '~/types/graphql-types';
 import { WorkHeadLine } from '~/types/work';
 
 type Skills = {
   title: string;
   description: string;
   slug: string;
-  works: WorkHeadline[];
+  works: WorkHeadLine[];
 };
 
 interface Props {
@@ -82,7 +81,7 @@ const Skill: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
         title: work.title,
         slug: work.slug,
         image: work.thumbnail.fluid,
-      } as WorkHeadline;
+      } as WorkHeadLine;
     });
 
     if (edge.node.slug === 'web') {
