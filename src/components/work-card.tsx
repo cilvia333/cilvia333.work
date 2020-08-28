@@ -162,14 +162,30 @@ const Wrapper = styled.li`
   `}
 `;
 
-const ThumbnailWrapper = styled.div`
-  ${tw`relative w-full cursor-pointer`}
+const Thumbnail = styled(Image)`
+  ${tw`inset-0 w-full h-full transition-all duration-300 ease-out`}
+
+  position: absolute !important;
+  transform: scale(1);
 `;
 
-const Thumbnail = styled(Image)`
-  ${tw`absolute inset-0 w-full h-full`}
+const ThumbnailWrapper = styled.div`
+  ${tw`relative w-full cursor-pointer overflow-hidden`}
 
   border-radius: 1rem;
+
+  &::before {
+    ${tw`w-full block`}
+
+    content: '';
+    padding-bottom: 56.25%;
+  }
+
+  &:hover {
+    ${Thumbnail} {
+      transform: scale(1.1);
+    }
+  }
 `;
 
 const Title = styled.h2`

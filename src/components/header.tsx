@@ -1,6 +1,7 @@
 import { useLocation } from '@reach/router';
 import { Link, navigate } from 'gatsby';
 import React, { useEffect, useState, useContext } from 'react';
+import { useWindowSize } from 'react-use';
 import styled, { css, keyframes } from 'styled-components';
 import tw from 'twin.macro';
 
@@ -16,6 +17,7 @@ const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isAnimation, setIsAnimation] = useState(false);
   const [path, setPath] = useState<string[]>([]);
+  const { width, height } = useWindowSize();
   const location = useLocation();
   const ctx = useContext(layoutContext);
 
@@ -44,7 +46,7 @@ const Header: React.FC = () => {
     <CustomHeader>
       <Wrapper>
         <NavWrapper isOpen={isOpen}>
-          <NavBG isOpen={isOpen} />
+          <NavBG isOpen={isOpen} length={width >= height ? width : height} />
           <Nav isOpen={isOpen}>
             <Menu>
               <li>
@@ -187,18 +189,24 @@ const NavWrapper = styled.div<{ isOpen: boolean }>`
     `}
 `;
 
-const NavBG = styled.div<{ isOpen: boolean }>`
+const NavBG = styled.div<{ isOpen: boolean; length: number }>`
   ${tw`absolute rounded-circle h-16 w-16 bg-primary-500 transition-all duration-300 ease-in`}
   right: 2rem;
   top: 2rem;
+  transform: scale(1);
+  transform-origin: center;
 
-  ${({ isOpen }) =>
+  ${media.sm`
+    right: 1rem;
+    top: 1rem;
+  `}
+
+  ${({ isOpen, length }) =>
     isOpen &&
     css`
-      ${tw`w-full h-full rounded-none ease-out`}
-      right: 0;
-      top: 0;
-    `}
+      ${tw`rounded-circle ease-out`}
+      transform: scale(${length / 32});
+    `};
 `;
 
 const Nav = styled.nav<{ isOpen: boolean }>`
