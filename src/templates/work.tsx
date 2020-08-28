@@ -1,7 +1,7 @@
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { Link, navigate, useStaticQuery, graphql } from 'gatsby';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useRef } from 'react';
 import { useWindowSize, useWindowScroll, useEffectOnce } from 'react-use';
 import styled, { css, keyframes } from 'styled-components';
 import tw from 'twin.macro';
@@ -102,10 +102,12 @@ const Work: React.FC<Props> = ({ pageContext }: Props) => {
 
   const getPage = () => {
     const page = Math.floor(ctx.workPosition / 12);
-    console.log(ctx.workPosition);
-    console.log(page);
 
     return page > 0 ? `/${page + 1}` : '';
+  };
+
+  const getWavePosition = () => {
+    return height - y;
   };
 
   useEffect(() => {
@@ -143,8 +145,11 @@ const Work: React.FC<Props> = ({ pageContext }: Props) => {
       <BacgkroundWrapper>
         <BacgkroundImage fluid={work.thumbnail?.fluid} alt={work.title ?? ''} />
       </BacgkroundWrapper>
+      <WaveWrapper position={getWavePosition()}>
+        <StyledWave color="white" />
+      </WaveWrapper>
       <HeaderWrapper>
-        <OverViewWrapper>
+        <OverViewWrapper isWhite={getWavePosition() > height * 0.75}>
           <TitleWrapper>
             <h1>{work.title}</h1>
             <TagWrapper>
@@ -166,7 +171,6 @@ const Work: React.FC<Props> = ({ pageContext }: Props) => {
           </OverView>
         </OverViewWrapper>
       </HeaderWrapper>
-      <StyledWave color="white" />
       <ContentsWrapper>
         <DescriptionWrapper>
           {documentToReactComponents(work.description?.json, option)}
@@ -290,26 +294,32 @@ const ControlText = styled.div<{ Next?: boolean }>`
 
 const HeaderWrapper = styled.div`
   ${tw`relative w-full h-screen`}
-  padding-top: 80vh;
-  height: 120vh;
 `;
 
-const OverViewWrapper = styled.div`
-  ${tw`text-base-200 w-full m-auto flex justify-start align-top pointer-events-auto`}
+const OverViewWrapper = styled.div<{ isWhite: boolean }>`
+  ${tw`absolute inset-x-0 my-0 mx-auto text-gray-900 w-full m-auto flex justify-start align-top pointer-events-auto`}
 
   max-width: 768px;
+  bottom: 64px;
 
   ${media.md`
-    ${tw`px-8`}
+    ${tw`px-16`}
     max-width: 100%;
+    bottom: 32px;
   `}
 
   ${media.sm`
-    ${tw`px-8 flex-col`}
+    ${tw`px-16 flex-col`}
   `}
 
   & > * {
-    ${tw`mr-8`}
+    ${tw`mr-8 transition-all duration-300 ease-out`}
+  }
+
+  h1,
+  h4,
+  p {
+    ${tw`transition-all duration-300 ease-out`}
   }
 
   h1 {
@@ -319,6 +329,12 @@ const OverViewWrapper = styled.div`
     ${tw`text-2xl`}
   `}
   }
+
+  ${({ isWhite }) =>
+    isWhite &&
+    css`
+      ${tw`text-base-200`}
+    `}
 `;
 
 const TitleWrapper = styled.div`
@@ -366,11 +382,26 @@ const OverView = styled.div`
   }
 `;
 
+const WaveWrapper = styled.div<{ position: number }>`
+  ${tw`absolute m-auto pointer-events-none w-full`}
+  top: 0;
+  height: 100vh;
+
+  &::after {
+    ${tw`absolute m-auto block pointer-events-none bg-base-200 w-full`}
+    content: "";
+    bottom: 0;
+    height: 80vh;
+  }
+
+  ${({ position }) => css`
+    transform: translateY(${position}px);
+  `}
+`;
+
 const StyledWave = styled(Wave)`
-  ${tw`absolute  m-auto pointer-events-none`}
-  top: 100vh;
-  left: 0;
-  right: 0;
+  ${tw`absolute m-auto pointer-events-none`}
+  top: 0;
   height: 25vh;
 `;
 
@@ -385,7 +416,7 @@ const DescriptionWrapper = styled.div`
   line-height: 35px;
 
   ${media.md`
-    ${tw`px-8`}
+    ${tw`px-16 mt-16`}
     max-width: 100%;
   `}
 
