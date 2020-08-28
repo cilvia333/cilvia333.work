@@ -1,7 +1,7 @@
 import { Link } from 'gatsby';
 import React, { useContext, useEffect, useState } from 'react';
 import { useWindowSize, useLockBodyScroll, useToggle } from 'react-use';
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import tw from 'twin.macro';
 
 import SEO from '~/components/seo';
@@ -44,6 +44,7 @@ const ContactsPage: React.FC = () => {
   }, [attentionOpen]);
 
   const onSubmit = async e => {
+    setIsSent(true);
     if (formState.name === '') {
       setError({ ...error, name: true });
     } else if (formState.email === '') {
@@ -91,70 +92,109 @@ const ContactsPage: React.FC = () => {
             E-MAIL: <wbr />
             <a href="mailto:cilvia333x@gmail.com">cilvia333x@gmail.com</a>
           </Email>
-          <FormWrapper>
+          <FormContainer>
             <h3>CONTACT FORM:</h3>
-            <Form
-              name="contact"
-              method="post"
-              data-netlify="true"
-              data-netlify-honeypot="bot-field"
-              onSubmit={onSubmit}
-            >
-              <input type="hidden" name="form-name" value="contact" />
-              <input type="hidden" name="bot-field" />
+            <FormWrapper>
+              <Form
+                name="contact"
+                method="post"
+                data-netlify="true"
+                data-netlify-honeypot="bot-field"
+                onSubmit={onSubmit}
+              >
+                <input type="hidden" name="form-name" value="contact" />
+                <input type="hidden" name="bot-field" />
 
-              <noscript>
-                <p>This form won’t work with Javascript disabled.</p>
-              </noscript>
-              <Input>
-                <label htmlFor="name">
-                  お名前・会社<Required>*</Required>
-                </label>
-                <InputText
-                  type="text"
-                  required
-                  name="name"
-                  id="name"
-                  placeholder="your name & company"
-                  onChange={e => {
-                    setFormState({ ...formState, name: e.target.value });
-                    setError({ ...error, name: false });
-                  }}
-                />
-              </Input>
-              <Input>
-                <label htmlFor="email">
-                  メールアドレス<Required>*</Required>
-                </label>
-                <InputText
-                  type="email"
-                  name="email"
-                  id="email"
-                  placeholder="e-mail"
-                  onChange={e => {
-                    setFormState({ ...formState, email: e.target.value });
-                    setError({ ...error, email: false });
-                  }}
-                />
-              </Input>
-              <Input>
-                <label htmlFor="message">
-                  メッセージ<Required>*</Required>
-                </label>
-                <TextArea
-                  name="message"
-                  id="message"
-                  required
-                  placeholder="message here"
-                  onChange={e => {
-                    setFormState({ ...formState, message: e.target.value });
-                    setError({ ...error, message: false });
-                  }}
-                />
-              </Input>
-              <Button type="submit">送信！</Button>
-            </Form>
-          </FormWrapper>
+                <noscript>
+                  <p>This form won’t work with Javascript disabled.</p>
+                </noscript>
+                <Input>
+                  <label htmlFor="name">
+                    お名前・会社<Required>*</Required>
+                  </label>
+                  <InputText
+                    type="text"
+                    required
+                    name="name"
+                    id="name"
+                    placeholder="your name & company"
+                    onChange={e => {
+                      setFormState({ ...formState, name: e.target.value });
+                      setError({ ...error, name: false });
+                    }}
+                  />
+                </Input>
+                <Input>
+                  <label htmlFor="email">
+                    メールアドレス<Required>*</Required>
+                  </label>
+                  <InputText
+                    type="email"
+                    name="email"
+                    id="email"
+                    placeholder="e-mail"
+                    onChange={e => {
+                      setFormState({ ...formState, email: e.target.value });
+                      setError({ ...error, email: false });
+                    }}
+                  />
+                </Input>
+                <Input>
+                  <label htmlFor="message">
+                    メッセージ<Required>*</Required>
+                  </label>
+                  <TextArea
+                    name="message"
+                    id="message"
+                    required
+                    placeholder="message here"
+                    onChange={e => {
+                      setFormState({ ...formState, message: e.target.value });
+                      setError({ ...error, message: false });
+                    }}
+                  />
+                </Input>
+                <Button type="submit">送信！</Button>
+              </Form>
+              <ThankYou isActive={isSent}>
+                <ThankYouTextWrapper>
+                  <ThankYouText isActive={isSent}>THANK YOU</ThankYouText>
+                  <ThankYouAttention isActive={isSent}>
+                    返信は３日以内におこないます。しばらくお待ちください。
+                  </ThankYouAttention>
+                </ThankYouTextWrapper>
+                <ThankYouEffectWrapper>
+                  <ThankYouEffect isActive={isSent}>
+                    <span />
+                  </ThankYouEffect>
+                  <ThankYouEffect isActive={isSent}>
+                    <span />
+                  </ThankYouEffect>
+                  <ThankYouEffect isActive={isSent}>
+                    <span />
+                  </ThankYouEffect>
+                  <ThankYouEffect isActive={isSent}>
+                    <span />
+                  </ThankYouEffect>
+                  <ThankYouEffect isActive={isSent}>
+                    <span />
+                  </ThankYouEffect>
+                  <ThankYouEffect isActive={isSent}>
+                    <span />
+                  </ThankYouEffect>
+                  <ThankYouEffect isActive={isSent}>
+                    <span />
+                  </ThankYouEffect>
+                  <ThankYouEffect isActive={isSent}>
+                    <span />
+                  </ThankYouEffect>
+                  <ThankYouEffect isActive={isSent}>
+                    <span />
+                  </ThankYouEffect>
+                </ThankYouEffectWrapper>
+              </ThankYou>
+            </FormWrapper>
+          </FormContainer>
         </Contacts>
         <AttentionWrapper isOpen={attentionOpen}>
           <Attention>
@@ -219,6 +259,30 @@ const ContactsPage: React.FC = () => {
   );
 };
 
+const effectKeyframes = keyframes`
+  from{
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+`;
+
+const textApearAnimation = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(0.4);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-10%) scale(1.2);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+`;
+
 const Wrapper = styled.div<{ isOpen: boolean }>`
   ${tw`w-full pt-32 px-16 grid gap-16 m-auto`}
 
@@ -256,7 +320,7 @@ const Email = styled.div`
   }
 `;
 
-const FormWrapper = styled.div`
+const FormContainer = styled.div`
   ${tw`relative w-full pt-6`}
 
   &::before {
@@ -271,8 +335,12 @@ const FormWrapper = styled.div`
   }
 `;
 
+const FormWrapper = styled.div`
+  ${tw`relative w-full`}
+`;
+
 const Form = styled.form`
-  ${tw`w-full text-center`}
+  ${tw`relative w-full text-center`}
 `;
 
 const Input = styled.div`
@@ -400,6 +468,109 @@ const AttentionCloseButton = styled.button<{ isMobile: boolean }>`
   ${media.md`
     max-width: 100%;
   `}
+`;
+
+const ThankYou = styled.div<{ isActive: boolean }>`
+  ${tw`absolute w-full h-full inset-0 m-auto bg-transparent pointer-events-none`}
+
+  ${({ isActive }) =>
+    isActive &&
+    css`
+      ${tw`bg-base-200`}
+    `}
+`;
+
+const ThankYouTextWrapper = styled.div`
+  ${tw`absolute inset-x-0 m-auto text-center`}
+  top: 45%;
+`;
+
+const ThankYouText = styled.div<{ isActive: boolean }>`
+  ${tw`text-gray-900 font-bold font-header text-4xl inline-block text-center leading-none opacity-0`}
+
+  animation: 1s ease-in-out forwards;
+
+  ${({ isActive }) =>
+    isActive &&
+    css`
+      animation-name: ${textApearAnimation};
+    `}
+`;
+
+const ThankYouAttention = styled.p<{ isActive: boolean }>`
+  ${tw`text-gray-900 font-text text-center leading-loose opacity-0 mt-8 transition-all duration-300 ease-out`}
+
+  transform: translateY(10%);
+  transition-delay: 1s;
+
+  ${({ isActive }) =>
+    isActive &&
+    css`
+      ${tw`opacity-100`}
+      transform: translateY(0);
+    `}
+`;
+
+const ThankYouEffectWrapper = styled.div`
+  ${tw`absolute inset-x-0 mx-auto `}
+
+  top: 35%;
+  width: 50%;
+  height: 80%;
+`;
+
+const ThankYouEffect = styled.div<{ isActive: boolean }>`
+  ${tw`absolute`}
+
+  bottom:0;
+  left: calc(50% - 1.5px);
+  width: 3px;
+  height: 100%;
+  transform-origin: center bottom;
+
+  &:nth-child(2) {
+    transform: rotate(5deg);
+  }
+  &:nth-child(3) {
+    transform: rotate(10deg);
+  }
+  &:nth-child(4) {
+    transform: rotate(15deg);
+  }
+  &:nth-child(5) {
+    transform: rotate(20deg);
+  }
+  &:nth-child(6) {
+    transform: rotate(-5deg);
+  }
+  &:nth-child(7) {
+    transform: rotate(-10deg);
+  }
+  &:nth-child(8) {
+    transform: rotate(-15deg);
+  }
+  &:nth-child(9) {
+    transform: rotate(-20deg);
+  }
+
+  span {
+    ${tw`block overflow-hidden w-full`}
+    height: 5%;
+
+    &::after {
+      ${tw`block w-full h-full bg-primary-500`}
+
+      content: '';
+      transform: translateY(100%);
+      animation: 2.4s ease-in-out 1s infinite;
+
+      ${({ isActive }) =>
+        isActive &&
+        css`
+          animation-name: ${effectKeyframes};
+        `}
+    }
+  }
 `;
 
 export default ContactsPage;
