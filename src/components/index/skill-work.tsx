@@ -90,13 +90,23 @@ const StyledImage = styled(Image)`
 `;
 
 const TitleLabel = styled.h4`
-  ${tw`absolute text-gray-900 font-header font-bold text-center leading-none inline-block m-auto`}
+  ${tw`absolute text-gray-900 font-header font-bold text-center leading-none inline-block m-auto px-2`}
 
   max-width: 200px;
 
   bottom: 40px;
   left: 0;
   right: 0;
+
+  ${media.lg`
+    font-size: 10px;
+    bottom: 30px;
+  `}
+
+  ${media.sm`
+    ${tw`text-base`}
+    bottom: 40px;
+  `}
 `;
 
 const TitleLabelWrapper = styled.div`
@@ -129,6 +139,14 @@ const Wrapper = styled.div`
 
   ${media.lg`
     ${tw`w-32 h-32`}
+  `}
+
+  ${media.md`
+    ${TitleLabelWrapper} {
+      ${tw`opacity-100`}
+
+      transform: translateY(0);
+    }
   `}
 
   ${media.sm`
