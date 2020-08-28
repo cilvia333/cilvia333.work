@@ -14,6 +14,7 @@ import Loading from '~/components/loading';
 import Wave from '~/components/wave';
 
 import { useLayoutContext, layoutContext } from '~/hooks';
+import { media } from '~/styles';
 
 interface Props {
   children: React.ReactNode;
@@ -100,4 +101,6 @@ const Footer = styled.footer`
   ${tw`relative w-full bg-base-200`}
   padding-top: 5vh;
 `;
+
+const StyledWave = styled(Wave)``;
 export default Layout;

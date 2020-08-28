@@ -48,11 +48,11 @@ const Loading: React.FC<Props> = ({ onAnimationEnd, delay }: Props) => {
             setCount(0);
           } else {
             setCount(refCount.current + 1);
-            setLetter(letters[refNum.current % 4]);
+            setLetter(letters[Math.floor((refNum.current / 4) % 4)]);
           }
         } else {
           setNum(refNum.current + 1);
-          setLetter(letters[refNum.current % 4]);
+          setLetter(letters[Math.floor((refNum.current / 4) % 4)]);
         }
       }
     }, 20);

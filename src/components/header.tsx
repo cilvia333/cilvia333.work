@@ -313,6 +313,10 @@ const PageInfoWrapper = styled.div`
   ${tw`absolute px-8 py-8 mx-0 my-auto`}
   left: 0;
   top: 0;
+
+  ${media.sm`
+    ${tw`px-4 py-4`}
+  `}
 `;
 
 const PageTitle = styled.div<{ isWhite: boolean; isActive: boolean }>`

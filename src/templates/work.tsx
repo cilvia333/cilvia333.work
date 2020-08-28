@@ -111,7 +111,7 @@ const Work: React.FC<Props> = ({ pageContext }: Props) => {
   };
 
   useEffect(() => {
-    if (y >= height * 0.5) {
+    if (y >= height * 0.25) {
       ctx.setIsWhite(false);
     } else {
       ctx.setIsWhite(true);
@@ -398,13 +398,13 @@ const OverView = styled.div`
 const WaveWrapper = styled.div<{ position: number }>`
   ${tw`absolute m-auto pointer-events-none w-full`}
   top: 0;
-  height: 100vh;
+  height: 150vh;
 
   &::after {
     ${tw`absolute m-auto block pointer-events-none bg-base-200 w-full`}
     content: "";
     bottom: 0;
-    height: 80vh;
+    height: 130vh;
   }
 
   ${({ position }) => css`
