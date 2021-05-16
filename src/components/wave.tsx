@@ -8,6 +8,7 @@ import whiteWave03 from '~/images/wave-white_03.png';
 import yellowWave01 from '~/images/wave-yellow_01.png';
 import yellowWave02 from '~/images/wave-yellow_02.png';
 import yellowWave03 from '~/images/wave-yellow_03.png';
+import yellowWave from '~/images/wave.svg';
 
 interface Props {
   className?: string;
@@ -25,11 +26,20 @@ const Wave: React.FC<Props> = ({ className, color }: Props) => {
 };
 
 const waveKeyframe = keyframes`
-  from {
-    transform: translateX(0);
+  0% {
+    transform: translateX(0) translateY(0);
   }
-  to {
-    transform: translateX(-1920px);
+  25% {
+    transform: translateX(-480px) translateY(30px);
+  }
+  50% {
+    transform: translateX(-960px) translateY(0);
+  }
+  75% {
+    transform: translateX(-1440px) translateY(-30px);
+  }
+  100% {
+    transform: translateX(-1920px) translateY(0px);
   }
 `;
 
@@ -39,24 +49,28 @@ const WaveWrapper = styled.div`
 `;
 
 const WaveImg = styled.div<{ color: 'yellow' | 'white' }>`
-  ${tw`absolute h-full`}
+  ${tw`absolute h-full top-0`}
   animation: ${waveKeyframe} 12s linear infinite 0s;
   background: top left/1920px repeat-x ;
   min-width: 3840px;
   width: 200%;
-  top: 0;
-
-  transform: translateX(10px);
+  opacity: 80%;
 
   &:nth-child(1) {
-    left: 240px;
+    left: -240px;
+    animation-delay: 0s;
+    animation-duration: 20.2s;
   }
 
   &:nth-child(2) {
-    left: 120px;
+    left: -120px;
+    animation-delay: 2s;
+    animation-duration: 16.5s;
   }
   &:nth-child(3) {
     left: 0;
+    animation-delay: 4s;
+    animation-duration: 14s;
   }
 
   ${({ color }) =>

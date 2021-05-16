@@ -1,5 +1,6 @@
 import { Link, graphql, useStaticQuery } from 'gatsby';
 import React, { useEffect } from 'react';
+import { useWindowSize } from 'react-use';
 import styled, { css } from 'styled-components';
 import tw from 'twin.macro';
 
@@ -80,7 +81,7 @@ const Skill: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
       return {
         title: work.title,
         slug: work.slug,
-        image: work.thumbnail.fluid,
+        thumbnail: work.thumbnail.fluid,
       } as WorkHeadLine;
     });
 
@@ -95,8 +96,11 @@ const Skill: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
     }
   });
 
+  const { width, height } = useWindowSize();
   const componentRef = React.createRef<HTMLElement>();
-  const [headerRef, isHeaderIntersection] = useIntersectionObserver();
+  const [headerRef, isHeaderIntersection] = useIntersectionObserver({
+    margin: Math.floor((height * 3) / 4),
+  });
   const intersection = skills.map(() => {
     const [ref, isIntersection] = useIntersectionObserver<HTMLLIElement>();
     return {
@@ -151,7 +155,7 @@ const Skill: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
                         <StyledWork
                           to={`/works/${work.slug}`}
                           title={work.title}
-                          image={work.image}
+                          image={work.thumbnail}
                           number={i + 1}
                           position={j}
                           works={skill.works}

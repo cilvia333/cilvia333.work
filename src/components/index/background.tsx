@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useMount, useUnmount } from 'react-use';
+import { useWindowSize } from 'react-use';
 import styled, { css, keyframes } from 'styled-components';
 import tw from 'twin.macro';
 
@@ -25,26 +25,28 @@ interface Props {
 
 const Background: React.FC<Props> = ({ position, center }: Props) => {
   const [windowHeight, setWindowHeight] = useState(0);
+  const { width, height } = useWindowSize();
 
   const currentPosition = (current: number): string => {
     const topDiff = current;
     const aboutDiff = current - position.about;
     const skillDiff = current - position.skill;
     const contactDiff = current - position.contact;
+    const breakPosition = windowHeight / 4;
 
-    if (topDiff <= position.about - (windowHeight - 200)) {
+    if (topDiff <= position.about - breakPosition) {
       return 'top';
     } else if (
-      -(windowHeight - 200) <= aboutDiff &&
-      aboutDiff <= position.skill - position.about - (windowHeight - 200)
+      -breakPosition <= aboutDiff &&
+      aboutDiff <= position.skill - position.about - breakPosition
     ) {
       return 'about';
     } else if (
-      -(windowHeight - 200) <= skillDiff &&
-      skillDiff <= position.contact - position.skill - (windowHeight - 200)
+      -breakPosition <= skillDiff &&
+      skillDiff <= position.contact - position.skill - breakPosition
     ) {
       return 'skill';
-    } else if (-(windowHeight - 200) <= contactDiff) {
+    } else if (-breakPosition <= contactDiff) {
       return 'contact';
     } else {
       return '';
@@ -52,17 +54,13 @@ const Background: React.FC<Props> = ({ position, center }: Props) => {
   };
 
   const onResize = () => {
-    setWindowHeight(window.innerHeight);
+    setWindowHeight(height);
   };
 
-  useMount(() => {
+  useEffect(() => {
+    console.log(height);
     onResize();
-    document.addEventListener('resize', onResize);
-  });
-
-  useUnmount(() => {
-    document.removeEventListener('resize', onResize);
-  });
+  }, [width]);
 
   return (
     <>

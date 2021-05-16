@@ -1,5 +1,6 @@
 import { Twitter, Github, Tumblr } from '@icons-pack/react-simple-icons';
 import React, { useEffect } from 'react';
+import { useWindowSize } from 'react-use';
 import styled, { css, keyframes } from 'styled-components';
 import tw from 'twin.macro';
 
@@ -16,9 +17,12 @@ interface Props {
 }
 
 const Contact: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
+  const { width, height } = useWindowSize();
   const componentRef = React.createRef<HTMLElement>();
   const centerRef = React.createRef<HTMLDivElement>();
-  const [contactRef, isIntersected] = useIntersectionObserver();
+  const [contactRef, isIntersected] = useIntersectionObserver({
+    margin: Math.floor((height * 3) / 4),
+  });
 
   const onChangeOffset = () => {
     setPosition(componentRef.current?.offsetTop ?? 0);

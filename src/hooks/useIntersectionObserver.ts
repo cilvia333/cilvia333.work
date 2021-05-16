@@ -4,7 +4,7 @@ export const useIntersectionObserver = <T extends HTMLElement = HTMLDivElement>(
   props: { once?: boolean; margin?: number } = {}
 ): [React.RefObject<T>, boolean] => {
   const defaults = {
-    margin: 200,
+    margin: 400,
     once: true,
   };
   const targetRef = useRef<T>(null);

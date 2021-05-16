@@ -57,14 +57,6 @@ const IndexPage: React.FC = () => {
           contact: contactCenter,
         }}
       />
-      <Nav
-        position={{
-          current: y,
-          about: aboutPosition,
-          skill: skillPosition,
-          contact: contactPosition,
-        }}
-      />
       <Top
         setCenter={position => {
           setTopCenter(position);

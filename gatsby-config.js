@@ -7,7 +7,7 @@ if (process.env.NODE_ENV !== 'production') {
 module.exports = {
   siteMetadata: {
     title: `Cilvia333.work`,
-    description: `Graphic designer / Web front-end engineer`,
+    description: `Cilvia333 is Graphic designer / Web front-end engineer based on Tokyo.`,
     author: `@cilvia333`,
     image: `/ogp.png`,
     siteUrl: `https://www.cilvia333.work`,
@@ -55,7 +55,7 @@ module.exports = {
         background_color: `#663399`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/images/icon.png`, // This path is relative to the root of the site.
+        icon: `/favicon.png`, // This path is relative to the root of the site.
       },
     },
     `gatsby-plugin-sitemap`,

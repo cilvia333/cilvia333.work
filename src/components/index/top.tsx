@@ -57,7 +57,7 @@ const Icon = styled.img`
 `;
 
 const Title = styled.h1`
-  ${tw`font-header font-bold text-6xl text-gray-900 text-shadow-black`}
+  ${tw`font-header font-bold text-6xl text-gray-900 text-shadow-black mt-4`}
 
   ${media.sm`
     ${tw`text-5xl`}
