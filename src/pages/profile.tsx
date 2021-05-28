@@ -10,6 +10,7 @@ import SEO from '~/components/seo';
 import { layoutContext } from '~/hooks';
 
 import { media } from '~/styles';
+import { Wrapper } from '~/styles/common';
 
 type Event = {
   date: string;
@@ -50,7 +51,7 @@ const Profile: React.FC = () => {
   return (
     <>
       <SEO title="PROFILE" />
-      <Wrapper>
+      <StyledWrapper>
         <Icon filename={'icon.png'} alt="icon" />
         <TextWrapper>
           <Heading>
@@ -98,13 +99,13 @@ const Profile: React.FC = () => {
             ))}
           </History>
         </TextWrapper>
-      </Wrapper>
+      </StyledWrapper>
     </>
   );
 };
 
-const Wrapper = styled.div`
-  ${tw`w-full pt-32 px-16 grid gap-16`}
+const StyledWrapper = styled(Wrapper)`
+  ${tw`grid gap-16`}
 
   grid-template-columns: 1fr minmax(auto,768px) 1fr;
 

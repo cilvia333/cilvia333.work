@@ -175,9 +175,8 @@ const Wrapper = styled.div`
 `;
 
 const NavWrapper = styled.div<{ isOpen: boolean }>`
-  ${tw`absolute overflow-hidden h-16 w-16 grid grid-flow-col gap-4 transition-all ease-in delay-500`}
-  top:0;
-  right: 0;
+  ${tw`absolute overflow-hidden h-16 w-16 grid grid-flow-col gap-4 transition-all ease-in delay-300 top-0 right-0`}
+  transform: translate(0);
   transition-duration: 1ms;
   grid-template-rows: repeat(8, minmax(0, 1fr));
 
@@ -185,6 +184,8 @@ const NavWrapper = styled.div<{ isOpen: boolean }>`
     isOpen &&
     css`
       ${tw`w-full h-screen`}
+      transform: translate(0);
+      transition-duration: 0ms;
       transition-delay: 0ms;
     `}
 `;
@@ -204,7 +205,7 @@ const NavBG = styled.div<{ isOpen: boolean; length: number }>`
   ${({ isOpen, length }) =>
     isOpen &&
     css`
-      ${tw`rounded-circle ease-out`}
+      ${tw`ease-out`}
       transform: scale(${length / 32});
     `};
 `;
@@ -227,23 +228,22 @@ const MenuLink = styled(({ isActive, ...props }: any) => <Link {...props} />)`
   ${tw`font-header font-bold text-6xl text-base-200 relative text-shadow-ivoly`}
 
   &::after {
-    ${tw`absolute m-auto rounded-full bg-base-200 transition-all duration-500 ease-out`}
+    ${tw`absolute m-auto rounded-full bg-base-200 transition-all duration-300 ease-out inset-y-0 left-0 w-0`}
     content: '';
     height: 4px;
-    width: 0;
-    bottom: 0;
-    right: 0;
+  }
 
-    ${media.md`
-      bottom: 8px;
-    `}
+  &:hover {
+    &::after {
+      ${tw`w-full`}
+    }
   }
 
   ${({ isActive }) =>
     isActive &&
     css`
       &::after {
-        width: 100%;
+        ${tw`w-full`}
       }
     `}
 `;

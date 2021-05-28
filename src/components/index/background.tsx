@@ -58,7 +58,6 @@ const Background: React.FC<Props> = ({ position, center }: Props) => {
   };
 
   useEffect(() => {
-    console.log(height);
     onResize();
   }, [width]);
 
@@ -120,7 +119,7 @@ const Wrapper = styled.div`
 `;
 
 const BubbleWrapper = styled.div`
-  ${tw`absolute w-full h-full overflow-hidden m-0`}
+  ${tw`absolute w-full h-full overflow-hidden m-0 z-20`}
 `;
 
 const Bubble = styled.div`

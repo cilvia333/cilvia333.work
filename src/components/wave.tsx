@@ -28,65 +28,65 @@ const Wave: React.FC<Props> = ({ className, color }: Props) => {
 
 const waveKeyframe1 = keyframes`
   0% {
-    transform: translateX(0) translateY(0);
+    transform: translateX(0) translateY(20px);
   }
   25% {
-    transform: translateX(-480px) translateY(20px);
+    transform: translateX(-480px) translateY(0);
   }
   50% {
-    transform: translateX(-960px) translateY(0);
+    transform: translateX(-960px) translateY(20px);
   }
   75% {
-    transform: translateX(-1440px) translateY(-20px);
+    transform: translateX(-1440px) translateY(40px);
   }
   100% {
-    transform: translateX(-1920px) translateY(0px);
+    transform: translateX(-1920px) translateY(20px);
   }
 `;
 
 const waveKeyframe2 = keyframes`
   0% {
-    transform: translateX(-480px) translateY(0);
+    transform: translateX(-480px) translateY(30px);
   }
   25% {
-    transform: translateX(-960px) translateY(-10px);
+    transform: translateX(-960px) translateY(40px);
   }
   50% {
-    transform: translateX(-1440px) translateY(0);
+    transform: translateX(-1440px) translateY(30px);
   }
   75% {
-    transform: translateX(-1920px) translateY(30px);
+    transform: translateX(-1920px) translateY(0);
   }
   100% {
-    transform: translateX(-2400px) translateY(0);
+    transform: translateX(-2400px) translateY(30px);
   }
 `;
 
 const waveKeyframe3 = keyframes`
   0% {
-    transform: translateX(-760px) translateY(0);
+    transform: translateX(-760px) translateY(40px);
   }
   25% {
-    transform: translateX(-1240px) translateY(40px);
+    transform: translateX(-1240px) translateY(0);
   }
   50% {
-    transform: translateX(-1720px) translateY(0);
+    transform: translateX(-1720px) translateY(40px);
   }
   75% {
-    transform: translateX(-2200px) translateY(40px);
+    transform: translateX(-2200px) translateY(0);
   }
   100% {
-    transform: translateX(-2680px) translateY(0px);
+    transform: translateX(-2680px) translateY(40px);
   }
 `;
 
 const WaveWrapper = styled.div`
-  ${tw`relative w-full`}
-  height: 20vh;
+  ${tw`relative w-full overflow-hidden`}
+  height: 200px;
 `;
 
 const WaveImg = styled.div<{ color: 'yellow' | 'white' }>`
-  ${tw`absolute h-full top-0 z-10`}
+  ${tw`absolute bottom-0 h-full z-10`}
   animation: linear infinite;
   background: top left/1920px repeat-x;
   min-width: 5760px;
@@ -143,7 +143,7 @@ const WaveImg = styled.div<{ color: 'yellow' | 'white' }>`
 const Bg = styled.div<{ color: 'yellow' | 'white' }>`
   ${tw`absolute bottom-0 w-full `}
 
-  height: 50%;
+  height: 25%;
 
   ${({ color }) =>
     color === 'yellow'
