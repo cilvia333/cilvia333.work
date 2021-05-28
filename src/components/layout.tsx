@@ -74,9 +74,11 @@ const Layout: React.FC<Props> = ({ children }: Props) => {
 
 const GlobalStyle = createGlobalStyle`
   body {
+    ${tw`bg-base-200`}
     margin: 0;
     padding: 0;
     position: relative;
+    box-sizing: border-box;
   }
   ul {
     list-style: none;
@@ -96,8 +98,8 @@ const Main = styled.main<{ isIndex: boolean }>`
 `;
 
 const Footer = styled.footer`
-  ${tw`relative w-full bg-base-200`}
   padding-top: 5vh;
+  ${tw`relative w-full bg-base-200`}
 `;
 
 export default Layout;
