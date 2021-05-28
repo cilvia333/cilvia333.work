@@ -55,7 +55,7 @@ const Header: React.FC = () => {
                   onClick={e => setIsOpen(path[0] === '')}
                   to="/"
                 >
-                  TOP
+                  ROOT
                 </MenuLink>
               </li>
               <li>
@@ -64,7 +64,7 @@ const Header: React.FC = () => {
                   onClick={e => setIsOpen(path[0] === 'works')}
                   to="/works"
                 >
-                  WORKS
+                  /WORKS
                 </MenuLink>
               </li>
               <li>
@@ -73,7 +73,7 @@ const Header: React.FC = () => {
                   onClick={e => setIsOpen(path[0] === 'profile')}
                   to="/profile"
                 >
-                  PROFILE
+                  /PROFILE
                 </MenuLink>
               </li>
               <li>
@@ -82,7 +82,7 @@ const Header: React.FC = () => {
                   onClick={e => setIsOpen(path[0] === 'contacts')}
                   to="/contacts"
                 >
-                  CONTACTS
+                  /CONTACTS
                 </MenuLink>
               </li>
             </Menu>
@@ -102,10 +102,11 @@ const Header: React.FC = () => {
             isWhite={ctx.white || isOpen || !path[0]}
             isActive={path[0] || isOpen}
           >
-            {ctx.pageTitle}
+            <Link to="/">{`/`}</Link>
+            <Link to={`/${path[0]}`}>{`${path[0]}`}</Link>
           </PageTitle>
           <WorksTagBadge isActive={path[1] === 't'}>
-            {`#${path[2] ?? ''}`}
+            <Link to={`/works/t/${path[2]}`}>{`/t/${path[2] ?? ''}`}</Link>
             <WorksTagCross onClick={() => navigate('/works')} />
           </WorksTagBadge>
           <PageSubTitle
@@ -113,7 +114,9 @@ const Header: React.FC = () => {
             isAnimation={isAnimation}
             onAnimationEnd={onAnimationEnd}
           >
-            {path[1] && !worksRegex.test(path[1]) ? `/${path[1]}` : ''}
+            <Link to={`/works/${path[1]}`}>
+              {path[1] && !worksRegex.test(path[1]) ? `/${path[1]}` : ''}
+            </Link>
           </PageSubTitle>
           <WorkBackLink
             to={`${ctx.workBack.path}${
@@ -330,10 +333,33 @@ const PageInfoWrapper = styled.div`
 const PageTitle = styled.div<{ isWhite: boolean; isActive: boolean }>`
   ${tw`font-header font-bold text-4xl text-gray-900 relative uppercase inline-block transition-all duration-300 ease-out opacity-0`}
 
+  a {
+    ${tw`relative`}
+
+    &::after {
+      ${tw`absolute m-auto rounded-full bg-gray-900 transition-all duration-300 ease-out left-0 w-0`}
+      content: '';
+      height: 2px;
+      bottom: 0.5rem;
+    }
+
+    &:hover {
+      &::after {
+        ${tw`w-full`}
+      }
+    }
+  }
+
   ${({ isWhite }) =>
     isWhite &&
     css`
       ${tw`text-base-200`}
+
+      a {
+        &::after {
+          ${tw`bg-base-200`}
+        }
+      }
     `}
 
   ${({ isActive }) =>
@@ -344,7 +370,7 @@ const PageTitle = styled.div<{ isWhite: boolean; isActive: boolean }>`
 `;
 
 const PageSubTitle = styled.div<{ isWhite: boolean; isAnimation: boolean }>`
-  ${tw`relative font-header font-bold text-2xl text-gray-900 italic lowercase inline-block ml-2`}
+  ${tw`relative font-header font-bold text-4xl text-gray-900 italic lowercase inline-block`}
 
   animation: 600ms ease-in-out forwards;
   clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
@@ -354,6 +380,23 @@ const PageSubTitle = styled.div<{ isWhite: boolean; isAnimation: boolean }>`
     content: "";
     animation: 600ms ease-in-out forwards;
     clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+  }
+
+  a {
+    ${tw`relative`}
+
+    &::after {
+      ${tw`absolute m-auto rounded-full bg-gray-900 transition-all duration-300 ease-out left-0 w-0`}
+      content: '';
+      height: 2px;
+      bottom: 0.5rem;
+    }
+
+    &:hover {
+      &::after {
+        ${tw`w-full`}
+      }
+    }
   }
 
   ${media.sm`
@@ -367,6 +410,12 @@ const PageSubTitle = styled.div<{ isWhite: boolean; isAnimation: boolean }>`
 
       &::after {
         ${tw`bg-base-200`}
+      }
+
+      a {
+        &::after {
+          ${tw`bg-base-200`}
+        }
       }
     `}
 
@@ -441,7 +490,24 @@ const WorkBackLink = styled(({ isActive, isAnimate, ...props }) => (
 `;
 
 const WorksTagBadge = styled.div<{ isActive: boolean }>`
-  ${tw`hidden relative text-base-200 rounded-full bg-primary-500 px-4 ml-4 mb-4 align-middle`}
+  ${tw`hidden relative text-4xl text-primary-600 font-semibold font-header`}
+
+  a {
+    ${tw`relative`}
+
+    &::after {
+      ${tw`absolute m-auto rounded-full bg-primary-600 transition-all duration-300 ease-out left-0 w-0`}
+      content: '';
+      height: 2px;
+      bottom: 0.5rem;
+    }
+
+    &:hover {
+      &::after {
+        ${tw`w-full`}
+      }
+    }
+  }
 
   ${({ isActive }) =>
     isActive &&

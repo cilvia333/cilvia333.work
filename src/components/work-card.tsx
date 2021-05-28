@@ -197,10 +197,10 @@ const TagWrapper = styled.div`
 `;
 
 const TagLink = styled(Link)`
-  ${tw`relative font-header font-bold leading-none text-primary-500 mr-2`}
+  ${tw`relative font-header font-normal leading-none text-primary-600 mr-2`}
 
   &::after {
-    ${tw`absolute w-0 m-0 bg-primary-500 transition-all duration-300 ease-out rounded-full`}
+    ${tw`absolute w-0 m-0 bg-primary-600 transition-all duration-300 ease-out rounded-full`}
 
     content: '';
     height: 1px;
