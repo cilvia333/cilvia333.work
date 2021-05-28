@@ -3,7 +3,7 @@ import tw from 'twin.macro';
 
 import { media } from '~/styles';
 
-export const Wrapper = styled.div<{ isOpen: boolean }>`
+export const Wrapper = styled.div`
   ${tw`w-full pt-48 px-16 m-auto`}
 
   max-width: 1280px;
