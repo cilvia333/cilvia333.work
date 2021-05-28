@@ -429,9 +429,12 @@ const WorkBackLink = styled(({ isActive, isAnimate, ...props }) => (
 
   &:hover {
     ${WorkBackButton} {
+      &:nth-child(1) {
+        ${tw`text-primary-500`}
+      }
       &:nth-child(2) {
         ${tw`text-primary-500`}
-        clip-path: circle(100%);
+        clip-path: circle(101%);
       }
     }
   }

@@ -98,7 +98,7 @@ const Wrapper = styled.section<{ isEnd: boolean }>`
 `;
 
 const TitleWrapper = styled.div`
-  ${tw`flex justify-start items-center flex-col row-start-2 row-end-4 py-4`}
+  ${tw`flex justify-start items-center flex-col row-start-2 row-end-4 py-4 z-40`}
 `;
 
 const Icon = styled.img`

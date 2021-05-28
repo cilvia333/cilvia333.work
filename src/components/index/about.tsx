@@ -39,11 +39,11 @@ const About: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
 
   useEffect(() => {
     onChangeOffset();
-  }, [componentRef.current]);
+  }, [componentRef.current, width, height]);
 
   useEffect(() => {
     onChangeCenter();
-  }, [centerRef.current]);
+  }, [centerRef.current, width, height]);
 
   return (
     <>
@@ -71,7 +71,9 @@ const About: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
               <wbr />
               みんなに伝えたい！
               <wbr />
-              という一心で自主制作や作品のお手伝いをしてきました。
+              という一心で自主制作や
+              <wbr />
+              作品のお手伝いをしてきました。
               <br />
               これからもわたしの得意なことを大切に、
               <wbr />
@@ -80,7 +82,7 @@ const About: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
               寄り添ったお手伝いをしていきます。
             </p>
           </DescriptionText>
-          <LinkButton to="/profile">GO PROFILE!</LinkButton>
+          <LinkButton to="/profile">GO TO MY PROFILE!</LinkButton>
         </Description>
       </Wrapper>
     </>

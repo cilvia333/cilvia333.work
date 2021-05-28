@@ -121,7 +121,7 @@ const Skill: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
 
   useEffect(() => {
     onChangeOffset();
-  }, [componentRef.current]);
+  }, [componentRef.current, width, height]);
 
   return (
     <>
@@ -181,7 +181,7 @@ const Skill: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
         </ContentsWrapper>
         <OtherWorks>
           <h3>ほかにこんな作品も！</h3>
-          <LinkButton to="/works">GO WORKS!</LinkButton>
+          <LinkButton to="/works">GO TO MY WORKS!</LinkButton>
         </OtherWorks>
       </Wrapper>
     </>

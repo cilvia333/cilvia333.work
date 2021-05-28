@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from 'react';
-import { useMound } from 'react-use';
+import { useWindowSize } from 'react-use';
 import styled from 'styled-components';
 import tw from 'twin.macro';
 
@@ -15,6 +15,7 @@ interface Props {
 
 const Top: React.FC<Props> = ({ setCenter }: Props) => {
   const centerRef = React.createRef<HTMLImageElement>();
+  const { width, height } = useWindowSize();
 
   const onChangeCenter = () => {
     const offsetX = centerRef.current?.offsetLeft ?? 0;
@@ -27,7 +28,7 @@ const Top: React.FC<Props> = ({ setCenter }: Props) => {
 
   useEffect(() => {
     onChangeCenter();
-  }, [centerRef.current]);
+  }, [centerRef.current, width, height]);
 
   return (
     <>
