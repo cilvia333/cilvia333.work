@@ -169,7 +169,7 @@ const TextAppearOverlayKeyframes = keyframes`
 `;
 
 const CustomHeader = styled.header`
-  ${tw`fixed w-full z-20`}
+  ${tw`fixed w-full z-40`}
 `;
 
 const Wrapper = styled.div`
@@ -256,6 +256,7 @@ const StyledWave = styled(({ isOpen: boolean, ...props }) => (
   ${tw`h-full row-start-7 opacity-0 transition-opacity duration-100 ease-out delay-100`}
 
   grid-row-end: 9;
+  z-index: 1;
 
   ${({ isOpen }) =>
     isOpen &&

@@ -97,10 +97,10 @@ const Main = styled.main<{ isIndex: boolean }>`
 const Footer = styled.footer<{ background: 'yellow' | 'white' }>`
   padding-top: 5vh;
   ${tw`relative w-full`}
-  z-index:-1;
 
   p {
-    ${tw`absolute inset-x-0 bottom-0 pb-4 text-sm z-20 text-center font-header font-semibold`}
+    ${tw`absolute inset-x-0 bottom-0 pb-4 text-sm text-center font-header font-semibold`}
+    z-index:20;
   }
 
   ${({ background }) =>
