@@ -59,13 +59,10 @@ const Layout: React.FC<Props> = ({ children }: Props) => {
           ) : null}
           <Header />
           <Main isIndex={path === '/'}>{children}</Main>
-          {path === '/' ? (
-            ''
-          ) : (
-            <Footer>
-              <Wave color="yellow" />
-            </Footer>
-          )}
+          <Footer background={path === '/' ? 'yellow' : 'white'}>
+            <Wave color={path === '/' ? 'white' : 'yellow'} />
+            <p>©︎ 2020 cilvia333</p>
+          </Footer>
         </layoutContext.Provider>
       </ThemeProvider>
     </>
@@ -86,7 +83,7 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const Main = styled.main<{ isIndex: boolean }>`
-  ${tw`w-full h-full font-text bg-base-200`}
+  ${tw`w-full h-full font-text`}
 
   min-height: 75vh;
 
@@ -97,9 +94,23 @@ const Main = styled.main<{ isIndex: boolean }>`
     `}
 `;
 
-const Footer = styled.footer`
+const Footer = styled.footer<{ background: 'yellow' | 'white' }>`
   padding-top: 5vh;
-  ${tw`relative w-full bg-base-200`}
+  ${tw`relative w-full`}
+  z-index:-1;
+
+  p {
+    ${tw`absolute inset-x-0 bottom-0 pb-4 text-sm z-20 text-center font-header font-semibold`}
+  }
+
+  ${({ background }) =>
+    background === 'yellow'
+      ? css`
+          ${tw`bg-primary-500`}
+        `
+      : css`
+          ${tw`bg-base-200`}
+        `}
 `;
 
 export default Layout;

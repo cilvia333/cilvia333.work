@@ -107,7 +107,6 @@ const Header: React.FC = () => {
           </PageTitle>
           <WorksTagBadge isActive={path[1] === 't'}>
             <Link to={`/works/t/${path[2]}`}>{`/t/${path[2] ?? ''}`}</Link>
-            <WorksTagCross onClick={() => navigate('/works')} />
           </WorksTagBadge>
           <PageSubTitle
             isWhite={ctx.white || isOpen}
@@ -214,7 +213,7 @@ const NavBG = styled.div<{ isOpen: boolean; length: number }>`
 `;
 
 const Nav = styled.nav<{ isOpen: boolean }>`
-  ${tw`w-full transition-opacity duration-500 ease-out opacity-0 px-8 py-8 row-start-2 row-end-5`}
+  ${tw`w-full transition-opacity duration-500 ease-out opacity-0 px-8 py-8 row-start-2 row-end-5 z-20`}
 
   ${({ isOpen }) =>
     isOpen &&
@@ -321,12 +320,13 @@ const Hamburger = styled.div<{ isWhite: boolean }>`
 `;
 
 const PageInfoWrapper = styled.div`
-  ${tw`absolute px-8 py-8 mx-0 my-auto`}
+  ${tw`absolute px-8 py-8 mx-0 my-auto leading-6`}
+  width:73%;
   left: 0;
   top: 0;
 
   ${media.sm`
-    ${tw`px-4 py-4`}
+    ${tw`px-4 py-6`}
   `}
 `;
 
@@ -400,7 +400,7 @@ const PageSubTitle = styled.div<{ isWhite: boolean; isAnimation: boolean }>`
   }
 
   ${media.sm`
-    ${tw`text-lg`}
+    ${tw`text-2xl`}
   `}
 
   ${({ isWhite }) =>
@@ -514,6 +514,10 @@ const WorksTagBadge = styled.div<{ isActive: boolean }>`
     css`
       ${tw`inline-block`}
     `}
+
+  ${media.sm`
+    ${tw`text-2xl`}
+  `}
 `;
 
 const WorksTagCross = styled(CrossSvg)`
