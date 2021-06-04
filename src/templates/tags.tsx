@@ -84,10 +84,6 @@ const CardWrapper = styled.ul`
 
   max-width: 1024px;
 
-  ${media.md`
-    ${tw`px-8`}
-  `}
-
   ${media.sm`
     ${tw`justify-center`}
     max-width: 512px;
