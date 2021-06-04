@@ -20,6 +20,11 @@ import { ContentfulWork } from '~/types/graphql-types';
 import { WorkHeadLine } from '~/types/work';
 
 export const option = {
+  renderText: text => {
+    return text.split('\n').reduce((children, textSegment, index) => {
+      return [...children, index > 0 && <br key={index} />, textSegment];
+    }, []);
+  },
   renderNode: {
     [BLOCKS.EMBEDDED_ASSET]: function renderEmbeddedAsset(node: any) {
       const fluid = useContentfulImage(node.data.target.fields.file['ja'].url);
