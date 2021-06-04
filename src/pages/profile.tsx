@@ -10,6 +10,7 @@ import SEO from '~/components/seo';
 import { layoutContext } from '~/hooks';
 
 import { media } from '~/styles';
+import { Wrapper } from '~/styles/common';
 
 type Event = {
   date: string;
@@ -29,13 +30,12 @@ const events: Event[] = [
       'Entered into Depertment of Design Informatics, Musashino Art University.',
   },
   {
-    date: '2019.04 -',
-    text:
-      'Part-time ad Hematite Inc. as a web front-end engineer and a designer',
+    date: '2019.04 - 2020.10',
+    text: 'Part-time ad Hematite Inc. as a web front-end engineer and designer',
   },
   {
     date: '2020.06 -',
-    text: 'Part-time ad Pixiv Inc. as a web front-end engineer and a designer',
+    text: 'Part-time ad Pixiv Inc. as a web front-end engineer and designer',
   },
 ];
 
@@ -50,7 +50,7 @@ const Profile: React.FC = () => {
   return (
     <>
       <SEO title="PROFILE" />
-      <Wrapper>
+      <StyledWrapper>
         <Icon filename={'icon.png'} alt="icon" />
         <TextWrapper>
           <Heading>
@@ -82,11 +82,37 @@ const Profile: React.FC = () => {
           </Heading>
           <Description>
             <p>
-              {'　'}
-              1999年3月17日岡山県にて生まれる。2014年から津山高専へ進学し、高専ロボコンに取り組む。その傍らでゲーム制作やデザインなどの活動も行う。2019年に武蔵野美術大学造形学部デザイン情報学科２年次へ編入し、グラフィックデザインの活動を始める。
+              1999年3月17日
+              <wbr />
+              岡山県にて生まれる。
+              <wbr />
+              2014年から津山高専へ進学し、
+              <wbr />
+              高専ロボコンに取り組む。
+              <wbr />
+              その傍らでゲーム制作や
+              <wbr />
+              デザインなどの活動も行う。
+              <wbr />
+              2019年に武蔵野美術大学
+              <wbr />
+              造形学部
+              <wbr />
+              デザイン情報学科
+              <wbr />
+              ２年次へ編入し、
+              <wbr />
+              グラフィックデザインの
+              <wbr />
+              活動を始める。
               <br />
-              {'　'}
-              現在は、学業とともにグラフィックデザイナー兼ウェブフロントエンジニアとして活動している。
+              現在は、学業とともに
+              <wbr />
+              グラフィックデザイナー兼
+              <wbr />
+              ウェブエンジニアとして
+              <wbr />
+              活動している。
             </p>
           </Description>
           <History>
@@ -98,13 +124,13 @@ const Profile: React.FC = () => {
             ))}
           </History>
         </TextWrapper>
-      </Wrapper>
+      </StyledWrapper>
     </>
   );
 };
 
-const Wrapper = styled.div`
-  ${tw`w-full pt-32 px-16 grid gap-16`}
+const StyledWrapper = styled(Wrapper)`
+  ${tw`grid gap-16`}
 
   grid-template-columns: 1fr minmax(auto,768px) 1fr;
 
@@ -120,7 +146,7 @@ const Icon = styled(Image)`
 `;
 
 const TextWrapper = styled.div`
-  ${tw`w-full col-start-2 col-end-3`}
+  ${tw`w-full col-start-2 col-end-3 mb-2`}
 `;
 
 const Heading = styled.section`
@@ -147,6 +173,7 @@ const Description = styled.section`
   ${tw`mt-12 text-gray-900 font-text text-sm`}
 
   line-height: 35px;
+  word-break: keep-all;
 `;
 
 const History = styled.section`

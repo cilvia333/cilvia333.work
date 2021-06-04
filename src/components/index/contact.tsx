@@ -1,5 +1,6 @@
 import { Twitter, Github, Tumblr } from '@icons-pack/react-simple-icons';
 import React, { useEffect } from 'react';
+import { useWindowSize } from 'react-use';
 import styled, { css, keyframes } from 'styled-components';
 import tw from 'twin.macro';
 
@@ -16,9 +17,12 @@ interface Props {
 }
 
 const Contact: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
+  const { width, height } = useWindowSize();
   const componentRef = React.createRef<HTMLElement>();
   const centerRef = React.createRef<HTMLDivElement>();
-  const [contactRef, isIntersected] = useIntersectionObserver();
+  const [contactRef, isIntersected] = useIntersectionObserver({
+    margin: Math.floor((height * 3) / 4),
+  });
 
   const onChangeOffset = () => {
     setPosition(componentRef.current?.offsetTop ?? 0);
@@ -35,11 +39,11 @@ const Contact: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
 
   useEffect(() => {
     onChangeOffset();
-  }, [componentRef.current]);
+  }, [componentRef.current, width, height]);
 
   useEffect(() => {
     onChangeCenter();
-  }, [centerRef.current]);
+  }, [centerRef.current, width, height]);
 
   return (
     <>
@@ -229,15 +233,15 @@ const SvgWrapper = styled.div`
 `;
 
 const OtherLinkButton = styled.a`
-  ${tw`relative h-12 w-12 rounded-circle bg-base-200 border-primary-500 border-solid border-2 overflow-hidden`}
+  ${tw`relative h-12 w-12 rounded-circle bg-base-200 border-primary-500 border-solid border-2`}
 
   &::before {
     ${tw`absolute bg-primary-500 inset-0 m-auto transition-transform duration-300 ease-out rounded-circle`}
 
     content: "";
     transform: scale(0);
-    height: 105%;
-    width: 105%;
+    height: 100%;
+    width: 100%;
   }
 
   & > * {
@@ -246,7 +250,7 @@ const OtherLinkButton = styled.a`
 
   &:hover {
     &::before {
-      transform: scale(1);
+      transform: scale(1.01);
     }
 
     svg {

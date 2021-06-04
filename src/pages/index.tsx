@@ -36,13 +36,13 @@ const IndexPage: React.FC = () => {
   const ctx = useContext(layoutContext);
 
   useEffectOnce(() => {
-    ctx.setPageTitle('TOP');
-    ctx.setWorkBack({ path: '/', title: `TOP` });
+    ctx.setPageTitle('ROOT');
+    ctx.setWorkBack({ path: '/', title: `ROOT` });
   });
 
   return (
     <>
-      <SEO title="TOP" />
+      <SEO title="ROOT" />
       <Background
         position={{
           current: y,
@@ -55,14 +55,6 @@ const IndexPage: React.FC = () => {
           about: aboutCenter,
           skill: skillCenter,
           contact: contactCenter,
-        }}
-      />
-      <Nav
-        position={{
-          current: y,
-          about: aboutPosition,
-          skill: skillPosition,
-          contact: contactPosition,
         }}
       />
       <Top

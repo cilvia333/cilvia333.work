@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-
+import { useWindowSize } from 'react-use';
 import styled, { css, keyframes } from 'styled-components';
 import tw from 'twin.macro';
 
@@ -16,10 +16,13 @@ interface Props {
 }
 
 const About: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
+  const { width, height } = useWindowSize();
   const componentRef = React.createRef<HTMLElement>();
   const centerRef = React.createRef<HTMLDivElement>();
   const [catchRef, isCatchIntersected] = useIntersectionObserver();
-  const [profileRef, isProfileIntersected] = useIntersectionObserver();
+  const [profileRef, isProfileIntersected] = useIntersectionObserver({
+    margin: Math.floor((height * 3) / 4),
+  });
 
   const onChangeOffset = () => {
     setPosition(componentRef.current?.offsetTop ?? 0);
@@ -36,37 +39,15 @@ const About: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
 
   useEffect(() => {
     onChangeOffset();
-  }, [componentRef.current]);
+  }, [componentRef.current, width, height]);
 
   useEffect(() => {
     onChangeCenter();
-  }, [centerRef.current]);
+  }, [centerRef.current, width, height]);
 
   return (
     <>
       <Wrapper ref={componentRef} id="about">
-        <CatchWrapper ref={catchRef}>
-          <CatchText isIntersected={isCatchIntersected}>
-            Cilvia333 <nobr />
-            <CatchSmallText>is</CatchSmallText> <br />
-            Creater<CatchSmallText>,</CatchSmallText>
-            <br />
-            Coder <nobr />
-            <CatchSmallText>and</CatchSmallText>
-            <br />
-            Comfort.
-          </CatchText>
-          <CatchText isIntersected={isCatchIntersected}>
-            Cilvia333 <nobr />
-            <CatchSmallText>is</CatchSmallText> <br />
-            Creater<CatchSmallText>,</CatchSmallText>
-            <br />
-            Coder <nobr />
-            <CatchSmallText>and</CatchSmallText>
-            <br />
-            Comfort.
-          </CatchText>
-        </CatchWrapper>
         <Description ref={centerRef} isIntersected={isProfileIntersected}>
           <ProfileWrapper ref={profileRef}>
             <Name>塩見海怜 / cilvia333</Name>
@@ -75,17 +56,33 @@ const About: React.FC<Props> = ({ setPosition, setCenter }: Props) => {
           <DescriptionText>
             <p>はじめまして、cilvia333です。</p>
             <p>
-              美大生をやりながら、グラフィックデザインとウェブ制作、プログラミングを中心に活動をしています。
+              美大生をやりながら、
+              <wbr />
+              グラフィックデザインとウェブ制作、
+              <wbr />
+              プログラミングを中心に活動をしています。
               <br />
-              ちょっとかわいいシンプルなデザインとウェブサイトをつくることが得意です。
+              ちょっとかわいいシンプルなデザインと
+              <wbr />
+              ウェブサイトをつくることが得意です。
             </p>
             <p>
-              ワクワクしたあの気持ちを形にしたい！みんなに伝えたい！という一心で自主制作や作品のお手伝いをしてきました。
+              ワクワクしたあの気持ちを形にしたい！
+              <wbr />
+              みんなに伝えたい！
+              <wbr />
+              という一心で自主制作や
+              <wbr />
+              作品のお手伝いをしてきました。
               <br />
-              これからもわたしの得意なことを大切に、あなたの伝えたいという気持ちに寄り添ったお手伝いをしていきます。
+              これからもわたしの得意なことを大切に、
+              <wbr />
+              あなたの伝えたいという気持ちに
+              <wbr />
+              寄り添ったお手伝いをしていきます。
             </p>
           </DescriptionText>
-          <LinkButton to="/profile">GO PROFILE!</LinkButton>
+          <LinkButton to="/profile">GO TO MY PROFILE!</LinkButton>
         </Description>
       </Wrapper>
     </>
@@ -120,11 +117,11 @@ const catchKeyframe = keyframes`
 `;
 
 const Wrapper = styled.section`
-  ${tw`flex justify-between items-center w-full m-auto`}
+  ${tw`flex justify-center items-center w-full m-auto`}
 
   max-width: 1980px;
 
-  @media (min-width: 1921px) {
+  /* @media (min-width: 1921px) {
     padding-right: 448px;
   }
 
@@ -134,7 +131,7 @@ const Wrapper = styled.section`
 
   ${media.xl`
     ${tw`pr-16`}
-  `}
+  `} */
 
   ${media.lg`
     ${tw`flex-col px-0`}
@@ -210,9 +207,13 @@ const CatchSmallText = styled.span`
 `;
 
 const Description = styled.div<{ isIntersected: boolean }>`
-  ${tw`py-32 opacity-0 transition-all duration-300 ease-out`}
+  ${tw`text-center py-32 opacity-0 transition-all duration-300 ease-out`}
 
   transition-delay: 400ms;
+
+  p {
+    word-break: keep-all;
+  }
 
   ${media.lg`
     ${tw`py-0 mt-40 w-full text-center`}
@@ -221,11 +222,11 @@ const Description = styled.div<{ isIntersected: boolean }>`
   `}
 
   ${media.md`
-    ${tw`mt-32 px-16`}
+    ${tw`mt-32`}
   `}
 
   ${media.sm`
-    ${tw`mt-32 px-8`}
+    ${tw`mt-32`}
   `}
 
   ${({ isIntersected }) =>

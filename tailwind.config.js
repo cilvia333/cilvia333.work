@@ -39,7 +39,11 @@ module.exports = {
         },
       },
       fontFamily: {
-        header: ['brandon-grotesque', defaultTheme.fontFamily.sans],
+        header: [
+          'brandon-grotesque',
+          'Noto Sans JP',
+          defaultTheme.fontFamily.sans,
+        ],
         text: ['Noto Sans JP', defaultTheme.fontFamily.sans],
       },
       borderRadius: {

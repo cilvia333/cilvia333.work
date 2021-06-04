@@ -55,7 +55,7 @@ const Header: React.FC = () => {
                   onClick={e => setIsOpen(path[0] === '')}
                   to="/"
                 >
-                  TOP
+                  ROOT
                 </MenuLink>
               </li>
               <li>
@@ -64,7 +64,7 @@ const Header: React.FC = () => {
                   onClick={e => setIsOpen(path[0] === 'works')}
                   to="/works"
                 >
-                  WORKS
+                  /WORKS
                 </MenuLink>
               </li>
               <li>
@@ -73,7 +73,7 @@ const Header: React.FC = () => {
                   onClick={e => setIsOpen(path[0] === 'profile')}
                   to="/profile"
                 >
-                  PROFILE
+                  /PROFILE
                 </MenuLink>
               </li>
               <li>
@@ -82,7 +82,7 @@ const Header: React.FC = () => {
                   onClick={e => setIsOpen(path[0] === 'contacts')}
                   to="/contacts"
                 >
-                  CONTACTS
+                  /CONTACTS
                 </MenuLink>
               </li>
             </Menu>
@@ -102,18 +102,20 @@ const Header: React.FC = () => {
             isWhite={ctx.white || isOpen || !path[0]}
             isActive={path[0] || isOpen}
           >
-            {ctx.pageTitle}
+            <Link to="/">{`/`}</Link>
+            <Link to={`/${path[0]}`}>{`${path[0]}`}</Link>
           </PageTitle>
           <WorksTagBadge isActive={path[1] === 't'}>
-            {`#${path[2] ?? ''}`}
-            <WorksTagCross onClick={() => navigate('/works')} />
+            <Link to={`/works/t/${path[2]}`}>{`/t/${path[2] ?? ''}`}</Link>
           </WorksTagBadge>
           <PageSubTitle
             isWhite={ctx.white || isOpen}
             isAnimation={isAnimation}
             onAnimationEnd={onAnimationEnd}
           >
-            {path[1] && !worksRegex.test(path[1]) ? `/${path[1]}` : ''}
+            <Link to={`/works/${path[1]}`}>
+              {path[1] && !worksRegex.test(path[1]) ? `/${path[1]}` : ''}
+            </Link>
           </PageSubTitle>
           <WorkBackLink
             to={`${ctx.workBack.path}${
@@ -167,7 +169,7 @@ const TextAppearOverlayKeyframes = keyframes`
 `;
 
 const CustomHeader = styled.header`
-  ${tw`fixed w-full z-20`}
+  ${tw`fixed w-full z-40`}
 `;
 
 const Wrapper = styled.div`
@@ -175,9 +177,8 @@ const Wrapper = styled.div`
 `;
 
 const NavWrapper = styled.div<{ isOpen: boolean }>`
-  ${tw`absolute overflow-hidden h-16 w-16 grid grid-flow-col gap-4 transition-all ease-in delay-500`}
-  top:0;
-  right: 0;
+  ${tw`absolute overflow-hidden h-16 w-16 grid grid-flow-col gap-4 transition-all ease-in delay-300 top-0 right-0`}
+  transform: translate(0);
   transition-duration: 1ms;
   grid-template-rows: repeat(8, minmax(0, 1fr));
 
@@ -185,6 +186,8 @@ const NavWrapper = styled.div<{ isOpen: boolean }>`
     isOpen &&
     css`
       ${tw`w-full h-screen`}
+      transform: translate(0);
+      transition-duration: 0ms;
       transition-delay: 0ms;
     `}
 `;
@@ -204,13 +207,13 @@ const NavBG = styled.div<{ isOpen: boolean; length: number }>`
   ${({ isOpen, length }) =>
     isOpen &&
     css`
-      ${tw`rounded-circle ease-out`}
+      ${tw`ease-out`}
       transform: scale(${length / 32});
     `};
 `;
 
 const Nav = styled.nav<{ isOpen: boolean }>`
-  ${tw`w-full transition-opacity duration-500 ease-out opacity-0 px-8 py-8 row-start-2 row-end-5`}
+  ${tw`w-full transition-opacity duration-500 ease-out opacity-0 px-8 py-8 row-start-2 row-end-5 z-20`}
 
   ${({ isOpen }) =>
     isOpen &&
@@ -224,26 +227,25 @@ const Menu = styled.ul`
 `;
 
 const MenuLink = styled(({ isActive, ...props }: any) => <Link {...props} />)`
-  ${tw`font-header font-bold text-6xl text-base-200 relative text-shadow-ivoly`}
+  ${tw`font-header font-bold md:text-6xl text-5xl text-base-200 relative text-shadow-ivoly`}
 
   &::after {
-    ${tw`absolute m-auto rounded-full bg-base-200 transition-all duration-500 ease-out`}
+    ${tw`absolute m-auto rounded-full bg-base-200 transition-all duration-300 ease-out inset-y-0 left-0 w-0`}
     content: '';
     height: 4px;
-    width: 0;
-    bottom: 0;
-    right: 0;
+  }
 
-    ${media.md`
-      bottom: 8px;
-    `}
+  &:hover {
+    &::after {
+      ${tw`w-full`}
+    }
   }
 
   ${({ isActive }) =>
     isActive &&
     css`
       &::after {
-        width: 100%;
+        ${tw`w-full`}
       }
     `}
 `;
@@ -254,6 +256,7 @@ const StyledWave = styled(({ isOpen: boolean, ...props }) => (
   ${tw`h-full row-start-7 opacity-0 transition-opacity duration-100 ease-out delay-100`}
 
   grid-row-end: 9;
+  z-index: 1;
 
   ${({ isOpen }) =>
     isOpen &&
@@ -318,22 +321,46 @@ const Hamburger = styled.div<{ isWhite: boolean }>`
 `;
 
 const PageInfoWrapper = styled.div`
-  ${tw`absolute px-8 py-8 mx-0 my-auto`}
+  ${tw`absolute px-8 py-8 mx-0 my-auto leading-6`}
+  width:73%;
   left: 0;
   top: 0;
 
   ${media.sm`
-    ${tw`px-4 py-4`}
+    ${tw`px-4 py-6`}
   `}
 `;
 
 const PageTitle = styled.div<{ isWhite: boolean; isActive: boolean }>`
   ${tw`font-header font-bold text-4xl text-gray-900 relative uppercase inline-block transition-all duration-300 ease-out opacity-0`}
 
+  a {
+    ${tw`relative`}
+
+    &::after {
+      ${tw`absolute m-auto rounded-full bg-gray-900 transition-all duration-300 ease-out left-0 w-0`}
+      content: '';
+      height: 2px;
+      bottom: 0.5rem;
+    }
+
+    &:hover {
+      &::after {
+        ${tw`w-full`}
+      }
+    }
+  }
+
   ${({ isWhite }) =>
     isWhite &&
     css`
       ${tw`text-base-200`}
+
+      a {
+        &::after {
+          ${tw`bg-base-200`}
+        }
+      }
     `}
 
   ${({ isActive }) =>
@@ -344,7 +371,7 @@ const PageTitle = styled.div<{ isWhite: boolean; isActive: boolean }>`
 `;
 
 const PageSubTitle = styled.div<{ isWhite: boolean; isAnimation: boolean }>`
-  ${tw`relative font-header font-bold text-2xl text-gray-900 italic lowercase inline-block ml-2`}
+  ${tw`relative font-header font-bold text-4xl text-gray-900 italic lowercase inline-block`}
 
   animation: 600ms ease-in-out forwards;
   clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
@@ -356,8 +383,25 @@ const PageSubTitle = styled.div<{ isWhite: boolean; isAnimation: boolean }>`
     clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
   }
 
+  a {
+    ${tw`relative`}
+
+    &::after {
+      ${tw`absolute m-auto rounded-full bg-gray-900 transition-all duration-300 ease-out left-0 w-0`}
+      content: '';
+      height: 2px;
+      bottom: 0.5rem;
+    }
+
+    &:hover {
+      &::after {
+        ${tw`w-full`}
+      }
+    }
+  }
+
   ${media.sm`
-    ${tw`text-lg`}
+    ${tw`text-2xl`}
   `}
 
   ${({ isWhite }) =>
@@ -367,6 +411,12 @@ const PageSubTitle = styled.div<{ isWhite: boolean; isAnimation: boolean }>`
 
       &::after {
         ${tw`bg-base-200`}
+      }
+
+      a {
+        &::after {
+          ${tw`bg-base-200`}
+        }
       }
     `}
 
@@ -429,22 +479,46 @@ const WorkBackLink = styled(({ isActive, isAnimate, ...props }) => (
 
   &:hover {
     ${WorkBackButton} {
+      &:nth-child(1) {
+        ${tw`text-primary-500`}
+      }
       &:nth-child(2) {
         ${tw`text-primary-500`}
-        clip-path: circle(100%);
+        clip-path: circle(101%);
       }
     }
   }
 `;
 
 const WorksTagBadge = styled.div<{ isActive: boolean }>`
-  ${tw`hidden relative text-base-200 rounded-full bg-primary-500 px-4 ml-4 mb-4 align-middle`}
+  ${tw`hidden relative text-4xl text-primary-600 font-semibold font-header`}
+
+  a {
+    ${tw`relative`}
+
+    &::after {
+      ${tw`absolute m-auto rounded-full bg-primary-600 transition-all duration-300 ease-out left-0 w-0`}
+      content: '';
+      height: 2px;
+      bottom: 0.5rem;
+    }
+
+    &:hover {
+      &::after {
+        ${tw`w-full`}
+      }
+    }
+  }
 
   ${({ isActive }) =>
     isActive &&
     css`
       ${tw`inline-block`}
     `}
+
+  ${media.sm`
+    ${tw`text-2xl`}
+  `}
 `;
 
 const WorksTagCross = styled(CrossSvg)`
