@@ -9,6 +9,7 @@ import SEO from '~/components/seo';
 import { layoutContext } from '~/hooks';
 
 import { media } from '~/styles';
+import { Wrapper } from '~/styles/common';
 
 type Form = {
   name: string;
@@ -73,7 +74,7 @@ const ContactsPage: React.FC = () => {
   return (
     <>
       <SEO title="CONTACTS" />
-      <Wrapper isOpen={attentionOpen}>
+      <StyledWrapper isOpen={attentionOpen}>
         <Contacts>
           <Header>
             <h2>ご依頼を受け付けています</h2>
@@ -254,7 +255,7 @@ const ContactsPage: React.FC = () => {
             承知しました
           </AttentionCloseButton>
         </AttentionWrapper>
-      </Wrapper>
+      </StyledWrapper>
     </>
   );
 };
@@ -283,10 +284,8 @@ const textApearAnimation = keyframes`
   }
 `;
 
-const Wrapper = styled.div<{ isOpen: boolean }>`
-  ${tw`w-full pt-32 px-16 grid gap-16 m-auto`}
-
-  max-width: 1280px;
+const StyledWrapper = styled(Wrapper)<{ isOpen: boolean }>`
+  ${tw`grid gap-16`}
 
   grid-template-columns: minmax(0, 1.414fr) minmax(0, 1fr);
 

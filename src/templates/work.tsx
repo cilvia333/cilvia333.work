@@ -20,6 +20,11 @@ import { ContentfulWork } from '~/types/graphql-types';
 import { WorkHeadLine } from '~/types/work';
 
 export const option = {
+  renderText: text => {
+    return text.split('\n').reduce((children, textSegment, index) => {
+      return [...children, index > 0 && <br key={index} />, textSegment];
+    }, []);
+  },
   renderNode: {
     [BLOCKS.EMBEDDED_ASSET]: function renderEmbeddedAsset(node: any) {
       const fluid = useContentfulImage(node.data.target.fields.file['ja'].url);
@@ -145,7 +150,7 @@ const Work: React.FC<Props> = ({ pageContext }: Props) => {
       <BacgkroundWrapper>
         <BacgkroundImage fluid={work.thumbnail?.fluid} alt={work.title ?? ''} />
       </BacgkroundWrapper>
-      <WaveWrapper position={getWavePosition()}>
+      <WaveWrapper style={{ transform: `translateY(${getWavePosition()}px)` }}>
         <StyledWave color="white" />
       </WaveWrapper>
       <HeaderWrapper>
@@ -395,7 +400,7 @@ const OverView = styled.div`
   }
 `;
 
-const WaveWrapper = styled.div<{ position: number }>`
+const WaveWrapper = styled.div`
   ${tw`absolute m-auto pointer-events-none w-full`}
   top: 0;
   height: 150vh;
@@ -406,10 +411,6 @@ const WaveWrapper = styled.div<{ position: number }>`
     bottom: 0;
     height: 130vh;
   }
-
-  ${({ position }) => css`
-    transform: translateY(${position}px);
-  `}
 `;
 
 const StyledWave = styled(Wave)`

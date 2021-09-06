@@ -11,6 +11,7 @@ import WorkCard from '~/components/work-card';
 import { layoutContext } from '~/hooks';
 
 import { media } from '~/styles';
+import { Wrapper } from '~/styles/common';
 
 import { ContentfulFluid } from '~/types/graphql-types';
 
@@ -78,18 +79,10 @@ const TagsPage: React.FC = ({ data, pageContext }: any) => {
   );
 };
 
-const Wrapper = styled.section`
-  ${tw`relative w-full pt-32`}
-`;
-
 const CardWrapper = styled.ul`
-  ${tw`w-full m-auto mb-12 px-16 flex justify-between items-start flex-wrap`}
+  ${tw`w-full m-auto mb-12 flex justify-between items-start flex-wrap`}
 
   max-width: 1024px;
-
-  ${media.md`
-    ${tw`px-8`}
-  `}
 
   ${media.sm`
     ${tw`justify-center`}
